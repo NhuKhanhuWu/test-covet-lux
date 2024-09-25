@@ -1,0 +1,9 @@
+/** @format */
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 2px var(--orange);
+  margin: 3rem;
+  margin-top: 5rem;
+}

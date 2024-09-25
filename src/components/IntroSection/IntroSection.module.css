@@ -1,0 +1,28 @@
+/** @format */
+
+.introContainer {
+  background-image: url("https://images.pexels.com/photos/7002972/pexels-photo-7002972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  padding: 5rem 20rem;
+  margin: 6rem 0;
+}
+
+.introContainer h2 {
+  font-family: "Crimson Pro", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.introContainer p {
+  line-height: 1.5;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.introContainer a {
+  margin: auto;
+}

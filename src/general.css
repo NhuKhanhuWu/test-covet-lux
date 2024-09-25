@@ -1,0 +1,67 @@
+/** @format */
+
+:root {
+  --orange: rgb(252, 108, 34);
+  --orange-transparent-1: rgba(252, 107, 34, 0.865);
+  --orange-transparent-2: rgba(252, 107, 34, 0.788);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 1.4rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a,
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+.border-btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: solid 2px var(--orange);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.border-btn:hover {
+  gap: 2.5rem;
+  color: white;
+  background-color: var(--orange);
+}
+
+.img {
+  width: 100%;
+}
+
+.overflow-container {
+  overflow: hidden;
+}
+
+.overflow-item {
+  transition: all 0.3s;
+}
+
+.overflow-container:hover .overflow-item {
+  transform: scale(1.2);
+}

@@ -1,0 +1,65 @@
+/** @format */
+.img {
+  width: 100%;
+  transition: all 0.3s;
+}
+
+/* big banner: start */
+.bigBanner {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.bigBannerTxt {
+  position: absolute;
+  top: 50%;
+  left: 12%;
+  width: 35%;
+  transform: translateY(-50%);
+}
+
+.bigBannerTxt > h1 {
+  font-size: 7rem;
+  line-height: 1;
+}
+
+.bigBannerTxt > p {
+  font-size: 1.6rem;
+  margin: 2rem 0;
+  font-weight: 400;
+}
+
+.bigBannerTxt > a > ion-icon {
+  font-size: 2rem;
+}
+
+/* big banner: end */
+
+.smallBanner {
+  position: relative;
+  overflow: hidden;
+}
+
+.smallBannerTxt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: block;
+  width: 100%;
+  background-color: var(--orange-transparent-2);
+  padding: 3rem 0;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.smallBanner:hover > img {
+  transform: scale(1.3);
+}
+
+.smallBanner:hover > .smallBannerTxt {
+  background-color: var(--orange-transparent-1);
+  padding: 5rem 0;
+}

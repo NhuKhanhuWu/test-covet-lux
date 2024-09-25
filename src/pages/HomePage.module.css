@@ -1,0 +1,15 @@
+/** @format */
+
+.banner {
+  /* height: 90vh; */
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 2rem;
+}
+
+.bigBanner {
+  grid-row: span 2;
+  height: 100%;
+}

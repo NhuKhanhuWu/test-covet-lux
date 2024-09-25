@@ -1,0 +1,87 @@
+/** @format */
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: solid 1px black;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 999;
+}
+
+.logo {
+  width: 12rem;
+}
+
+/* nav link (middle column): start */
+.navLink {
+  display: flex;
+  gap: 3rem;
+  font-weight: 600;
+}
+
+.navLink a::after {
+  content: "";
+  display: block;
+  background-color: black;
+  height: 2px;
+  width: 0;
+  transition: all 0.3s;
+  transform-origin: left;
+}
+
+.navLink a:hover::after {
+  width: 100%;
+}
+
+.navLink a:global(.active) {
+  color: var(--orange);
+}
+/* nav link (middle column): end */
+
+/* nav link (right column): start */
+.navLogo {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: solid 2px var(--orange);
+  border-radius: 999px;
+  padding: 0.2rem 1.5rem;
+}
+
+.search input {
+  width: 15rem;
+  border: none;
+  font-size: 1.4rem;
+}
+
+.search input:focus-visible {
+  outline: none;
+}
+
+.search button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 2rem;
+}
+
+.search button:hover {
+  color: var(--orange);
+}
+
+.navLogo a {
+  font-size: 2.5rem;
+}
+/* nav link (right column): end */
