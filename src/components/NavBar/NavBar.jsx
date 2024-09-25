@@ -9,7 +9,7 @@ function NavBar() {
       <Link to="/">
         <img
           alt="covet-lux"
-          src="../../public/logo-no-background.svg"
+          src="../../../public/logo-no-background.svg"
           className={styles.logo}></img>
       </Link>
 
