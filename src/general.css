@@ -2,8 +2,10 @@
 
 :root {
   --orange: rgb(252, 108, 34);
+  --dark-orange-1: rgb(242 82 0);
   --orange-transparent-1: rgba(252, 107, 34, 0.865);
   --orange-transparent-2: rgba(252, 107, 34, 0.788);
+  --gray: rgb(88 88 88);
 }
 
 html {
@@ -42,12 +44,20 @@ a:visited {
   align-items: center;
   gap: 0.5rem;
   width: fit-content;
+  color: var(--orange) !important;
+  background-color: #fcffee57;
 }
 
 .border-btn:hover {
   gap: 2.5rem;
-  color: white;
+  color: white !important;
   background-color: var(--orange);
+}
+
+.columnContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .img {

@@ -1,0 +1,28 @@
+/** @format */
+
+.footer {
+  border-top: solid 2px var(--orange);
+  padding: 2rem 1rem 0 1rem;
+}
+
+/* column width */
+.footer > div {
+  width: 25%;
+}
+
+/* text */
+.footer > div > h3 {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: solid 1px;
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+/* copy right */
+.copyRight {
+  margin: 2rem 0 2rem 4rem;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.2rem;
+}

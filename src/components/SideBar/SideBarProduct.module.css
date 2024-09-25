@@ -1,0 +1,52 @@
+/** @format */
+/* genneral */
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.sectionHeader {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--dark-orange-1);
+  padding-bottom: 0.5rem;
+  border-bottom: solid 1.5px;
+  width: fit-content;
+}
+
+/* category */
+.category > div > a {
+  font-size: 1.6rem;
+  color: var(--gray);
+  border-bottom: solid 1.5px;
+  padding-bottom: 0.5rem;
+}
+
+/* price range */
+.priceForm div {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.priceForm input {
+  width: 10rem;
+  height: 3rem;
+  border: none;
+  border-bottom: solid 1.5px;
+  transition: all 0.3s;
+  transform-origin: left;
+}
+
+.priceForm input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.submitBtn {
+  padding: 0.7rem 1.2rem;
+  font-size: 1.4rem;
+}

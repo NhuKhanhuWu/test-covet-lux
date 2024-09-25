@@ -1,8 +1,4 @@
 /** @format */
-.container {
-  text-align: center;
-  font-weight: 600;
-}
 
 /* img */
 .imgContainer {
@@ -23,8 +19,24 @@
 /* text */
 
 .title {
-  text-shadow: 2px 2px 5px rgb(0 0 0 / 43%);
+  transition: all 0.3s;
   margin: 1rem 0;
+  font-weight: 600;
+}
+
+.container:hover .title {
+  text-shadow: 2px 2px 5px rgb(0 0 0 / 43%);
+}
+
+.descr {
+  color: gray;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.categoryTag {
+  font-style: italic;
+  text-decoration: underline;
 }
 
 .price {

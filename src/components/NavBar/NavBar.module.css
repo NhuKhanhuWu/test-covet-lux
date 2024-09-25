@@ -38,10 +38,6 @@
 .navLink a:hover::after {
   width: 100%;
 }
-
-.navLink a:global(.active) {
-  color: var(--orange);
-}
 /* nav link (middle column): end */
 
 /* nav link (right column): start */
