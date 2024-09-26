@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 
 function useGetData(query) {
-  const [dataList, setDataList] = useState([]);
+  const [dataResponse, setDataResponse] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState("");
+  // console.log(`https://api.escuelajs.co/api/v1/${query}`);
 
   useEffect(
     function () {
@@ -18,9 +19,9 @@ function useGetData(query) {
           const response = await fetch(
             `https://api.escuelajs.co/api/v1/${query}`
           );
+
           const data = await response.json();
-          setDataList(data);
-          setError("");
+          setDataResponse(data);
         } catch (err) {
           setError(err.message); //set error if there is
         } finally {
@@ -30,9 +31,9 @@ function useGetData(query) {
 
       fetchData();
     },
-    [query, setDataList]
+    [query, setDataResponse]
   );
-  return { dataList, isLoading, isError };
+  return { dataResponse, isLoading, isError };
 }
 
 export default useGetData;

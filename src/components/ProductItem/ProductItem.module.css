@@ -37,6 +37,11 @@
 .categoryTag {
   font-style: italic;
   text-decoration: underline;
+  transition: all 0.3s;
+}
+
+.categoryTag:hover {
+  color: var(--orange);
 }
 
 .price {

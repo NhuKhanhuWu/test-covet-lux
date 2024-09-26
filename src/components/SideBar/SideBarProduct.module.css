@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
   gap: 4rem;
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 10%;
+  align-self: flex-start;
 }
 
 .sectionHeader {
@@ -44,9 +48,4 @@
 .priceForm input:focus {
   outline: none;
   border-color: var(--orange);
-}
-
-.submitBtn {
-  padding: 0.7rem 1.2rem;
-  font-size: 1.4rem;
 }

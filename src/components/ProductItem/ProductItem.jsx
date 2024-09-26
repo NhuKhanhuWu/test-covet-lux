@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function ProductItem({ product }) {
   return (
-    <Link to={`/test-covet-lux/product?${product.id}`}>
+    <Link to={`/test-covet-lux/product?product_id=${product.id}`}>
       <div className={styles.container}>
         <div className={styles.imgContainer}>
           <img
@@ -23,7 +23,7 @@ function ProductItem({ product }) {
 
         <div>
           <Link
-            to={`/test-covet-lux/products/?categoryId=${product.category.id}`}
+            to={`/test-covet-lux/products/?categoryId=${product.category.id}&page=1`}
             className={styles.categoryTag}>
             {product.category.name}
           </Link>{" "}

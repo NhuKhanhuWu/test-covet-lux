@@ -16,7 +16,7 @@ function NavBar() {
           <NavLink to="/test-covet-lux">HOME PAGE</NavLink>
         </li>
         <li>
-          <NavLink to="/test-covet-lux/products">PRODUCT</NavLink>
+          <NavLink to="/test-covet-lux/products?page=1">PRODUCT</NavLink>
         </li>
         <li>
           <NavLink to="/test-covet-lux/blog">BLOG</NavLink>

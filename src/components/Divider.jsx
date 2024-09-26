@@ -1,5 +1,5 @@
 /** @format */
-export function BlankDivider({ distance }) {
+export function BlankDivider({ distance = 2 }) {
   const style = {
     height: `${distance}rem`,
   };
@@ -7,7 +7,7 @@ export function BlankDivider({ distance }) {
   return <div style={style}></div>;
 }
 
-export function LineDivider({ distance, color }) {
+export function LineDivider({ distance = 2, color = `var(--orange)` }) {
   const style = {
     width: "60%",
     height: `${distance}rem`,

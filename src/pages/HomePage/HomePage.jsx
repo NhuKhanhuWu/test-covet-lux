@@ -3,7 +3,6 @@ import styles from "./HomePage.module.css";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import BigBanner from "../../components/Banner/BigBanner.jsx";
 import SmallBanner from "../../components/Banner/SmallBanner.jsx";
-import Loader from "../../components/Loader/Loader.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import FlexContainer from "../../components/FlexContainer.jsx";
 import ListHeader from "../../components/ListHeader/ListHeader.jsx";
@@ -13,6 +12,7 @@ import { BlankDivider, LineDivider } from "../../components/Divider.jsx";
 
 import useGetData from "../../hooks/useGetData.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
+import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 const bigBannerData = {
   header: "BLACK FRIDAY SALE",
@@ -48,16 +48,21 @@ function HomePage() {
   const {
     isLoading: newIsLoading,
     isError: newIsError,
-    dataList: newProductList,
+    dataResponse: newProductList,
   } = useGetData("products?offset=0&limit=5");
 
   const {
     isLoading: bestIsLoading,
     isError: bestIsError,
-    dataList: bestProductList,
+    dataResponse: bestProductList,
   } = useGetData("products?offset=5&limit=5");
 
-  const { dataList: blogList } = useGetData("products?offset=10&limit=4");
+  const {
+    isLoading: isBlogLoading,
+    isError: blogErr,
+    dataResponse: blogList,
+  } = useGetData("products?offset=10&limit=4");
+  console.log(newProductList);
 
   return (
     <>
@@ -92,15 +97,16 @@ function HomePage() {
           title={"Best seller"}
           url={"/test-covet-lux/product"}></ListHeader>
 
-        {newIsLoading && <Loader></Loader>}
-        {!newIsLoading && !newIsError && (
+        <RenderQueryData
+          isError={newIsError}
+          isLoading={newIsLoading}
+          isEmptyList={newProductList.length === 0}>
           <FlexContainer>
             {newProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
             ))}
           </FlexContainer>
-        )}
-        {newIsError && "error"}
+        </RenderQueryData>
         {/* new product: end */}
 
         {/* best seller product: start */}
@@ -108,15 +114,16 @@ function HomePage() {
           title={"New product"}
           url={"/test-covet-lux/product"}></ListHeader>
 
-        {bestIsLoading && <Loader></Loader>}
-        {!bestIsLoading && !bestIsError && (
+        <RenderQueryData
+          isError={bestIsError}
+          isLoading={bestIsLoading}
+          isEmptyList={bestProductList.length === 0}>
           <FlexContainer>
             {bestProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
             ))}
           </FlexContainer>
-        )}
-        {bestIsError && "error"}
+        </RenderQueryData>
         {/* best seller product: end */}
 
         <LineDivider distance={2} color={"rgb(252, 108, 34)"}></LineDivider>
@@ -132,11 +139,17 @@ function HomePage() {
         <ListHeader
           title={"New blog"}
           url={"/test-covet-lux/blog"}></ListHeader>
-        <FlexContainer>
-          {blogList.map((blog, i) => (
-            <BlogItem blog={blog} key={`blog-${i}`}></BlogItem>
-          ))}
-        </FlexContainer>
+
+        <RenderQueryData
+          isError={blogErr}
+          isLoading={isBlogLoading}
+          isEmptyList={blogList.length === 0}>
+          <FlexContainer>
+            {blogList.map((blog, i) => (
+              <BlogItem blog={blog} key={`blog-${i}`}></BlogItem>
+            ))}
+          </FlexContainer>
+        </RenderQueryData>
         {/* blog section: end */}
 
         <BlankDivider distance={2}></BlankDivider>

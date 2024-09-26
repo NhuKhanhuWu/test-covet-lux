@@ -33,6 +33,10 @@ a:visited {
   text-decoration: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 .border-btn {
   font-size: 1.6rem;
   font-weight: 700;
@@ -52,6 +56,32 @@ a:visited {
   gap: 2.5rem;
   color: white !important;
   background-color: var(--orange);
+}
+
+/* use along with .border-btn */
+.border-btn--small {
+  padding: 0.7rem 1.2rem;
+  font-size: 1.4rem;
+}
+
+.fill-btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  border: solid 2px var(--orange);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  color: white;
+  background-color: var(--orange);
+}
+
+.fill-btn:hover {
+  color: var(--orange);
+  background-color: white;
 }
 
 .columnContent {
@@ -74,4 +104,8 @@ a:visited {
 
 .overflow-container:hover .overflow-item {
   transform: scale(1.2);
+}
+
+.orange-text {
+  color: var(--orange);
 }
