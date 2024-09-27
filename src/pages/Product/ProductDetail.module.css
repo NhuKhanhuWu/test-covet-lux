@@ -63,3 +63,17 @@
   margin: 0 !important;
   margin-top: 1rem !important;
 }
+
+/* desctiption, review */
+
+.descripReviewContainer {
+  margin: 4rem 6rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* .description {
+  position: absolute;
+  top: 0;
+  left: 0;
+} */

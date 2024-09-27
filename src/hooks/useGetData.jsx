@@ -6,7 +6,6 @@ function useGetData(query) {
   const [dataResponse, setDataResponse] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState("");
-  // console.log(`https://api.escuelajs.co/api/v1/${query}`);
 
   useEffect(
     function () {
@@ -19,6 +18,7 @@ function useGetData(query) {
           const response = await fetch(
             `https://api.escuelajs.co/api/v1/${query}`
           );
+          // console.log(`https://api.escuelajs.co/api/v1/${query}`);
 
           const data = await response.json();
           setDataResponse(data);

@@ -2,7 +2,11 @@
 import FlexContainer from "../../components/FlexContainer.jsx";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer.jsx";
-import SideBarProduct from "../../components/SideBar/SideBarProduct.jsx";
+import {
+  SideBarProduct,
+  Category,
+  PriceRange,
+} from "../../components/SideBar/SideBarProduct.jsx";
 import { Link, useSearchParams } from "react-router-dom";
 import useGetData from "../../hooks/useGetData.jsx";
 import GridContainer from "../../components/GridContainer.jsx";
@@ -11,6 +15,7 @@ import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
 
 import styles from "./Product.module.css";
+import { useEffect, useReducer, useState } from "react";
 
 function Pagination({ query, count, currPage = null }) {
   const arr = Array.from({ length: count });
@@ -32,6 +37,28 @@ function Pagination({ query, count, currPage = null }) {
   );
 }
 
+// store product data in reducer
+const initProduct = {
+  productList: [],
+  error: false,
+  loading: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "updateData":
+      return {
+        ...state,
+        productList: action.productList,
+        error: action.error,
+        loading: action.loading,
+      };
+
+    default:
+      console.error("Unknown action");
+  }
+}
+
 function Product() {
   // get filter query
   const [urlQuery] = useSearchParams();
@@ -48,24 +75,41 @@ function Product() {
   const query = `?price_min=${minPrice}&price_max=${maxPrice}&title=${title}&categoryId=${categoryId}`;
 
   // get product by query
-  const {
-    dataResponse: productList,
-    isError,
-    isLoading,
-  } = useGetData(`products/${query}&offset=${12 * (page - 1)}&limit=12`);
+  const { dataResponse, isError, isLoading } = useGetData(
+    `products/${query}&offset=${12 * (page - 1)}&limit=12`
+  );
+
+  // store data in reducer
+  const [{ productList, error, loading }, dispacth] = useReducer(
+    reducer,
+    initProduct
+  );
+  useEffect(
+    function () {
+      dispacth({
+        type: "updateData",
+        productList: dataResponse,
+        error: isError,
+        loading: isLoading,
+      });
+    },
+    [dataResponse, isError, isLoading]
+  );
 
   return (
     <>
       <NavBar></NavBar>
 
       <FlexContainer gap={5}>
-        <SideBarProduct
-          curPriceFrom={minPrice}
-          curPriceTo={maxPrice}></SideBarProduct>
+        <SideBarProduct>
+          <Category></Category>
+          <PriceRange dispacth={dispacth}></PriceRange>
+        </SideBarProduct>
+
         <GridContainer numCol={4}>
           <RenderQueryData
-            isError={isError}
-            isLoading={isLoading}
+            isError={error}
+            isLoading={loading}
             isEmptyList={productList.length === 0}>
             {productList.map((product, i) => (
               <ProductItem key={`product-${i}`} product={product} />
@@ -75,9 +119,7 @@ function Product() {
       </FlexContainer>
 
       <BlankDivider distance={3}></BlankDivider>
-
       <Pagination query={query} count={3} currPage={page}></Pagination>
-
       <BlankDivider></BlankDivider>
 
       <Footer></Footer>
