@@ -99,7 +99,7 @@ function Cart() {
       <NavBar></NavBar>
 
       <BlankDivider distance={1}></BlankDivider>
-      <FlexContainer gap={3}>
+      <FlexContainer gap={2}>
         <TableList productList={productList}></TableList>
         <div>total container</div>
       </FlexContainer>

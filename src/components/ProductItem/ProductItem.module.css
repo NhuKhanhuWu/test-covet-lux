@@ -1,4 +1,7 @@
 /** @format */
+.container {
+  max-width: 22rem;
+}
 
 /* img */
 .imgContainer {
