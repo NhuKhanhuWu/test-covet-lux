@@ -19,7 +19,7 @@ const bigBannerData = {
   text: "Discount up to 30% and free shipping for orders over $399",
   imgUrl:
     "https://images.pexels.com/photos/934069/pexels-photo-934069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  url: "/test-covet-lux/product",
+  url: "/test-covet-lux/products?page=1",
 };
 
 const smallBannerData = [
@@ -93,14 +93,13 @@ function HomePage() {
         {/* banners: end */}
 
         {/* new product: start */}
-        <ListHeader
-          title={"Best seller"}
-          url={"/test-covet-lux/product"}></ListHeader>
-
         <RenderQueryData
           isError={newIsError}
           isLoading={newIsLoading}
           isEmptyList={newProductList.length === 0}>
+          <ListHeader
+            title={"Best seller"}
+            url={"/test-covet-lux/product"}></ListHeader>
           <FlexContainer>
             {newProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
@@ -110,14 +109,13 @@ function HomePage() {
         {/* new product: end */}
 
         {/* best seller product: start */}
-        <ListHeader
-          title={"New product"}
-          url={"/test-covet-lux/product"}></ListHeader>
-
         <RenderQueryData
           isError={bestIsError}
           isLoading={bestIsLoading}
           isEmptyList={bestProductList.length === 0}>
+          <ListHeader
+            title={"New product"}
+            url={"/test-covet-lux/product"}></ListHeader>
           <FlexContainer>
             {bestProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
@@ -136,14 +134,14 @@ function HomePage() {
         <BlankDivider distance={0.5}></BlankDivider>
 
         {/* blog section: start */}
-        <ListHeader
-          title={"New blog"}
-          url={"/test-covet-lux/blog"}></ListHeader>
-
         <RenderQueryData
           isError={blogErr}
           isLoading={isBlogLoading}
           isEmptyList={blogList.length === 0}>
+          {" "}
+          <ListHeader
+            title={"New blog"}
+            url={"/test-covet-lux/blog"}></ListHeader>
           <FlexContainer>
             {blogList.map((blog, i) => (
               <BlogItem blog={blog} key={`blog-${i}`}></BlogItem>

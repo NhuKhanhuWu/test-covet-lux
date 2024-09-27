@@ -1,6 +1,6 @@
 /** @format */
 
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import FlexContainer from "../../components/FlexContainer";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
@@ -8,10 +8,13 @@ import styles from "./ProductDetail.module.css";
 import useGetData from "../../hooks/useGetData";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // for test rendering reviews
 import avatar from "../../../public/avatar.jpg";
+import ListHeader from "../../components/ListHeader/ListHeader.jsx";
+import ProductItem from "../../components/ProductItem/ProductItem.jsx";
+import MessageBox from "../../components/MessageBox/MessageBox.jsx";
 
 /** @format */
 function Images({ product }) {
@@ -22,22 +25,23 @@ function Images({ product }) {
           className="img"
           key={`img-${i}`}
           alt={product.title}
-          src={product.images[i]}></img>
+          src={product.images[i].replace("[", "").replace('"', "")}></img>
       ))}
     </div>
   );
 }
 
-function AmountInput({ amount, setAmount }) {
+function AmountInput({ amount, setAmount, id = null }) {
   function handleChangeAmount(value) {
-    if (value < 1 || value > 20) return;
-    setAmount(value);
+    if (value < 1 || value > 20) setAmount(1);
+    else setAmount(value);
   }
 
   return (
     <div className={styles.amountInput}>
       <button onClick={() => handleChangeAmount(amount - 1)}>-</button>
       <input
+        id={id}
         type="numder"
         min={1}
         step={1}
@@ -48,7 +52,7 @@ function AmountInput({ amount, setAmount }) {
   );
 }
 
-function Start({ rating }) {
+function Stars({ rating }) {
   const arr = Array.from({ length: Math.floor(rating) });
   const ratingDemical = rating - Math.floor(rating);
 
@@ -79,6 +83,81 @@ function ProductInfor({ product }) {
   );
 }
 
+function ToCartBtn({ product, amount }) {
+  // display message
+  const [isAdded, setAdd] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+
+  // handle add to cart
+  function handleAddToCart() {
+    // get cart from local storage
+    const data = JSON.parse(localStorage.getItem("cart"));
+    let cart = data !== null ? data : [];
+
+    // check is product already in cart => if there is => update amount
+    function checkIfExists() {
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id == product.id) {
+          if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
+
+          cart[i].amount += amount;
+          setSuccess(true);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // if product not in cart => add to cart
+    const result = checkIfExists();
+    if (result === false) {
+      const newProduct = {
+        ...product,
+        amount: amount,
+      };
+      cart.push(newProduct);
+
+      // set message
+      setSuccess(true);
+    } else if (result === "reachLimit") {
+      setSuccess(false);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // show message box
+    setAdd(true);
+  }
+
+  return (
+    <>
+      <button className="border-btn" onClick={() => handleAddToCart()}>
+        Add to cart
+      </button>
+
+      {/* message */}
+      <MessageBox isShowed={isAdded} setShow={setAdd}>
+        {isSuccess ? (
+          <>
+            <ion-icon
+              name="checkmark-circle"
+              class={styles.icon}
+              style={{ color: "rgb(88 252 97)" }}></ion-icon>
+            <p>Added to cart</p>
+          </>
+        ) : (
+          <>
+            <ion-icon
+              name="close-circle"
+              class={styles.icon}
+              style={{ color: "#ff2d00" }}></ion-icon>
+            <p>Each product is limited to a quantity of 20</p>
+          </>
+        )}
+      </MessageBox>
+    </>
+  );
+}
+
 function DescripAndReview({ product, reviews = null }) {
   const testReviews = [
     {
@@ -97,59 +176,104 @@ function DescripAndReview({ product, reviews = null }) {
 
   return (
     <>
-      <div>
-        <button
-          onClick={() => {
-            setShowedEl("descipt");
-          }}>
-          Description
-        </button>
-        <button
-          onClick={() => {
-            setShowedEl("reviews");
-          }}>
-          Reviews
-        </button>
-      </div>
+      <DesciptionAndReviewsBtn
+        showedEl={showedEl}
+        setShowedEl={setShowedEl}></DesciptionAndReviewsBtn>
 
       <div className={styles.descripReviewContainer}>
-        <div
-          className={`${styles.description} ${
-            showedEl === "descipt" ? "" : "hidden"
-          }`}>
-          {product.description.split(".").map((sentence, i) => (
-            <p key={`descripn-p-${i}`}>{sentence}</p>
-          ))}
-        </div>
-
-        <div className={`reviews ${showedEl === "reviews" ? "" : "hidden"}`}>
-          {testReviews.map((review, i) => (
-            <div key={`review-${i}`}>
-              <img
-                alt={review.userName}
-                src={avatar}
-                className="small-avatar"
-              />
-              <p>{review.userName}</p>
-              <span>⭐⭐⭐⭐⭐</span>
-              <p>{review.text}</p>
-            </div>
-          ))}
-        </div>
+        <Description product={product} showedEl={showedEl}></Description>
+        <Reviews reviews={testReviews} showedEl={showedEl}></Reviews>
       </div>
     </>
   );
 }
 
+function DesciptionAndReviewsBtn({ setShowedEl, showedEl }) {
+  return (
+    <div className={styles.btnContainer}>
+      <button
+        onClick={() => {
+          setShowedEl("descipt");
+        }}
+        className={showedEl === "descipt" ? "orange-text" : ""}>
+        DESCRIPTION
+      </button>
+      <span>|</span>
+      <button
+        onClick={() => {
+          setShowedEl("reviews");
+        }}
+        className={showedEl === "reviews" ? "orange-text" : ""}>
+        REVIEWS
+      </button>
+    </div>
+  );
+}
+
+function Description({ product, showedEl }) {
+  return (
+    <div
+      className={`${styles.description} ${
+        showedEl === "descipt" ? "" : "hidden"
+      }`}>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+
+function Reviews({ reviews, showedEl }) {
+  return (
+    <div
+      className={`${styles.reviews} ${showedEl === "reviews" ? "" : "hidden"}`}>
+      {reviews.map((review, i) => (
+        <div key={`review-${i}`}>
+          <FlexContainer margin={0} gap={1}>
+            <img alt={review.userName} src={avatar} className="small-avatar" />
+
+            <div>
+              <p>{review.userName}</p>
+              <span>⭐⭐⭐⭐⭐</span>
+              <p>27/09/2024</p>
+              <p style={{ marginTop: "1rem", width: "60%" }}>{review.text}</p>
+            </div>
+          </FlexContainer>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ProductDetail() {
+  // product details
   const [url] = useSearchParams();
   const productId = url.get("product_id");
   const {
-    dataResponse: product,
-    isLoading,
-    isError,
+    dataResponse: productDetail,
+    isLoading: isLoading_productDetail,
+    isError: isError_productDetail,
   } = useGetData(`products/${productId}`);
   const [amount, setAmount] = useState(1);
+
+  // recommened products
+  // store category id in state
+  const [categoryId, setCategoryId] = useState(null);
+
+  // get product by category
+  const {
+    dataResponse: recommenedProduct,
+    isLoading: isLoading_recommenedProduct,
+    isError: isError_recommenedProduct,
+  } = useGetData(
+    categoryId ? `products/?categoryId=${categoryId}&offset=0&limit=5` : null
+  );
+
+  // get category id when productDetail fully loaded
+  useEffect(
+    function () {
+      if (productDetail.category) setCategoryId(productDetail.category.id);
+    },
+    [productDetail]
+  );
 
   return (
     <>
@@ -158,22 +282,29 @@ function ProductDetail() {
       {/* product infor: start */}
       <FlexContainer elClass={styles.productInfor}>
         <RenderQueryData
-          isError={isError}
-          isLoading={isLoading}
-          isEmptyList={product.length === 0}>
-          <Images product={product}></Images>
+          isError={isError_productDetail}
+          isLoading={isLoading_productDetail}
+          isEmptyList={productDetail.length === 0}>
+          <Images product={productDetail}></Images>
 
           <div className={styles.productText}>
-            <ProductInfor product={product}></ProductInfor>
+            <ProductInfor product={productDetail}></ProductInfor>
 
             <FlexContainer elClass={styles.amount}>
-              <AmountInput amount={amount} setAmount={setAmount}></AmountInput>
+              <AmountInput
+                amount={amount}
+                setAmount={setAmount}
+                id={"quantity"}></AmountInput>
               <p>100 available product(s)</p>
             </FlexContainer>
 
             <FlexContainer elClass={styles.btn} gap={2}>
-              <button className="fill-btn">Buy now</button>
-              <button className="border-btn">Add to cart</button>
+              <Link
+                to={`/test-covet-lux/cart/?product=${productId}`}
+                className="fill-btn">
+                Buy now
+              </Link>
+              <ToCartBtn product={productDetail} amount={amount} />
             </FlexContainer>
           </div>
         </RenderQueryData>
@@ -181,8 +312,30 @@ function ProductDetail() {
       {/* product infor: end */}
 
       {/* desription & reviews: start */}
-      <DescripAndReview product={product}></DescripAndReview>
+      <BlankDivider distance={4}></BlankDivider>
+      <DescripAndReview product={productDetail}></DescripAndReview>
+      <BlankDivider distance={2}></BlankDivider>
       {/* desription & reviews: end */}
+
+      {/* recommened product: start */}
+
+      <RenderQueryData
+        isError={isError_recommenedProduct}
+        isLoading={isLoading_recommenedProduct}
+        isEmptyList={
+          !Array.isArray(recommenedProduct) || recommenedProduct.length === 0
+        }>
+        <ListHeader title={"You may like"}></ListHeader>
+        <FlexContainer>
+          {Array.isArray(recommenedProduct) &&
+            recommenedProduct.map((product, i) => (
+              <ProductItem
+                key={`recommen-${i}`}
+                product={product}></ProductItem>
+            ))}
+        </FlexContainer>
+      </RenderQueryData>
+      {/* recommened product: end */}
 
       <BlankDivider></BlankDivider>
       <Footer></Footer>

@@ -65,15 +65,42 @@
 }
 
 /* desctiption, review */
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btnContainer > button {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
 
 .descripReviewContainer {
-  margin: 4rem 6rem;
+  margin: 3rem 6rem;
   margin-bottom: 2rem;
   position: relative;
 }
 
-/* .description {
-  position: absolute;
-  top: 0;
-  left: 0;
-} */
+.description {
+  margin: 0 7rem;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.reviews > div {
+  padding: 1.5rem 0;
+}
+
+.reviews > div:not(:last-child) {
+  border-bottom: solid 1px var(--orange);
+}
+
+/* message box */
+.icon {
+  /* color: #ff2d00; */
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}

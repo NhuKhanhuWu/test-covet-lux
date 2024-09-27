@@ -8,6 +8,7 @@ import ProductDetail from "./pages/Product/ProductDetail.jsx";
 import Blog from "./pages/Blog.jsx";
 import Contact from "./pages/Contact.jsx";
 import Infor from "./pages/Infor.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
           path="/test-covet-lux/product"
           element={<ProductDetail />}></Route>
         {/* product:end */}
+
+        {/* cart & checkout: start */}
+        <Route path="/test-covet-lux/cart" element={<Cart></Cart>}></Route>
+        {/* cart & checkout: end */}
       </Routes>
     </BrowserRouter>
   );

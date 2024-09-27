@@ -35,6 +35,8 @@ a:visited {
 
 button {
   cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .border-btn {
@@ -111,8 +113,8 @@ button {
 }
 
 .small-avatar {
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 999px;
 }
 .hidden {
