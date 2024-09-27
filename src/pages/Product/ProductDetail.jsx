@@ -15,6 +15,7 @@ import avatar from "../../../public/avatar.jpg";
 import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import MessageBox from "../../components/MessageBox/MessageBox.jsx";
+import { AmountInput } from "../../components/AmountInput/AmountInput.jsx";
 
 /** @format */
 function Images({ product }) {
@@ -25,29 +26,8 @@ function Images({ product }) {
           className="img"
           key={`img-${i}`}
           alt={product.title}
-          src={product.images[i].replace("[", "").replace('"', "")}></img>
+          src={product?.images[i]?.replace("[", "").replace('"', "")}></img>
       ))}
-    </div>
-  );
-}
-
-function AmountInput({ amount, setAmount, id = null }) {
-  function handleChangeAmount(value) {
-    if (value < 1 || value > 20) setAmount(1);
-    else setAmount(value);
-  }
-
-  return (
-    <div className={styles.amountInput}>
-      <button onClick={() => handleChangeAmount(amount - 1)}>-</button>
-      <input
-        id={id}
-        type="numder"
-        min={1}
-        step={1}
-        value={amount}
-        onChange={(e) => handleChangeAmount(Number(e.target.value))}></input>
-      <button onClick={() => handleChangeAmount(amount + 1)}>+</button>
     </div>
   );
 }
@@ -83,54 +63,34 @@ function ProductInfor({ product }) {
   );
 }
 
+function ByNowBtn({ product, amount }) {
+  return (
+    <Link
+      onClick={() =>
+        handleAddToCart(
+          product,
+          amount,
+          () => {},
+          () => {}
+        )
+      }
+      to={`/test-covet-lux/cart/`}
+      className="fill-btn">
+      Buy now
+    </Link>
+  );
+}
+
 function ToCartBtn({ product, amount }) {
   // display message
   const [isAdded, setAdd] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
 
-  // handle add to cart
-  function handleAddToCart() {
-    // get cart from local storage
-    const data = JSON.parse(localStorage.getItem("cart"));
-    let cart = data !== null ? data : [];
-
-    // check is product already in cart => if there is => update amount
-    function checkIfExists() {
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id == product.id) {
-          if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
-
-          cart[i].amount += amount;
-          setSuccess(true);
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // if product not in cart => add to cart
-    const result = checkIfExists();
-    if (result === false) {
-      const newProduct = {
-        ...product,
-        amount: amount,
-      };
-      cart.push(newProduct);
-
-      // set message
-      setSuccess(true);
-    } else if (result === "reachLimit") {
-      setSuccess(false);
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    // show message box
-    setAdd(true);
-  }
-
   return (
     <>
-      <button className="border-btn" onClick={() => handleAddToCart()}>
+      <button
+        className="border-btn"
+        onClick={() => handleAddToCart(product, amount, setSuccess, setAdd)}>
         Add to cart
       </button>
 
@@ -254,9 +214,26 @@ function ProductDetail() {
   } = useGetData(`products/${productId}`);
   const [amount, setAmount] = useState(1);
 
+  // scroll to top of the page (to fix when click to recommend product, page stay in the same prosition)
+  useEffect(
+    function () {
+      console.log(1);
+      window.scrollTo(0, 0);
+    },
+    [productId]
+  );
+
   // recommened products
   // store category id in state
   const [categoryId, setCategoryId] = useState(null);
+
+  // get category id when productDetail fully loaded
+  useEffect(
+    function () {
+      if (productDetail.category) setCategoryId(productDetail.category.id);
+    },
+    [productDetail]
+  );
 
   // get product by category
   const {
@@ -265,14 +242,6 @@ function ProductDetail() {
     isError: isError_recommenedProduct,
   } = useGetData(
     categoryId ? `products/?categoryId=${categoryId}&offset=0&limit=5` : null
-  );
-
-  // get category id when productDetail fully loaded
-  useEffect(
-    function () {
-      if (productDetail.category) setCategoryId(productDetail.category.id);
-    },
-    [productDetail]
   );
 
   return (
@@ -299,11 +268,7 @@ function ProductDetail() {
             </FlexContainer>
 
             <FlexContainer elClass={styles.btn} gap={2}>
-              <Link
-                to={`/test-covet-lux/cart/?product=${productId}`}
-                className="fill-btn">
-                Buy now
-              </Link>
+              <ByNowBtn product={productDetail} amount={amount}></ByNowBtn>
               <ToCartBtn product={productDetail} amount={amount} />
             </FlexContainer>
           </div>
@@ -318,14 +283,15 @@ function ProductDetail() {
       {/* desription & reviews: end */}
 
       {/* recommened product: start */}
-
       <RenderQueryData
         isError={isError_recommenedProduct}
         isLoading={isLoading_recommenedProduct}
         isEmptyList={
           !Array.isArray(recommenedProduct) || recommenedProduct.length === 0
         }>
-        <ListHeader title={"You may like"}></ListHeader>
+        <ListHeader
+          title={"You may like"}
+          url={`/test-covet-lux/products/?categoryId=${categoryId}&page=1`}></ListHeader>
         <FlexContainer>
           {Array.isArray(recommenedProduct) &&
             recommenedProduct.map((product, i) => (
@@ -341,6 +307,46 @@ function ProductDetail() {
       <Footer></Footer>
     </>
   );
+}
+
+// handle add to cart
+function handleAddToCart(product, amount, setSuccess, setAdd) {
+  // get cart from local storage
+  const data = JSON.parse(localStorage.getItem("cart"));
+  let cart = data !== null ? data : [];
+
+  // check is product already in cart => if there is => update amount
+  function checkIfExists() {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id == product.id) {
+        if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
+
+        cart[i].amount += amount;
+        setSuccess(true);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // if product not in cart => add to cart
+  const result = checkIfExists();
+  if (result === false) {
+    const newProduct = {
+      ...product,
+      amount: amount,
+    };
+    cart.push(newProduct);
+
+    // set message
+    setSuccess(true);
+  } else if (result === "reachLimit") {
+    setSuccess(false);
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // show message box
+  setAdd(true);
 }
 
 export default ProductDetail;

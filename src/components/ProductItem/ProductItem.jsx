@@ -10,11 +10,11 @@ function ProductItem({ product }) {
         <div className={styles.imgContainer}>
           <img
             alt={product.title}
-            src={product.images[0].replace("[", "").replace('"', "")}
+            src={product?.images[0]?.replace("[", "").replace('"', "")}
             className="img"></img>
           <img
             alt={product.title}
-            src={product.images[1].replace("[", "").replace('"', "")}
+            src={product?.images[1]?.replace("[", "").replace('"', "")}
             className="img"></img>
         </div>
 

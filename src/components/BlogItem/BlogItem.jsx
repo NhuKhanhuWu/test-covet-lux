@@ -8,7 +8,7 @@ function BlogItem({ blog }) {
       <div className="overflow-container">
         <img
           alt={blog.title}
-          src={blog.images[0]}
+          src={blog?.images[0]?.replace("[", "").replace('"', "")}
           className={`img overflow-item ${styles.blogImg}`}></img>
       </div>
 

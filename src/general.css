@@ -77,13 +77,17 @@ button {
   align-items: center;
   gap: 0.5rem;
   width: fit-content;
-  color: white;
+  color: white !important;
   background-color: var(--orange);
 }
 
 .fill-btn:hover {
-  color: var(--orange);
+  color: var(--orange) !important;
   background-color: white;
+}
+
+.flex {
+  display: flex;
 }
 
 .columnContent {

@@ -1,1 +1,36 @@
 /** @format */
+/* table gap */
+.productContainer {
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+  font-size: 1.5rem;
+  border-right: solid 1px var(--orange-transparent-2);
+}
+
+/* column width */
+.productContainer > tbody > tr > td:not(.delete):not(.select) {
+  width: 13rem;
+}
+
+.img {
+  width: 10rem;
+}
+
+/* text */
+.productTitle {
+  width: 80%;
+}
+
+.money {
+  font-weight: 600;
+}
+
+/* btn */
+.deleteBtn {
+  font-size: 2rem;
+}
+
+.delete,
+.select {
+  width: 4rem;
+}
