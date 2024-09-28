@@ -9,6 +9,7 @@ import Blog from "./pages/Blog.jsx";
 import Contact from "./pages/Contact.jsx";
 import Infor from "./pages/Infor.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
 
         {/* cart & checkout: start */}
         <Route path="/test-covet-lux/cart" element={<Cart></Cart>}></Route>
+        <Route
+          path="/test-covet-lux/checkout"
+          element={<Checkout></Checkout>}></Route>
         {/* cart & checkout: end */}
       </Routes>
     </BrowserRouter>

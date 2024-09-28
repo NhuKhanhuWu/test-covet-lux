@@ -2,9 +2,20 @@
 
 import styles from "./AmountInput.module.css";
 
-export function AmountInput({ amount, setAmount, id = null, callback }) {
+export function AmountInput({
+  amount,
+  setAmount,
+  id = null,
+  callback,
+  index = null,
+  productList = null,
+}) {
   function handleChangeAmount(value) {
-    callback ? callback() : "";
+    // callback ? callback() : "";
+    if (index !== null && value >= 1 && value <= 20) {
+      callback(value, index, productList);
+    }
+
     if (value < 1 || value > 20) setAmount(1);
     else setAmount(value);
   }

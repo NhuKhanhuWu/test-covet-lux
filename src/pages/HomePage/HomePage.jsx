@@ -62,7 +62,6 @@ function HomePage() {
     isError: blogErr,
     dataResponse: blogList,
   } = useGetData("products?offset=10&limit=4");
-  console.log(newProductList);
 
   return (
     <>

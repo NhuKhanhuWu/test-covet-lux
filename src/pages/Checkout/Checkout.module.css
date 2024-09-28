@@ -1,0 +1,72 @@
+/* @format */
+.header {
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.table {
+  border-spacing: 0 1rem;
+  margin-bottom: 3rem;
+}
+
+/* infor col */
+.inforForm {
+  gap: 2rem;
+}
+
+.inputField label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.inputField input {
+  width: 100%;
+  border: solid 1px black;
+  border-radius: 3px;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s;
+}
+
+.inputField input:focus {
+  outline: none;
+  border: solid 2px var(--orange);
+}
+
+/* payment */
+.paymentLabel {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+
+/* product list */
+.productInfor {
+  width: 90%;
+}
+
+.productTxt {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+/* total */
+.total {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* right aligh for right col */
+.total > tbody > tr > td:last-child {
+  text-align: right;
+}
+
+/* .table.total */
+
+/* highlight total money */
+.total > tbody > tr:last-child > td:last-child {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--orange);
+}

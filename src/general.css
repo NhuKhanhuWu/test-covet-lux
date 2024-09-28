@@ -116,12 +116,31 @@ button {
   color: var(--orange);
 }
 
+.gray-text {
+  color: var(--gray);
+}
+
 .small-avatar {
   width: 5rem;
   height: 5rem;
   border-radius: 999px;
 }
+
 .hidden {
   display: none;
   opacity: 0;
+}
+
+.tx-hover--orange {
+  transition: all 0.3s;
+}
+
+.tx-hover--orange:hover {
+  color: var(--orange);
+}
+
+.checkbox-wrapper-19 {
+  box-sizing: border-box;
+  --background-color: #fff;
+  --checkbox-height: 2rem;
 }

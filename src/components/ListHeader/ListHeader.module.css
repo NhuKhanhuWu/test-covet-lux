@@ -7,3 +7,7 @@
   margin: 3rem;
   margin-top: 5rem;
 }
+
+.listHeader > h3 {
+  margin-bottom: 1rem;
+}

@@ -8,12 +8,23 @@
 }
 
 /* column width */
-.productContainer > tbody > tr > td:not(.delete):not(.select) {
-  width: 13rem;
+.productContainer > tbody > tr > td:not(.delete):not(.select):not(.money) {
+  width: 15rem;
 }
 
 .img {
   width: 10rem;
+}
+
+/* table header */
+.tableHeader > th:not(:last-child) {
+  border-bottom: solid;
+  padding-bottom: 1rem;
+  height: 4rem;
+}
+
+.productContainer > tbody > tr > th {
+  text-align: left;
 }
 
 /* text */
@@ -23,6 +34,7 @@
 
 .money {
   font-weight: 600;
+  width: 10rem;
 }
 
 /* btn */
@@ -32,5 +44,46 @@
 
 .delete,
 .select {
-  width: 4rem;
+  width: 6rem;
+}
+
+/* checkout section */
+.totalContainer {
+  flex-grow: 1;
+}
+
+.totalTable {
+  border: none;
+  width: 100%;
+  border-spacing: 0 3rem;
+  font-size: 1.6rem;
+}
+
+.totalTable > .tableHeader > th {
+  height: 3rem;
+  border-bottom: solid;
+}
+
+.totalTable > tr > th,
+.totalTable > tr > td:first-child {
+  text-align: left;
+}
+
+.totalTable > tr > td:last-child {
+  text-align: right;
+}
+
+.totalTable > tr > td {
+  border-bottom: solid 1px var(--gray);
+}
+
+.checkoutBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.total {
+  color: var(--orange);
+  font-size: 2.4rem;
+  font-weight: 600;
 }
