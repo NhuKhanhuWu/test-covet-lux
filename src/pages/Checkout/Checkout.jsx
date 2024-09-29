@@ -249,7 +249,9 @@ function BuyBtn() {
 }
 
 function Checkout() {
-  const productList = JSON.parse(localStorage.getItem("cart"));
+  const productListString =
+    localStorage.getItem("cart") !== null ? localStorage.getItem("cart") : "[]";
+  const productList = JSON.parse(productListString);
   const total = productList.reduce(
     (pre, curr) => (pre += curr.amount * curr.price),
     0
@@ -265,7 +267,7 @@ function Checkout() {
     setBuy(true);
     setTimeout(() => {
       window.location.replace("/test-covet-lux/");
-    }, 10000);
+    }, 4000);
   }
 
   useEffect(
