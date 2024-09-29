@@ -87,3 +87,14 @@
   font-size: 2.4rem;
   font-weight: 600;
 }
+
+/* empty cart */
+.emtyContainer {
+  align-items: center;
+  gap: 3rem;
+}
+
+.emptyTxt {
+  font-size: 2rem;
+  font-weight: 300;
+}

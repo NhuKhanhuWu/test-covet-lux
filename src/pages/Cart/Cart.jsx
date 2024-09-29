@@ -7,6 +7,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import styles from "./Cart.module.css";
 import { BlankDivider } from "../../components/Divider";
 import { Link } from "react-router-dom";
+import emptyCart from "../../../public/empty-cart.svg";
 
 function Product({ index, productList, setProductList }) {
   // update cart in localStorage when change amount
@@ -169,6 +170,21 @@ function CheckoutContainer({ totalMoney, setTotalMoney }) {
   );
 }
 
+function EmptyCart() {
+  return (
+    <div className={`columnContent ${styles.emtyContainer}`}>
+      <img alt="empty cart" src={emptyCart} style={{ width: "35%" }}></img>
+      <p className={styles.emptyTxt}>Your cart is empty</p>
+      <Link to="/test-covet-lux/products?page=1" className={`border-btn`}>
+        Go shopping{" "}
+        <ion-icon
+          name="arrow-forward-outline"
+          style={{ fontSize: "2rem" }}></ion-icon>
+      </Link>
+    </div>
+  );
+}
+
 function Cart() {
   const [productList, setProductList] = useState(
     JSON.parse(localStorage.getItem("cart"))
@@ -183,36 +199,44 @@ function Cart() {
   // store total money (cost+shipping-discount...) in state
   const [totalMoney, setTotalMoney] = useState(0);
 
+  const isEmpty = productList === undefined || productList.length === 0;
+
   return (
     <>
       <NavBar></NavBar>
 
       <BlankDivider distance={1}></BlankDivider>
-      <FlexContainer gap={2}>
-        <ProductContainer>
-          {productList !== null && (
-            <>
-              {productList.map((product, i) => (
-                <Product
-                  setProductList={setProductList}
-                  index={i}
-                  product={product}
-                  productList={productList}
-                  key={`product-${product.id}`}></Product>
-              ))}
-            </>
-          )}
-        </ProductContainer>
-        <div className={styles.totalContainer}>
-          <TotalContainer>
-            <TotalDetail
-              totalMoney={totalMoney}
-              setTotalMoney={setTotalMoney}
-              totalCost={totalCost}></TotalDetail>
-          </TotalContainer>
-          <CheckoutContainer></CheckoutContainer>
-        </div>
-      </FlexContainer>
+      {isEmpty ? (
+        <EmptyCart></EmptyCart>
+      ) : (
+        <>
+          <FlexContainer gap={2}>
+            <ProductContainer>
+              {productList !== null && (
+                <>
+                  {productList.map((product, i) => (
+                    <Product
+                      setProductList={setProductList}
+                      index={i}
+                      product={product}
+                      productList={productList}
+                      key={`product-${product.id}`}></Product>
+                  ))}
+                </>
+              )}
+            </ProductContainer>
+            <div className={styles.totalContainer}>
+              <TotalContainer>
+                <TotalDetail
+                  totalMoney={totalMoney}
+                  setTotalMoney={setTotalMoney}
+                  totalCost={totalCost}></TotalDetail>
+              </TotalContainer>
+              <CheckoutContainer></CheckoutContainer>
+            </div>
+          </FlexContainer>
+        </>
+      )}
       <BlankDivider distance={3}></BlankDivider>
 
       <Footer></Footer>

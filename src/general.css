@@ -52,6 +52,7 @@ button {
   width: fit-content;
   color: var(--orange) !important;
   background-color: #fcffee57;
+  justify-content: center;
 }
 
 .border-btn:hover {
