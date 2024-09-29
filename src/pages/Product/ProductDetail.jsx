@@ -100,7 +100,7 @@ function ToCartBtn({ product, amount }) {
           <>
             <ion-icon
               name="checkmark-circle"
-              class={styles.icon}
+              class="icon"
               style={{ color: "rgb(88 252 97)" }}></ion-icon>
             <p>Added to cart</p>
           </>
@@ -108,7 +108,7 @@ function ToCartBtn({ product, amount }) {
           <>
             <ion-icon
               name="close-circle"
-              class={styles.icon}
+              class="icon"
               style={{ color: "#ff2d00" }}></ion-icon>
             <p>Each product is limited to a quantity of 20</p>
           </>

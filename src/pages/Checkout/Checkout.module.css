@@ -41,6 +41,10 @@
   margin-left: 1rem;
 }
 
+.noteTxt {
+  margin: 0;
+}
+
 /* product list */
 .productInfor {
   width: 90%;
@@ -69,4 +73,10 @@
   font-size: 3rem;
   font-weight: 700;
   color: var(--orange);
+}
+
+.inputInfor {
+}
+
+.ePayment {
 }

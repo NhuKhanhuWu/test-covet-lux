@@ -52,7 +52,7 @@ function Footer() {
         </div>
       </FlexContainer>
 
-      <div className={styles.copyRight}>
+      <div className="copyRight">
         <p>&copy; Copy right by Doan Thi Nhu Khanh</p>
         <p>
           This website is for educational purposes only. Do not use your

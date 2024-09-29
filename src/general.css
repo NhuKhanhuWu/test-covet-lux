@@ -145,3 +145,15 @@ button {
   --background-color: #fff;
   --checkbox-height: 2rem;
 }
+
+.copyRight {
+  margin: 2rem 0 2rem 4rem;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}

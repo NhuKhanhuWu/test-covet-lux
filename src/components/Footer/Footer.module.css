@@ -18,11 +18,3 @@
   width: fit-content;
   text-transform: uppercase;
 }
-
-/* copy right */
-.copyRight {
-  margin: 2rem 0 2rem 4rem;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.2rem;
-}

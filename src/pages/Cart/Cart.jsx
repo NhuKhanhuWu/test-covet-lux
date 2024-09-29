@@ -186,9 +186,10 @@ function EmptyCart() {
 }
 
 function Cart() {
-  const [productList, setProductList] = useState(
-    JSON.parse(localStorage.getItem("cart"))
-  );
+  const cartString =
+    localStorage.getItem("cart") !== null ? localStorage.getItem("cart") : "[]";
+
+  const [productList, setProductList] = useState(JSON.parse(cartString));
 
   // caculate total amount & total cost
   const totalCost = productList.reduce(
