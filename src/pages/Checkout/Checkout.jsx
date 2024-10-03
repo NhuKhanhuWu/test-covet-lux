@@ -57,7 +57,7 @@ function Checkout() {
   function handleBuy(e) {
     e.preventDefault();
     setBuy(true);
-    window.location.replace(`/test-covet-lux/buy_success/?order_id=${orderId}`);
+    window.location.replace(`/test-covet-lux/buy_success?order_id=${orderId}`);
   }
 
   useEffect(
