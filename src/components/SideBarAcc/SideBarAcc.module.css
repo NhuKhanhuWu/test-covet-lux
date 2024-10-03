@@ -1,0 +1,20 @@
+/** @format */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border-right: solid 1px var(--orange);
+  padding: 1rem 3rem;
+  padding-left: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.container > a {
+  color: var(--gray);
+  border-bottom: solid 1.5px var(--gray);
+  width: 100%;
+  padding-right: 6rem;
+  padding-bottom: 0.5rem;
+}

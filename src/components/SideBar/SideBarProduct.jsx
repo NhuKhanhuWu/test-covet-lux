@@ -1,7 +1,7 @@
 /** @format */
 
 import useGetData from "../../hooks/useGetData";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import styles from "./SideBarProduct.module.css";
 import RenderQueryData from "../RenderQueryData.jsx";
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +14,10 @@ function Category() {
   } = useGetData("categories");
   const [isExpanded, setExpanded] = useState(false);
 
+  // highlight current category
+  const [url] = useSearchParams();
+  const currCategory = Number(url.get("categoryId"));
+
   return (
     <div className={styles.category}>
       <p className={styles.sectionHeader}>Categories</p>
@@ -25,7 +29,8 @@ function Category() {
           {categories.slice(0, 4).map((catgr, i) => (
             <Link
               key={`category-${i}`}
-              to={`/test-covet-lux/products/?categoryId=${catgr.id}`}>
+              to={`/test-covet-lux/products/?categoryId=${catgr.id}`}
+              className={catgr.id == currCategory ? "orange-text" : ""}>
               {catgr.name}
             </Link>
           ))}
@@ -35,7 +40,8 @@ function Category() {
             categories.slice(4).map((catgr, i) => (
               <Link
                 key={`category-${i}`}
-                to={`/test-covet-lux/products/?categoryId=${catgr.id}`}>
+                to={`/test-covet-lux/products/?categoryId=${catgr.id}`}
+                className={catgr.id == currCategory ? "orange-text" : ""}>
                 {catgr.name}
               </Link>
             ))}
@@ -44,7 +50,7 @@ function Category() {
       </RenderQueryData>
 
       <button
-        className="border-btn border-btn--small"
+        className="border-btn btn--small"
         onClick={() => setExpanded(!isExpanded)}>
         {isExpanded ? "Less" : "More"}
       </button>
@@ -105,7 +111,7 @@ function PriceRange({ dispacth }) {
             ref={priceTo}></input>
         </div>
 
-        <button type="submit" className={`border-btn border-btn--small`}>
+        <button type="submit" className={`border-btn btn--small`}>
           Search
         </button>
       </form>

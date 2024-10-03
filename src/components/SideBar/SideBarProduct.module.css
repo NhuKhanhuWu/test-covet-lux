@@ -25,7 +25,7 @@
 .category > div > a {
   font-size: 1.6rem;
   color: var(--gray);
-  border-bottom: solid 1.5px;
+  border-bottom: solid 1.5px var(--gray);
   padding-bottom: 0.5rem;
 }
 

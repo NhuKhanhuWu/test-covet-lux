@@ -16,18 +16,20 @@ import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import MessageBox from "../../components/MessageBox/MessageBox.jsx";
 import { AmountInput } from "../../components/AmountInput/AmountInput.jsx";
+import useGetDataList from "../../hooks/useGetDataList.jsx";
 
 /** @format */
 function Images({ product }) {
   return (
     <div className={styles.productImg}>
-      {product.images.map((img, i) => (
-        <img
-          className="img"
-          key={`img-${i}`}
-          alt={product.title}
-          src={product?.images[i]?.replace("[", "").replace('"', "")}></img>
-      ))}
+      {product.images &&
+        product.images.map((img, i) => (
+          <img
+            className="img"
+            key={`img-${i}`}
+            alt={product.title}
+            src={product?.images[i]?.replace("[", "").replace('"', "")}></img>
+        ))}
     </div>
   );
 }
@@ -203,6 +205,46 @@ function Reviews({ reviews, showedEl }) {
   );
 }
 
+// handle add to cart
+function handleAddToCart(product, amount, setSuccess, setAdd) {
+  // get cart from local storage
+  const data = JSON.parse(localStorage.getItem("cart"));
+  let cart = data !== null ? data : [];
+
+  // check is product already in cart => if there is => update amount
+  function checkIfExists() {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id == product.id) {
+        if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
+
+        cart[i].amount += amount;
+        setSuccess(true);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // if product not in cart => add to cart
+  const result = checkIfExists();
+  if (result === false) {
+    const newProduct = {
+      id: product.id,
+      amount: amount,
+    };
+    cart.push(newProduct);
+
+    // set message
+    setSuccess(true);
+  } else if (result === "reachLimit") {
+    setSuccess(false);
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // show message box
+  setAdd(true);
+}
+
 function ProductDetail() {
   // product details
   const [url] = useSearchParams();
@@ -306,46 +348,6 @@ function ProductDetail() {
       <Footer></Footer>
     </>
   );
-}
-
-// handle add to cart
-function handleAddToCart(product, amount, setSuccess, setAdd) {
-  // get cart from local storage
-  const data = JSON.parse(localStorage.getItem("cart"));
-  let cart = data !== null ? data : [];
-
-  // check is product already in cart => if there is => update amount
-  function checkIfExists() {
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id == product.id) {
-        if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
-
-        cart[i].amount += amount;
-        setSuccess(true);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // if product not in cart => add to cart
-  const result = checkIfExists();
-  if (result === false) {
-    const newProduct = {
-      ...product,
-      amount: amount,
-    };
-    cart.push(newProduct);
-
-    // set message
-    setSuccess(true);
-  } else if (result === "reachLimit") {
-    setSuccess(false);
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  // show message box
-  setAdd(true);
 }
 
 export default ProductDetail;

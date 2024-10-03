@@ -19,10 +19,12 @@
 }
 
 /* nav link (middle column): start */
-.navLink {
+.navLink,
+.loginLink {
   display: flex;
   gap: 3rem;
   font-weight: 600;
+  font-size: 1.6rem !important;
 }
 
 .navLink a::after {
@@ -79,5 +81,10 @@
 
 .navLogo a {
   font-size: 2.5rem;
+}
+
+.avatar {
+  width: 4rem;
+  border-radius: 999px;
 }
 /* nav link (right column): end */

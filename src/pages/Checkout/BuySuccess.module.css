@@ -1,0 +1,24 @@
+/** @format */
+
+/* message */
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 5rem;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.message > span {
+  font-size: 12rem;
+  color: var(--dark-orange-1);
+}
+
+/* redirect btns */
+.redirect {
+  display: flex;
+  margin-top: 2rem;
+  gap: 5rem;
+}

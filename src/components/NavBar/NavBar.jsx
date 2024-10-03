@@ -1,10 +1,15 @@
 /** @format */
 
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import logo from "../../../public/logo-no-background.png";
 
 function NavBar() {
+  let avatar;
+  if (localStorage.getItem("user")) {
+    avatar = JSON.parse(localStorage.getItem("user")).avatar;
+  }
+
   return (
     <nav className={styles.nav}>
       <Link to="/test-covet-lux">
@@ -13,19 +18,19 @@ function NavBar() {
 
       <ul className={styles.navLink}>
         <li>
-          <NavLink to="/test-covet-lux">HOME PAGE</NavLink>
+          <Link to="/test-covet-lux">HOME PAGE</Link>
         </li>
         <li>
-          <NavLink to="/test-covet-lux/products?page=1">PRODUCT</NavLink>
+          <Link to="/test-covet-lux/products?page=1">PRODUCT</Link>
         </li>
         <li>
-          <NavLink to="/test-covet-lux/blog">BLOG</NavLink>
+          <Link to="/test-covet-lux/blog">BLOG</Link>
         </li>
         <li>
-          <NavLink to="/test-covet-lux/contact">CONTACT</NavLink>
+          <Link to="/test-covet-lux/contact">CONTACT</Link>
         </li>
         <li>
-          <NavLink to="/test-covet-lux/infor">INFOR</NavLink>
+          <Link to="/test-covet-lux/infor">INFOR</Link>
         </li>
       </ul>
 
@@ -39,9 +44,20 @@ function NavBar() {
         <Link to="/test-covet-lux/cart">
           <ion-icon name="cart-outline"></ion-icon>
         </Link>
-        <Link to="/test-covet-lux/account">
-          <ion-icon name="person-outline"></ion-icon>
-        </Link>
+
+        {/* display differen el when login/not login */}
+        {avatar ? (
+          <Link to="/test-covet-lux/account">
+            <img
+              src={avatar}
+              alt="avatar"
+              className={`img ${styles.avatar}`}></img>
+          </Link>
+        ) : (
+          <Link to="/test-covet-lux/login" className={styles.loginLink}>
+            LOGIN
+          </Link>
+        )}
       </ul>
     </nav>
   );

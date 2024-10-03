@@ -62,7 +62,7 @@ button {
 }
 
 /* use along with .border-btn */
-.border-btn--small {
+.btn--small {
   padding: 0.7rem 1.2rem;
   font-size: 1.4rem;
 }
@@ -113,8 +113,9 @@ button {
   transform: scale(1.2);
 }
 
-.orange-text {
-  color: var(--orange);
+.orange-text,
+.active {
+  color: var(--orange) !important;
 }
 
 .gray-text {
@@ -156,4 +157,15 @@ button {
 .icon {
   font-size: 5rem;
   margin-bottom: 1.5rem;
+}
+
+.link {
+  font-style: italic;
+  text-decoration: underline;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: var(--orange);
 }

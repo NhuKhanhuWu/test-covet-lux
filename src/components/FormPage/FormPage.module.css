@@ -1,0 +1,22 @@
+/** @format */
+
+.formContainer {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.form {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 5rem;
+  padding-top: 3rem;
+  border-radius: 12px;
+  border: solid 2px var(--orange);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

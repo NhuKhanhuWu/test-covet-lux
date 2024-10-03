@@ -1,0 +1,51 @@
+/** @format */
+
+/* message when there is no order */
+.emptyMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+/* right ocl */
+.content {
+  flex-grow: 1;
+  margin-right: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.order {
+  border: solid 1px var(--gray);
+  border-radius: 10px;
+}
+
+.product:not(:last-child) {
+  border-bottom: solid 1px;
+  padding-bottom: 2rem;
+}
+
+.productText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  /* margin-bottom: 1rem; */
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: black;
+}
+
+.price {
+  margin-left: auto;
+  align-self: center;
+  color: var(--orange);
+  font-size: 1.5rem;
+  font-weight: 500;
+}

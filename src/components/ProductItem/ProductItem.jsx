@@ -24,7 +24,7 @@ function ProductItem({ product }) {
         <div>
           <Link
             to={`/test-covet-lux/products/?categoryId=${product.category.id}&page=1`}
-            className={styles.categoryTag}>
+            className="link">
             {product.category.name}
           </Link>{" "}
           | <span className={styles.price}>${product.price}</span>

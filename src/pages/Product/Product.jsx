@@ -27,7 +27,7 @@ function Pagination({ query, count, currPage = null }) {
         <Link
           to={`${query}&page=${i + 1}`}
           key={`paginate-${i}`}
-          className={`border-btn--small border-btn ${
+          className={`btn--small border-btn ${
             currPage == i + 1 ? styles.currPage : ""
           }`}>
           {i + 1}

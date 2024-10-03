@@ -8,6 +8,8 @@ import styles from "./Cart.module.css";
 import { BlankDivider } from "../../components/Divider";
 import { Link } from "react-router-dom";
 import emptyCart from "../../../public/empty-cart.svg";
+import useGetLocal from "../../hooks/useGetLocal.jsx";
+import useGetDataList from "../../hooks/useGetDataList.jsx";
 
 function Product({ index, productList, setProductList }) {
   // update cart in localStorage when change amount
@@ -18,7 +20,10 @@ function Product({ index, productList, setProductList }) {
     setProductList(newProductList);
 
     // update in local storage
-    localStorage.setItem("cart", JSON.stringify(newProductList));
+    const newCart = newProductList.map((product) => {
+      return { id: product.id, amount: product.amount };
+    });
+    localStorage.setItem("cart", JSON.stringify(newCart));
   }
 
   // delete product
@@ -62,7 +67,7 @@ function Product({ index, productList, setProductList }) {
               callback={updateAmount}
               productList={productList}
               index={index}
-              amount={productList[index].amount}
+              amount={productList[index]?.amount}
               setAmount={() => {}}
               id={`product-${productList[index].id}`}></AmountInput>
           </td>
@@ -186,10 +191,21 @@ function EmptyCart() {
 }
 
 function Cart() {
-  const cartString =
-    localStorage.getItem("cart") !== null ? localStorage.getItem("cart") : "[]";
+  const cartArray = useGetLocal("cart");
+  const idList = cartArray?.map((item) => item.id);
+  const { dataResponse } = useGetDataList("products", idList);
 
-  const [productList, setProductList] = useState(JSON.parse(cartString));
+  const [productList, setProductList] = useState([]);
+
+  // Use useEffect to update productList when dataResponse changes
+  useEffect(() => {
+    if (dataResponse && dataResponse.length > 0) {
+      const newList = dataResponse?.map((data, i) => {
+        return { ...data, amount: cartArray[i].amount };
+      });
+      setProductList(newList);
+    }
+  }, [dataResponse]);
 
   // caculate total amount & total cost
   const totalCost = productList.reduce(
@@ -200,7 +216,7 @@ function Cart() {
   // store total money (cost+shipping-discount...) in state
   const [totalMoney, setTotalMoney] = useState(0);
 
-  const isEmpty = productList === undefined || productList.length === 0;
+  const isEmpty = productList === null || productList.length === 0;
 
   return (
     <>

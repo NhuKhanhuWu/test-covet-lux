@@ -36,16 +36,6 @@
   margin-bottom: 1rem;
 }
 
-.categoryTag {
-  font-style: italic;
-  text-decoration: underline;
-  transition: all 0.3s;
-}
-
-.categoryTag:hover {
-  color: var(--orange);
-}
-
 .price {
   font-weight: 500;
   color: rgb(196 83 25);

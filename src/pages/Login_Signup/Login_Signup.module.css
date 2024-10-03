@@ -1,0 +1,12 @@
+/** @format */
+
+.logo {
+  width: 15rem;
+  margin: auto;
+}
+
+.loginBtn {
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: center;
+}
