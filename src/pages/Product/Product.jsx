@@ -15,7 +15,7 @@ import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
 
 import styles from "./Product.module.css";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 
 function Pagination({ query, count, currPage = null }) {
   const arr = Array.from({ length: count });

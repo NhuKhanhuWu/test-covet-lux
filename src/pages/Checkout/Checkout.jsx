@@ -15,6 +15,7 @@ import PersonalInfor from "./PesonalInfor";
 import Payment from "./Payment";
 import ProductList from "./ProductList";
 import Total from "./Total";
+import { useNavigate } from "react-router-dom";
 
 function BuyBtn() {
   return (
@@ -54,10 +55,15 @@ function Checkout() {
   const [isBuy, setBuy] = useState(false);
   const orderId = new Date().valueOf();
 
+  // redirect to 'by_success' page
+  const redirect = useNavigate();
+
   function handleBuy(e) {
     e.preventDefault();
     setBuy(true);
-    window.location.replace(`/test-covet-lux/buy_success?order_id=${orderId}`);
+    redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
+      replace: true,
+    });
   }
 
   useEffect(
