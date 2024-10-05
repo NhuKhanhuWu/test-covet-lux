@@ -11,6 +11,7 @@ import useGetLocal from "../../hooks/useGetLocal.jsx";
 
 import emptyBox from "../../../public/empty-box.png";
 import useGetDataList from "../../hooks/useGetDataList.jsx";
+import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 function EmptyOrder() {
   return (
@@ -69,6 +70,7 @@ function Orders() {
       return { ...product, amount: productList[iList][iTemp].amount };
     });
   });
+  console.log(dataResponse.length);
 
   return (
     <>
@@ -77,8 +79,9 @@ function Orders() {
       <FlexContainer>
         <SideBarAcc></SideBarAcc>
 
+        {/* <RenderQueryData isError={isError} isLoading={isLoading}> */}
         <div className={styles.content}>
-          {productList === undefined ? (
+          {dataResponse.length === 0 ? (
             <EmptyOrder></EmptyOrder>
           ) : (
             orders.map((order, iOrder) => (
@@ -97,6 +100,7 @@ function Orders() {
             ))
           )}
         </div>
+        {/* </RenderQueryData> */}
       </FlexContainer>
 
       <BlankDivider></BlankDivider>

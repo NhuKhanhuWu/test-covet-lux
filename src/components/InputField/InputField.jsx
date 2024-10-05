@@ -1,5 +1,5 @@
 /** @format */
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styles from "./InputField.module.css";
 
 function InputField({

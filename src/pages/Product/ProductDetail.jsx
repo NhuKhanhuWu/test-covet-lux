@@ -1,6 +1,6 @@
 /** @format */
 
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import FlexContainer from "../../components/FlexContainer";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
@@ -11,28 +11,20 @@ import { BlankDivider } from "../../components/Divider.jsx";
 import { useEffect, useState } from "react";
 
 // for test rendering reviews
-import avatar from "../../../public/avatar.jpg";
 import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
-import MessageBox from "../../components/MessageBox/MessageBox.jsx";
 import { AmountInput } from "../../components/AmountInput/AmountInput.jsx";
-import useGetDataList from "../../hooks/useGetDataList.jsx";
 
-/** @format */
-function Images({ product }) {
-  return (
-    <div className={styles.productImg}>
-      {product.images &&
-        product.images.map((img, i) => (
-          <img
-            className="img"
-            key={`img-${i}`}
-            alt={product.title}
-            src={product?.images[i]?.replace("[", "").replace('"', "")}></img>
-        ))}
-    </div>
-  );
-}
+// redux
+import { addToCart } from "../../redux/cartSlide";
+import { useDispatch } from "react-redux";
+
+// components
+import { Images } from "./component/Images.jsx";
+import { ProductInfor } from "./component/ProductInfor.jsx";
+import { ByNowBtn } from "./component/ByNowBtn.jsx";
+import { DescripAndReview } from "./component/DescripAndReview.jsx";
+import { ToCartBtn } from "./component/ToCartBtn.jsx";
 
 function Stars({ rating }) {
   const arr = Array.from({ length: Math.floor(rating) });
@@ -43,206 +35,6 @@ function Stars({ rating }) {
       <ion-icon name="star"></ion-icon>
     </div>
   );
-}
-
-function ProductInfor({ product }) {
-  return (
-    <>
-      <div>
-        <h1>{product.title}</h1>
-        <div>⭐⭐⭐⭐⭐ (5.0) | 100 sold | 2 reviews</div>
-      </div>
-
-      <p className={`orange-text ${styles.price}`}>
-        ${product.price}{" "}
-        <span style={{ textDecoration: "line-through" }}>
-          ${product.price * 1.25}
-        </span>
-      </p>
-      <p className={styles.shipment}>Return in 15 days</p>
-      <p className={styles.shipment}>Send from: Linh Trung, Thu Duc</p>
-    </>
-  );
-}
-
-function ByNowBtn({ product, amount }) {
-  return (
-    <Link
-      onClick={() =>
-        handleAddToCart(
-          product,
-          amount,
-          () => {},
-          () => {}
-        )
-      }
-      to={`/test-covet-lux/cart/`}
-      className="fill-btn">
-      Buy now
-    </Link>
-  );
-}
-
-function ToCartBtn({ product, amount }) {
-  // display message
-  const [isAdded, setAdd] = useState(false);
-  const [isSuccess, setSuccess] = useState(false);
-
-  return (
-    <>
-      <button
-        className="border-btn"
-        onClick={() => handleAddToCart(product, amount, setSuccess, setAdd)}>
-        Add to cart
-      </button>
-
-      {/* message */}
-      <MessageBox isShowed={isAdded} setShow={setAdd}>
-        {isSuccess ? (
-          <>
-            <ion-icon
-              name="checkmark-circle"
-              class="icon"
-              style={{ color: "rgb(88 252 97)" }}></ion-icon>
-            <p>Added to cart</p>
-          </>
-        ) : (
-          <>
-            <ion-icon
-              name="close-circle"
-              class="icon"
-              style={{ color: "#ff2d00" }}></ion-icon>
-            <p>Each product is limited to a quantity of 20</p>
-          </>
-        )}
-      </MessageBox>
-    </>
-  );
-}
-
-function DescripAndReview({ product, reviews = null }) {
-  const testReviews = [
-    {
-      userName: "ongzao",
-      rating: 5,
-      text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos quo inventore expedita soluta nemo, animi recusandae repellendus ea atque dicta cumque, aspernatur a tempora dignissimos molestias temporibus rerum autem beatae",
-    },
-    {
-      userName: "user123",
-      rating: 5,
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora error ullam ea cum repellendus voluptatibus adipisci numquam ut facere, ipsum beatae! Quibusdam unde tenetur recusandae ipsam cum sint aspernatur voluptas!",
-    },
-  ];
-
-  const [showedEl, setShowedEl] = useState("descipt");
-
-  return (
-    <>
-      <DesciptionAndReviewsBtn
-        showedEl={showedEl}
-        setShowedEl={setShowedEl}></DesciptionAndReviewsBtn>
-
-      <div className={styles.descripReviewContainer}>
-        <Description product={product} showedEl={showedEl}></Description>
-        <Reviews reviews={testReviews} showedEl={showedEl}></Reviews>
-      </div>
-    </>
-  );
-}
-
-function DesciptionAndReviewsBtn({ setShowedEl, showedEl }) {
-  return (
-    <div className={styles.btnContainer}>
-      <button
-        onClick={() => {
-          setShowedEl("descipt");
-        }}
-        className={showedEl === "descipt" ? "orange-text" : ""}>
-        DESCRIPTION
-      </button>
-      <span>|</span>
-      <button
-        onClick={() => {
-          setShowedEl("reviews");
-        }}
-        className={showedEl === "reviews" ? "orange-text" : ""}>
-        REVIEWS
-      </button>
-    </div>
-  );
-}
-
-function Description({ product, showedEl }) {
-  return (
-    <div
-      className={`${styles.description} ${
-        showedEl === "descipt" ? "" : "hidden"
-      }`}>
-      <p>{product.description}</p>
-    </div>
-  );
-}
-
-function Reviews({ reviews, showedEl }) {
-  return (
-    <div
-      className={`${styles.reviews} ${showedEl === "reviews" ? "" : "hidden"}`}>
-      {reviews.map((review, i) => (
-        <div key={`review-${i}`}>
-          <FlexContainer margin={0} gap={1}>
-            <img alt={review.userName} src={avatar} className="small-avatar" />
-
-            <div>
-              <p>{review.userName}</p>
-              <span>⭐⭐⭐⭐⭐</span>
-              <p>27/09/2024</p>
-              <p style={{ marginTop: "1rem", width: "60%" }}>{review.text}</p>
-            </div>
-          </FlexContainer>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// handle add to cart
-function handleAddToCart(product, amount, setSuccess, setAdd) {
-  // get cart from local storage
-  const data = JSON.parse(localStorage.getItem("cart"));
-  let cart = data !== null ? data : [];
-
-  // check is product already in cart => if there is => update amount
-  function checkIfExists() {
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id == product.id) {
-        if (cart[i].amount + amount > 20) return "reachLimit"; // return 'reach limit if total amount >20
-
-        cart[i].amount += amount;
-        setSuccess(true);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // if product not in cart => add to cart
-  const result = checkIfExists();
-  if (result === false) {
-    const newProduct = {
-      id: product.id,
-      amount: amount,
-    };
-    cart.push(newProduct);
-
-    // set message
-    setSuccess(true);
-  } else if (result === "reachLimit") {
-    setSuccess(false);
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  // show message box
-  setAdd(true);
 }
 
 function ProductDetail() {
@@ -285,6 +77,17 @@ function ProductDetail() {
     categoryId ? `products/?categoryId=${categoryId}&offset=0&limit=5` : null
   );
 
+  // add to cart handle
+  const dispatch = useDispatch();
+
+  function handleAddToCart(product, amount, setAdd) {
+    // add product to cart
+    dispatch(addToCart({ id: product.id, amount: amount }));
+
+    // show message
+    setAdd(true);
+  }
+
   return (
     <>
       <NavBar></NavBar>
@@ -309,8 +112,15 @@ function ProductDetail() {
             </FlexContainer>
 
             <FlexContainer elClass={styles.btn} gap={2}>
-              <ByNowBtn product={productDetail} amount={amount}></ByNowBtn>
-              <ToCartBtn product={productDetail} amount={amount} />
+              <ByNowBtn
+                product={productDetail}
+                amount={amount}
+                handleAddToCart={handleAddToCart}></ByNowBtn>
+              <ToCartBtn
+                product={productDetail}
+                amount={amount}
+                handleAddToCart={handleAddToCart}
+              />
             </FlexContainer>
           </div>
         </RenderQueryData>

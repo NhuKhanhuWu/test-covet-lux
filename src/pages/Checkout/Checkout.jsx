@@ -1,21 +1,28 @@
 /** @format */
 
 import { useEffect, useState } from "react";
+
+import useGetDataList from "../../hooks/useGetDataList";
+
+// general component
 import FlexContainer from "../../components/FlexContainer";
 import RenderQueryData from "../../components/RenderQueryData";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
 import ListHeader from "../../components/ListHeader/ListHeader";
-import styles from "./Checkout.module.css";
 import { BlankDivider } from "../../components/Divider";
-import useGetLocal from "../../hooks/useGetLocal";
-import useGetDataList from "../../hooks/useGetDataList";
 
+// page component
+import styles from "./Checkout.module.css";
 import PersonalInfor from "./PesonalInfor";
 import Payment from "./Payment";
 import ProductList from "./ProductList";
 import Total from "./Total";
 import { useNavigate } from "react-router-dom";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { reset } from "../../redux/cartSlide";
 
 function BuyBtn() {
   return (
@@ -30,8 +37,8 @@ function BuyBtn() {
 }
 
 function Checkout() {
-  const cart = useGetLocal("cart");
-  // get product from database
+  // get product from redux & database
+  const cart = useSelector((state) => state.cart).productArray;
   const { dataResponse, isLoading, isError } = useGetDataList(
     "products",
     cart.map((item) => item.id)
@@ -61,14 +68,16 @@ function Checkout() {
   function handleBuy(e) {
     e.preventDefault();
     setBuy(true);
-    redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
-      replace: true,
-    });
   }
+
+  // clear cart
+  const dispatch = useDispatch();
 
   useEffect(
     function () {
       if (!isBuy) return;
+
+      console.log(1);
 
       // get personal infor & store in personalInfor variable
       let personalInfor = {};
@@ -100,12 +109,16 @@ function Checkout() {
 
       // store order
       let orders = JSON.parse(orderString);
-      console.log(orders);
       orders.unshift(newOrder);
       localStorage.setItem("orders", JSON.stringify(orders));
 
       // clear cart
-      localStorage.removeItem("cart");
+      dispatch(reset());
+
+      // redirect
+      redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
+        replace: true,
+      });
     },
     [isBuy, productList]
   );
