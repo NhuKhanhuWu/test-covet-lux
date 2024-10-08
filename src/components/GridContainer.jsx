@@ -6,6 +6,7 @@ function GridContainer({
   gap = 3,
   gapCol = 0,
   gapRow = 0,
+  elClass = null,
 }) {
   const style = {
     display: "grid",
@@ -15,7 +16,11 @@ function GridContainer({
     gap: `${gap}rem`,
   };
 
-  return <div style={style}>{children}</div>;
+  return (
+    <div style={style} className={elClass}>
+      {children}
+    </div>
+  );
 }
 
 export default GridContainer;

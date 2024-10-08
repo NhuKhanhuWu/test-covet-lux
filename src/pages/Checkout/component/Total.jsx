@@ -1,5 +1,5 @@
 /** @format */
-import styles from "./Checkout.module.css";
+import styles from "../Checkout.module.css";
 
 export default function Total({ total }) {
   const shippingFee = total >= 100 ? 0 : 5;

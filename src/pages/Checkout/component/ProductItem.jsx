@@ -1,6 +1,6 @@
 /** @format */
-import styles from "./Checkout.module.css";
-import FlexContainer from "../../components/FlexContainer";
+import styles from "../Checkout.module.css";
+import FlexContainer from "../../../components/FlexContainer";
 
 export default function ProductItem({ product }) {
   return (
@@ -11,7 +11,8 @@ export default function ProductItem({ product }) {
             alt={product.title}
             src={product.images[0]}
             className={`img`}
-            style={{ width: "9rem" }}></img>
+            style={{ width: "9rem" }}
+            loading="lazy"></img>
           <div
             className={`columnContent ${styles.productTxt}`}
             style={{ width: "60%" }}>

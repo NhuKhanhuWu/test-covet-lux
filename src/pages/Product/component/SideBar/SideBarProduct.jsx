@@ -1,12 +1,17 @@
 /** @format */
 
-import useGetData from "../../hooks/useGetData";
-import { Link, useSearchParams } from "react-router-dom";
+import useGetData from "../../../../hooks/useGetData.jsx";
 import styles from "./SideBarProduct.module.css";
-import RenderQueryData from "../RenderQueryData.jsx";
+import RenderQueryData from "../../../../components/RenderQueryData.jsx";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { editCategory } from "../../../../redux/productsSlide.js";
+import { ceditPrice } from "../../../../redux/productsSlide.js";
+import { BlankDivider } from "../../../../components/Divider.jsx";
 
 function Category() {
+  // get category from data base
   const {
     dataResponse: categories,
     isLoading,
@@ -15,8 +20,10 @@ function Category() {
   const [isExpanded, setExpanded] = useState(false);
 
   // highlight current category
-  const [url] = useSearchParams();
-  const currCategory = Number(url.get("categoryId"));
+  const currCategory = useSelector((state) => state.products.categoryFilter);
+
+  // update filter in redux
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.category}>
@@ -26,24 +33,30 @@ function Category() {
         isLoading={isLoading}
         isEmptyList={categories.length === 0}>
         <div className="columnContent" style={{ marginBottom: "1.5rem" }}>
+          <p
+            onClick={() => dispatch(editCategory(""))}
+            className={currCategory === "" ? "orange-text" : ""}>
+            All category
+          </p>
+
           {categories.slice(0, 4).map((catgr, i) => (
-            <Link
+            <p
+              onClick={() => dispatch(editCategory(catgr.id))}
               key={`category-${i}`}
-              to={`/test-covet-lux/products/?categoryId=${catgr.id}`}
               className={catgr.id == currCategory ? "orange-text" : ""}>
               {catgr.name}
-            </Link>
+            </p>
           ))}
 
           {/* expanded part: start */}
           {isExpanded &&
             categories.slice(4).map((catgr, i) => (
-              <Link
-                key={`category-${i}`}
-                to={`/test-covet-lux/products/?categoryId=${catgr.id}`}
+              <p
+                key={`category-more-${i}`}
+                onClick={() => dispatch(editCategory(catgr.id))}
                 className={catgr.id == currCategory ? "orange-text" : ""}>
                 {catgr.name}
-              </Link>
+              </p>
             ))}
           {/* expanded part: end */}
         </div>
@@ -58,35 +71,16 @@ function Category() {
   );
 }
 
-function PriceRange({ dispacth }) {
+function PriceRange() {
   const priceFrom = useRef(null);
   const priceTo = useRef(null);
 
-  // store query in state
-  const [query, setQuery] = useState(null);
-  const { dataResponse, isLoading, isError } = useGetData(query);
-  // console.log(dataResponse?.statusCode, isLoading, isError);
-
+  // update filter in redux
+  const dispatch = useDispatch();
   function handlePriceFilter(e) {
     e.preventDefault();
-    const newQuery = `products/?price_min=${priceFrom.current.value}&price_max=${priceTo.current.value}`;
-    setQuery(newQuery); //update query state => trigger API call
+    dispatch(ceditPrice([priceFrom.current.value, priceTo.current.value]));
   }
-
-  useEffect(
-    function () {
-      if (!dataResponse?.statusCode) {
-        // Dispatch the new product list when the data is successfully fetched
-        dispacth({
-          type: "updateData",
-          productList: dataResponse,
-          error: isError,
-          loading: isLoading,
-        });
-      }
-    },
-    [dataResponse, dispacth, isError, isLoading]
-  );
 
   return (
     <div>

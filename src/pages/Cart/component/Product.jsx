@@ -41,7 +41,8 @@ export function Product({ index, productList, setProductList }) {
               alt={productList[index].title}
               src={productList[index].images[0]
                 .replace("[", "")
-                .replace('"', "")}></img>
+                .replace('"', "")}
+              loading="lazy"></img>
           </td>
 
           <td>

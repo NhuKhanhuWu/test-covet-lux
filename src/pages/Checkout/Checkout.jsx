@@ -14,15 +14,16 @@ import { BlankDivider } from "../../components/Divider";
 
 // page component
 import styles from "./Checkout.module.css";
-import PersonalInfor from "./PesonalInfor";
-import Payment from "./Payment";
-import ProductList from "./ProductList";
-import Total from "./Total";
+import PersonalInfor from "./component/PersonalInfor.jsx";
+import Payment from "./component/Payment";
+import ProductList from "./component/ProductList";
+import Total from "./component/Total";
 import { useNavigate } from "react-router-dom";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../redux/cartSlide";
+import { addOrder } from "../../redux/ordersSlide";
 
 function BuyBtn() {
   return (
@@ -92,25 +93,18 @@ function Checkout() {
         'input[name="payment-method"]:checked'
       ).value;
 
-      // store order to local storage
+      /// STORE ORDER TO LOCAL STORAGE
       // create new order
       const newOrder = {
         id: orderId,
-        ...personalInfor,
+        personalInfor: personalInfor,
         payMethod: paymentMethod,
         products: cart,
         date: new Date(),
+        status: paymentMethod === "cod" ? "placed" : "paid",
       };
 
-      const orderString =
-        localStorage.getItem("orders") !== null
-          ? localStorage.getItem("orders")
-          : "[]";
-
-      // store order
-      let orders = JSON.parse(orderString);
-      orders.unshift(newOrder);
-      localStorage.setItem("orders", JSON.stringify(orders));
+      dispatch(addOrder({ ...newOrder }));
 
       // clear cart
       dispatch(reset());

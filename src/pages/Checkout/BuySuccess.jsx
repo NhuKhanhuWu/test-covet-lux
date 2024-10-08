@@ -21,7 +21,8 @@ function BuySuccess() {
     !Array.isArray(recommenProducts) || recommenProducts.length === 0;
 
   // check if user login
-  const isLogin = localStorage.getItem("userInfor") !== null;
+  const isLogin = localStorage.getItem("user") !== null;
+  console.log(isLogin);
 
   // render order detail url
   const [url] = useSearchParams();

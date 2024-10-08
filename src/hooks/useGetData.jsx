@@ -10,22 +10,26 @@ function useGetData(query) {
   useEffect(
     function () {
       async function fetchData() {
-        try {
-          setLoading(true); //start loading
-          setError("");
+        const isNullQuery = query.includes("null");
 
-          // try get data
-          const response = await fetch(
-            `https://api.escuelajs.co/api/v1/${query}`
-          );
-          // console.log(`https://api.escuelajs.co/api/v1/${query}`);
+        if (!isNullQuery) {
+          try {
+            setLoading(true); //start loading
+            setError("");
 
-          const data = await response.json();
-          setDataResponse(data);
-        } catch (err) {
-          setError(err.message); //set error if there is
-        } finally {
-          setLoading(false); //stop loading
+            // try get data
+            const response = await fetch(
+              `https://api.escuelajs.co/api/v1/${query}`
+            );
+            // console.log(`https://api.escuelajs.co/api/v1/${query}`);
+
+            const data = await response.json();
+            setDataResponse(data);
+          } catch (err) {
+            setError(err.message); //set error if there is
+          } finally {
+            setLoading(false); //stop loading
+          }
         }
       }
 

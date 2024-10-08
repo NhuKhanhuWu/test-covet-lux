@@ -24,8 +24,15 @@
   border-radius: 10px;
 }
 
+.orderHeader {
+  text-align: right;
+  padding: 2rem 0;
+  border-bottom: solid 1px rgb(219, 219, 219);
+  margin: 0 2rem;
+}
+
 .product:not(:last-child) {
-  border-bottom: solid 1px;
+  border-bottom: solid 1px rgb(219, 219, 219);
   padding-bottom: 2rem;
 }
 
@@ -48,4 +55,21 @@
   color: var(--orange);
   font-size: 1.5rem;
   font-weight: 500;
+}
+
+.orderSumary {
+  text-align: right;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+}
+
+.orderSumary {
+  margin-bottom: 1rem;
+}
+
+.orderSumary > span {
+  font-size: 2rem;
+  color: var(--orange);
+  font-weight: 600;
+  margin-left: 1rem;
 }

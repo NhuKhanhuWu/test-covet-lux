@@ -1,6 +1,6 @@
 /** @format */
-import ProductItem from "./component/ProductItem";
-import styles from "./Checkout.module.css";
+import ProductItem from "./ProductItem";
+import styles from "../Checkout.module.css";
 
 export default function ProductList({ productList }) {
   return (

@@ -22,11 +22,12 @@
 }
 
 /* category */
-.category > div > a {
+.category > div > p {
   font-size: 1.6rem;
   color: var(--gray);
   border-bottom: solid 1.5px var(--gray);
   padding-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 /* price range */

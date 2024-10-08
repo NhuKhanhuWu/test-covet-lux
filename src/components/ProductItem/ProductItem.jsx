@@ -11,11 +11,13 @@ function ProductItem({ product }) {
           <img
             alt={product.title}
             src={product?.images[0]?.replace("[", "").replace('"', "")}
-            className="img"></img>
+            className="img"
+            loading="lazy"></img>
           <img
             alt={product.title}
             src={product?.images[1]?.replace("[", "").replace('"', "")}
-            className="img"></img>
+            className="img"
+            loading="lazy"></img>
         </div>
 
         <p className={styles.title}>{product.title}</p>

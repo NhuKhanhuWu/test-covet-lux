@@ -6,6 +6,7 @@
   --orange-transparent-1: rgba(252, 107, 34, 0.865);
   --orange-transparent-2: rgba(252, 107, 34, 0.788);
   --gray: rgb(88 88 88);
+  --green: rgb(45, 194, 88);
 }
 
 html {
@@ -80,6 +81,9 @@ button {
   width: fit-content;
   color: white !important;
   background-color: var(--orange);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fill-btn:hover {

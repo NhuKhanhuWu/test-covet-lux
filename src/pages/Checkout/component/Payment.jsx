@@ -1,9 +1,9 @@
 /** @format */
 import { useState } from "react";
-import styles from "./Checkout.module.css";
+import styles from "../Checkout.module.css";
 
-import ListHeader from "../../components/ListHeader/ListHeader";
-import InputField from "../../components/InputField/InputField";
+import ListHeader from "../../../components/ListHeader/ListHeader.jsx";
+import InputField from "../../../components/InputField/InputField";
 
 export default function Payment() {
   const [currMethod, setMethod] = useState("cod");

@@ -6,7 +6,11 @@ import styles from "./Banner.module.css";
 function BigBanner({ imgUrl, header, text, url }) {
   return (
     <div className={styles.bigBanner}>
-      <img alt="jeans-sweater" src={imgUrl} className={styles.img}></img>
+      <img
+        alt="jeans-sweater"
+        src={imgUrl}
+        className={styles.img}
+        loading="lazy"></img>
 
       <div className={styles.bigBannerTxt}>
         <h1>{header}</h1>

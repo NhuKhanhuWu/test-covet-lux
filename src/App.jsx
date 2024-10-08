@@ -20,6 +20,7 @@ import Infor from "./pages/Infor.jsx";
 
 import Account from "./pages/Account/Account.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
+import OrderDetail from "./pages/Orders/OrderDetail.jsx";
 
 function App() {
   return (
@@ -29,14 +30,12 @@ function App() {
         <Route path="/test-covet-lux/blog" element={<Blog />}></Route>
         <Route path="/test-covet-lux/contact" element={<Contact />}></Route>
         <Route path="/test-covet-lux/infor" element={<Infor />}></Route>
-
         {/* product: start */}
         <Route path="/test-covet-lux/products" element={<Product />}></Route>
         <Route
           path="/test-covet-lux/product"
           element={<ProductDetail />}></Route>
         {/* product:end */}
-
         {/* cart & checkout: start */}
         <Route path="/test-covet-lux/cart" element={<Cart></Cart>}></Route>
         <Route
@@ -46,21 +45,22 @@ function App() {
           path="/test-covet-lux/buy_success"
           element={<BuySuccess></BuySuccess>}></Route>
         {/* cart & checkout: end */}
-
         {/* login, signin: start */}
         <Route path="/test-covet-lux/login" element={<Login></Login>}></Route>
         <Route
           path="/test-covet-lux/signup"
           element={<Signup></Signup>}></Route>
         {/* login, signin: end */}
-
         {/* acccount, order: start */}
         <Route
           path="/test-covet-lux/account"
           element={<Account></Account>}></Route>
         <Route
           path="/test-covet-lux/orders"
-          element={<Orders></Orders>}></Route>
+          element={<Orders></Orders>}></Route>{" "}
+        <Route
+          path="/test-covet-lux/order"
+          element={<OrderDetail></OrderDetail>}></Route>
         {/* acccount, order: end */}
       </Routes>
     </BrowserRouter>

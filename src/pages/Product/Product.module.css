@@ -1,4 +1,7 @@
 /** @format */
+.productContainer {
+  position: relative;
+}
 
 .pagination {
   display: flex;

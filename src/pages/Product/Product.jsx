@@ -6,16 +6,18 @@ import {
   SideBarProduct,
   Category,
   PriceRange,
-} from "../../components/SideBar/SideBarProduct.jsx";
-import { Link, useSearchParams } from "react-router-dom";
-import useGetData from "../../hooks/useGetData.jsx";
+} from "./component/SideBar/SideBarProduct.jsx";
+import { Link } from "react-router-dom";
 import GridContainer from "../../components/GridContainer.jsx";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
 
 import styles from "./Product.module.css";
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { fetchFilteredProducts } from "../../redux/productsSlide.js";
+import { useDispatch } from "react-redux";
 
 function Pagination({ query, count, currPage = null }) {
   const arr = Array.from({ length: count });
@@ -37,79 +39,41 @@ function Pagination({ query, count, currPage = null }) {
   );
 }
 
-// store product data in reducer
-const initProduct = {
-  productList: [],
-  error: false,
-  loading: false,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "updateData":
-      return {
-        ...state,
-        productList: action.productList,
-        error: action.error,
-        loading: action.loading,
-      };
-
-    default:
-      console.error("Unknown action");
-  }
-}
-
 function Product() {
-  // get filter query
-  const [urlQuery] = useSearchParams();
+  const dispatch = useDispatch();
+  // get filter
+  const titleFilter = useSelector((state) => state.products.titleFilter);
+  const categoryFilter = useSelector((state) => state.products.categoryFilter);
+  const priceFilter = useSelector((state) => state.products.priceFilter);
 
-  const categoryId =
-    urlQuery.get("categoryId") === null ? "" : urlQuery.get("categoryId");
-  const minPrice =
-    urlQuery.get("price_min") === null ? "" : urlQuery.get("price_min");
-  const maxPrice =
-    urlQuery.get("price_max") === null ? "" : urlQuery.get("price_max");
-  const title = urlQuery.get("title") === null ? "" : urlQuery.get("title");
-  const page = urlQuery.get("page") === null ? 1 : urlQuery.get("page");
+  // get product
+  const productList = useSelector((state) => state.products.items);
 
-  const query = `?price_min=${minPrice}&price_max=${maxPrice}&title=${title}&categoryId=${categoryId}`;
-
-  // get product by query
-  const { dataResponse, isError, isLoading } = useGetData(
-    `products/${query}&offset=${12 * (page - 1)}&limit=12`
-  );
-
-  // store data in reducer
-  const [{ productList, error, loading }, dispacth] = useReducer(
-    reducer,
-    initProduct
-  );
+  // get product list
   useEffect(
     function () {
-      dispacth({
-        type: "updateData",
-        productList: dataResponse,
-        error: isError,
-        loading: isLoading,
-      });
+      dispatch(fetchFilteredProducts());
     },
-    [dataResponse, isError, isLoading]
+    [categoryFilter, dispatch, priceFilter, titleFilter]
   );
+
+  // render products
+  const status = useSelector((state) => state.products.status);
 
   return (
     <>
       <NavBar></NavBar>
 
-      <FlexContainer gap={5}>
+      <FlexContainer gap={5} elClass={styles.productContainer}>
         <SideBarProduct>
           <Category></Category>
-          <PriceRange dispacth={dispacth}></PriceRange>
+          <PriceRange></PriceRange>
         </SideBarProduct>
 
-        <GridContainer numCol={4}>
+        <GridContainer numCol={4} elClass={styles.productContainer}>
           <RenderQueryData
-            isError={error}
-            isLoading={loading}
+            isError={status === "failed"}
+            isLoading={status === "loading"}
             isEmptyList={productList.length === 0}>
             {productList.map((product, i) => (
               <ProductItem key={`product-${i}`} product={product} />
@@ -119,7 +83,7 @@ function Product() {
       </FlexContainer>
 
       <BlankDivider distance={3}></BlankDivider>
-      <Pagination query={query} count={3} currPage={page}></Pagination>
+      {/* <Pagination query={query} count={3} currPage={page}></Pagination> */}
       <BlankDivider></BlankDivider>
 
       <Footer></Footer>

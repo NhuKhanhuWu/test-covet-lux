@@ -9,7 +9,8 @@ function BlogItem({ blog }) {
         <img
           alt={blog.title}
           src={blog?.images[0]?.replace("[", "").replace('"', "")}
-          className={`img overflow-item ${styles.blogImg}`}></img>
+          className={`img overflow-item ${styles.blogImg}`}
+          loading="lazy"></img>
       </div>
 
       <p className={styles.title}>{blog.title}</p>

@@ -12,7 +12,8 @@ export function Images({ product }) {
             className="img"
             key={`img-${i}`}
             alt={product.title}
-            src={product?.images[i]?.replace("[", "").replace('"', "")}></img>
+            src={product?.images[i]?.replace("[", "").replace('"', "")}
+            loading="lazy"></img>
         ))}
     </div>
   );

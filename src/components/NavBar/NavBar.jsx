@@ -3,11 +3,31 @@
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import logo from "../../../public/logo-no-background.png";
+import { useSelector } from "react-redux";
+import { editTitle } from "../../redux/productsSlide";
+import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
+  // get user avatar
   let avatar;
   if (localStorage.getItem("user")) {
     avatar = JSON.parse(localStorage.getItem("user")).avatar;
+  }
+
+  // search product by title
+  const [tile, setTitle] = useState(
+    useSelector((state) => state.products.titleFilter)
+  );
+  const dispacth = useDispatch();
+  const navigate = useNavigate(); //redirect to product page
+  const currTitleFilter = useRef(); //get current seach titlr
+
+  function handleFilterTitle(e, title) {
+    e.preventDefault();
+    dispacth(editTitle(title));
+    navigate("/test-covet-lux/products");
   }
 
   return (
@@ -21,7 +41,7 @@ function NavBar() {
           <Link to="/test-covet-lux">HOME PAGE</Link>
         </li>
         <li>
-          <Link to="/test-covet-lux/products?page=1">PRODUCT</Link>
+          <Link to="/test-covet-lux/products">PRODUCT</Link>
         </li>
         <li>
           <Link to="/test-covet-lux/blog">BLOG</Link>
@@ -35,12 +55,21 @@ function NavBar() {
       </ul>
 
       <ul className={styles.navLogo}>
-        <div className={styles.search}>
-          <input type="text" placeholder="Search..." />
-          <button>
+        <form
+          className={styles.search}
+          onSubmit={(e) => handleFilterTitle(e, currTitleFilter.current.value)}>
+          <input
+            ref={currTitleFilter}
+            type="text"
+            placeholder="Search..."
+            value={tile}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <button type="submit">
             <ion-icon name="search-outline"></ion-icon>
           </button>
-        </div>
+        </form>
+
         <Link to="/test-covet-lux/cart">
           <ion-icon name="cart-outline"></ion-icon>
         </Link>

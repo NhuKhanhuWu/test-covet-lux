@@ -1,7 +1,7 @@
 /** @format */
-import useGetLocal from "../../hooks/useGetLocal";
-import InputField from "../../components/InputField/InputField";
-import GridContainer from "../../components/GridContainer";
+import useGetLocal from "../../../hooks/useGetLocal";
+import InputField from "../../../components/InputField/InputField";
+import GridContainer from "../../../components/GridContainer";
 
 export default function PersonalInfor() {
   // get personal infor from local storage
