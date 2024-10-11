@@ -7,13 +7,16 @@ function RenderQueryData({
   isError,
   isEmptyList = true,
   renderError = false,
-  emptyMessChil = null,
+  emptyMess = null,
 }) {
   return (
     <>
       {isLoading && <Loader></Loader>}
-      {!isLoading && !isError && isEmptyList && !renderError && "No result"}
-      {/* {!isLoading && !isError && isEmptyList && emptyMessChil} */}
+      {!isLoading &&
+        !isError &&
+        isEmptyList &&
+        // !renderError &&
+        (emptyMess !== null ? emptyMess : "No result")}
       {!isLoading && !isError && !isEmptyList && children}
       {isError && "error"}
     </>

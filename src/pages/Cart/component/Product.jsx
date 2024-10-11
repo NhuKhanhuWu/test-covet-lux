@@ -6,6 +6,7 @@ import styles from "../Cart.module.css";
 // redux
 import { changeAmount, removeFromCart } from "../../../redux/cartSlide.js";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export function Product({ index, productList, setProductList }) {
   const dispatch = useDispatch();
@@ -46,7 +47,12 @@ export function Product({ index, productList, setProductList }) {
           </td>
 
           <td>
-            <p className={styles.productTitle}>{productList[index].title}</p>
+            <Link
+              className={styles.productTitle}
+              to={`/test-covet-lux/product?product_id=${productList[index].id}`}>
+              {productList[index].title}
+            </Link>
+            {/* <p></p> */}
           </td>
 
           <td className={styles.money}>

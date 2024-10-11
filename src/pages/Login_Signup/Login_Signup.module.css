@@ -1,8 +1,24 @@
 /** @format */
 
+.form {
+  width: 40%;
+}
+
+.formHeader {
+  align-items: center;
+  justify-content: center;
+}
+
 .logo {
-  width: 15rem;
-  margin: auto;
+  width: 3rem;
+  /* margin: auto; */
+}
+
+.formTitle {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2.4rem;
 }
 
 .loginBtn {

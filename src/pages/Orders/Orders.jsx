@@ -53,7 +53,7 @@ function Orders() {
           isError={isError}
           isLoading={isLoading}
           isEmptyList={orders.length === 0}
-          emptyMessChil={<EmptyOrder></EmptyOrder>}>
+          emptyMess={<EmptyOrder></EmptyOrder>}>
           <div className={styles.content}>
             {orders.map((order, iOrder) => (
               <Order key={`order-${iOrder}`}>

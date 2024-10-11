@@ -3,12 +3,10 @@
 import useGetData from "../../../../hooks/useGetData.jsx";
 import styles from "./SideBarProduct.module.css";
 import RenderQueryData from "../../../../components/RenderQueryData.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { editCategory } from "../../../../redux/productsSlide.js";
-import { ceditPrice } from "../../../../redux/productsSlide.js";
-import { BlankDivider } from "../../../../components/Divider.jsx";
+import { editCategory, editPrice } from "../../../../redux/productsSlide.js";
 
 function Category() {
   // get category from data base
@@ -41,7 +39,10 @@ function Category() {
 
           {categories.slice(0, 4).map((catgr, i) => (
             <p
-              onClick={() => dispatch(editCategory(catgr.id))}
+              onClick={() => {
+                dispatch(editCategory(catgr.id));
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}
               key={`category-${i}`}
               className={catgr.id == currCategory ? "orange-text" : ""}>
               {catgr.name}
@@ -79,7 +80,7 @@ function PriceRange() {
   const dispatch = useDispatch();
   function handlePriceFilter(e) {
     e.preventDefault();
-    dispatch(ceditPrice([priceFrom.current.value, priceTo.current.value]));
+    dispatch(editPrice([priceFrom.current.value, priceTo.current.value]));
   }
 
   return (

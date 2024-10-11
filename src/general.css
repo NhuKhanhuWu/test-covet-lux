@@ -6,6 +6,7 @@
   --orange-transparent-1: rgba(252, 107, 34, 0.865);
   --orange-transparent-2: rgba(252, 107, 34, 0.788);
   --gray: rgb(88 88 88);
+  --light-gray: rgb(211, 211, 211);
   --green: rgb(45, 194, 88);
 }
 
@@ -91,6 +92,12 @@ button {
   background-color: white;
 }
 
+.disable-btn {
+  background-color: var(--gray) !important;
+  border-color: var(--gray);
+  pointer-events: none;
+}
+
 .flex {
   display: flex;
 }
@@ -124,6 +131,10 @@ button {
 
 .gray-text {
   color: var(--gray);
+}
+
+.red-txt {
+  color: rgb(255, 72, 72);
 }
 
 .small-avatar {

@@ -5,9 +5,12 @@ import FormPage from "../../components/FormPage/FormPage";
 import InputField from "../../components/InputField/InputField.jsx";
 import { Link } from "react-router-dom";
 import styles from "./Login_Signup.module.css";
-import logo from "../../../public/logo-no-background.png";
+import logo from "../../../public/icon-only.webp";
 import { useEffect, useState } from "react";
 import useGetData from "../../hooks/useGetData.jsx";
+import { loginSuccess } from "../../redux/userSlide.js";
+import { useDispatch } from "react-redux";
+import FlexContainer from "../../components/FlexContainer.jsx";
 
 let LOGIN_FORM = [
   { id: "email", type: "email", label: "Email", placeholder: "abc@mail.com" },
@@ -26,10 +29,13 @@ function Login() {
 
   // login
   const [isSubmit, setSubmit] = useState(false);
-  const { dataResponse: userList, isLoading, isError } = useGetData("users");
+  const { dataResponse: userList } = useGetData("users");
 
   // display message
   const [isLoginSucces, setLoginSucces] = useState(false);
+
+  // redux
+  const dispatch = useDispatch();
 
   useEffect(
     function () {
@@ -46,8 +52,8 @@ function Login() {
       if (user !== undefined && user.password === password) {
         setLoginSucces(true);
 
-        // store user in local storage
-        localStorage.setItem("user", JSON.stringify(user));
+        // store in redux
+        dispatch(loginSuccess({ id: user.id, avatar: user.avatar }));
 
         // redirect to homepage
         window.location.replace("/test-covet-lux");
@@ -68,8 +74,12 @@ function Login() {
     <>
       <NavBar></NavBar>
       <form id="login" onSubmit={(e) => handleLogin(e)}>
-        <FormPage backgroundImg={"https://shorturl.at/lTpKz"} title={"Login"}>
-          <img className={`img ${styles.logo}`} src={logo} alt="logo"></img>
+        <FormPage backgroundImg={"https://shorturl.at/lTpKz"}>
+          <FlexContainer margin={0} elClass={styles.formHeader} gap={1}>
+            <img className={`img ${styles.logo}`} src={logo}></img>
+            <h1 className={styles.formTitle}>Log in</h1>
+          </FlexContainer>
+
           {isSubmit && !isLoginSucces && (
             <p style={{ color: "red" }}>Wrong email/password</p>
           )}
@@ -104,7 +114,7 @@ function Login() {
             <p>
               For testing, click{" "}
               <a
-                href="https://api.escuelajs.co/api/v1/users/1"
+                href="https://api.escuelajs.co/api/v1/users/17"
                 className="link">
                 here
               </a>

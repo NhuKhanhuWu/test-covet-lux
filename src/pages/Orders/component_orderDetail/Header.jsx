@@ -8,7 +8,7 @@ import FlexContainer from "../../../components/FlexContainer";
 export function Header({ id }) {
   return (
     <FlexContainer spaceBetween={true} margin={0} elClass={styles.header}>
-      <Link to="/covet-lux-fake-api/orders" className={styles.backBtn}>
+      <Link to="/test-covet-lux/orders" className={styles.backBtn}>
         <span className="material-symbols-outlined">arrow_back</span> BACK
       </Link>
 

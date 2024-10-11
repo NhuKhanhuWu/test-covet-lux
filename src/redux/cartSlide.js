@@ -46,16 +46,6 @@ const cartSlide = createSlice({
       existingItem.amount = action.payload.amount;
     },
 
-    // decrease: (state, action) => {
-    //   // check if product already in cart
-    //   const existingItem = state.productArray.find(
-    //     (item) => item.id == action.payload.id
-    //   );
-
-    //   // decrease amount
-    //   existingItem.amount = -action.payload.amount;
-    // },
-
     reset: (state) => {
       state.productArray = initState.productArray;
     },

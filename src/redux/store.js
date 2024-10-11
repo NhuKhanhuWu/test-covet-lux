@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import cartSlide from "./cartSlide";
 import orderSlide from "./ordersSlide";
 import productsSlice from "./productsSlide";
+import userSlice from "./userSlide";
 
 // Persist configuratio
 const cartPersistConfig = {
@@ -15,6 +16,11 @@ const cartPersistConfig = {
 
 const orderPersistConfig = {
   key: "orders",
+  storage,
+};
+
+const userPersistConfig = {
+  key: "user",
   storage,
 };
 
@@ -29,16 +35,17 @@ const persistedOrderReducer = persistReducer(
   orderSlide.reducer
 );
 
-// const persistedProductReducer = persistReducer(
-//   productPersistConfig,
-//   productSlice.reducer
-// );
+const persistedUserReducer = persistReducer(
+  userPersistConfig,
+  userSlice.reducer
+);
 
 // Combine reducers
 const rootReducer = combineReducers({
   cart: persistedCartReducer,
   orders: persistedOrderReducer,
   products: productsSlice.reducer,
+  user: persistedUserReducer,
 });
 
 // Configure the store

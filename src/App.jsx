@@ -19,6 +19,7 @@ import Contact from "./pages/Contact.jsx";
 import Infor from "./pages/Infor.jsx";
 
 import Account from "./pages/Account/Account.jsx";
+import ChangePass from "./pages/ChangePass/ChangePass.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
 import OrderDetail from "./pages/Orders/OrderDetail.jsx";
 
@@ -55,6 +56,9 @@ function App() {
         <Route
           path="/test-covet-lux/account"
           element={<Account></Account>}></Route>
+        {/* <Route
+          path="/test-covet-lux/change_pass"
+          element={<ChangePass></ChangePass>}></Route> */}
         <Route
           path="/test-covet-lux/orders"
           element={<Orders></Orders>}></Route>{" "}

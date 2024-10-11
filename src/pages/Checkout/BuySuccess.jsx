@@ -22,7 +22,6 @@ function BuySuccess() {
 
   // check if user login
   const isLogin = localStorage.getItem("user") !== null;
-  console.log(isLogin);
 
   // render order detail url
   const [url] = useSearchParams();
@@ -41,7 +40,7 @@ function BuySuccess() {
           </Link>
           {isLogin && (
             <Link
-              to={`/test-covet-lux/orders?id=${orderId}`}
+              to={`/test-covet-lux/order?id=${orderId}`}
               className="border-btn">
               Order detail
             </Link>

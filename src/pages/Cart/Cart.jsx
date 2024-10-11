@@ -19,11 +19,15 @@ import { TotalDetail } from "./component/TotalDetail.jsx";
 
 // redux
 import { useSelector } from "react-redux";
+import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 function Cart() {
   const cartArray = useSelector((state) => state.cart).productArray;
   const idList = cartArray?.map((item) => item.id);
-  const { dataResponse } = useGetDataList("products", idList);
+  const { dataResponse, isError, isLoading } = useGetDataList(
+    "products",
+    idList
+  );
 
   const [productList, setProductList] = useState([]);
 
@@ -53,37 +57,41 @@ function Cart() {
       <NavBar></NavBar>
 
       <BlankDivider distance={1}></BlankDivider>
-      {isEmpty ? (
+      {/* {isEmpty ? (
         <EmptyCart></EmptyCart>
-      ) : (
-        <>
-          <FlexContainer gap={2}>
-            <ProductContainer>
-              {productList !== null && (
-                <>
-                  {productList.map((product, i) => (
-                    <Product
-                      setProductList={setProductList}
-                      index={i}
-                      product={product}
-                      productList={productList}
-                      key={`product-${product.id}`}></Product>
-                  ))}
-                </>
-              )}
-            </ProductContainer>
-            <div className={styles.totalContainer}>
-              <TotalContainer>
-                <TotalDetail
-                  totalMoney={totalMoney}
-                  setTotalMoney={setTotalMoney}
-                  totalCost={totalCost}></TotalDetail>
-              </TotalContainer>
-              <CheckoutContainer></CheckoutContainer>
-            </div>
-          </FlexContainer>
-        </>
-      )}
+      ) : ( */}
+      <RenderQueryData
+        isError={isError}
+        isLoading={isLoading}
+        isEmptyList={productList.length === 0}
+        emptyMess={<EmptyCart></EmptyCart>}>
+        <FlexContainer gap={2}>
+          <ProductContainer>
+            {productList !== null && (
+              <>
+                {productList.map((product, i) => (
+                  <Product
+                    setProductList={setProductList}
+                    index={i}
+                    product={product}
+                    productList={productList}
+                    key={`product-${product.id}`}></Product>
+                ))}
+              </>
+            )}
+          </ProductContainer>
+          <div className={styles.totalContainer}>
+            <TotalContainer>
+              <TotalDetail
+                totalMoney={totalMoney}
+                setTotalMoney={setTotalMoney}
+                totalCost={totalCost}></TotalDetail>
+            </TotalContainer>
+            <CheckoutContainer></CheckoutContainer>
+          </div>
+        </FlexContainer>
+      </RenderQueryData>
+      {/* )} */}
       <BlankDivider distance={3}></BlankDivider>
 
       <Footer></Footer>

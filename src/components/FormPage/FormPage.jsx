@@ -1,9 +1,9 @@
 /** @format */
 import styles from "./FormPage.module.css";
 
-function FormPage({ backgroundImg, children }) {
+function FormPage({ backgroundImg, children, elClass }) {
   return (
-    <div className={styles.formContainer}>
+    <div className={`${styles.formContainer} ${elClass}`}>
       <img src={backgroundImg} alt="background" className="img"></img>
 
       <div className={styles.form}>{children}</div>

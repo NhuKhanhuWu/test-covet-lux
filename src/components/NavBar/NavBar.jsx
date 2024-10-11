@@ -11,9 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   // get user avatar
+  const user = useSelector((state) => state.user).user;
+
   let avatar;
-  if (localStorage.getItem("user")) {
-    avatar = JSON.parse(localStorage.getItem("user")).avatar;
+  if (user.id) {
+    avatar = user.avatar;
   }
 
   // search product by title

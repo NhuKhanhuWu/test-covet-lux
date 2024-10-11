@@ -5,6 +5,13 @@
   width: 80%;
   margin: auto;
   border: solid 3px #cbcbcbd9;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "status-bar status-bar"
+    "address payment"
+    "products products";
+  grid-template-columns: repeat(2, 1fr);
 }
 /* general layout */
 
@@ -13,6 +20,7 @@
   padding: 1rem;
   align-items: center;
   border-bottom: solid 1px #dcdcdc;
+  grid-area: header;
 }
 
 .backBtn {
@@ -24,8 +32,12 @@
 
 /* order status bar */
 .statusBar {
+  grid-area: status-bar;
   position: relative;
   justify-content: space-between;
+  border-bottom: solid 2px var(--light-gray);
+  margin-top: 3rem !important;
+  padding: 0 4rem 4rem 4rem;
 }
 
 .status {
@@ -47,13 +59,80 @@
 
 .statusProcess {
   position: absolute;
-  top: 25%;
-  left: 3%;
+  left: 10%;
   height: 4px;
-  width: 92%;
+  width: 80%;
   background-color: var(--green);
   z-index: -10;
   margin: auto;
 }
+/* order status bar: end */
 
-/* order status bar */
+/* order infor: start */
+.inforContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.address {
+  grid-area: address;
+  padding: 2rem 3rem;
+  border-right: solid 2px var(--light-gray);
+}
+
+.payment {
+  grid-area: payment;
+  padding: 2rem 3rem;
+}
+
+.payment > .inforContent > div:not(:last-child) {
+  border-bottom: solid 1px var(--light-gray);
+  padding-bottom: 1rem;
+}
+
+/* products */
+.orderProducts {
+  padding: 2rem 3rem;
+  grid-area: products;
+  border-top: solid 2px var(--light-gray);
+}
+
+.inforHeader {
+  margin-bottom: 1rem;
+}
+
+.productsContainer {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.product:not(:last-child) {
+  border-bottom: solid 1px var(--light-gray);
+  padding-bottom: 2rem;
+}
+
+/* text */
+.product > div {
+  width: 100%;
+  align-items: center;
+}
+
+/* price */
+.product > div > span,
+.total {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--orange);
+}
+
+.productTitle {
+  font-weight: 600;
+}
+
+/* img */
+.product > img {
+  width: 8rem;
+}
+/* order infor: end */

@@ -19,7 +19,6 @@ export const fetchFilteredProducts = createAsyncThunk(
   async (_, { getState }) => {
     // get filter
     const state = getState().products;
-    // console.log(state);
 
     // Build query string based on filter criteria
     const { categoryFilter, priceFilter, titleFilter, page } = state;
@@ -47,7 +46,7 @@ const productsSlice = createSlice({
     editCategory: (state, action) => {
       state.categoryFilter = action.payload;
     },
-    ceditPrice: (state, action) => {
+    editPrice: (state, action) => {
       state.priceFilter = action.payload;
     },
   },
@@ -68,6 +67,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { editCategory, ceditPrice, editTitle } = productsSlice.actions;
+export const { editCategory, editPrice, editTitle } = productsSlice.actions;
 productsSlice.reducer;
 export default productsSlice;
