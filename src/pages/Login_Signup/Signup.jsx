@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useReducer } from "react";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import { useDispatch } from "react-redux";
-import loginSuccess from "../../redux/userSlide";
+import { loginSuccess } from "../../redux/userSlide.js";
 
 const SIGNUP_FORM = [
   { id: "email", type: "email", label: "Email", placeholder: "abc@gmail.com" },
@@ -50,7 +50,7 @@ function reducer(state, action) {
 }
 
 function Signup() {
-  const [loginState, dispatch] = useReducer(reducer, initState);
+  const [signupState, dispatch] = useReducer(reducer, initState);
   const loginDispatch = useDispatch();
 
   function handleSignup(e) {
@@ -61,7 +61,7 @@ function Signup() {
   useEffect(
     function () {
       async function signup() {
-        if (!loginState.isSubmit) return;
+        if (!signupState.isSubmit) return;
 
         // get email, pass input
         const email = document.querySelector("#email").value;
@@ -98,19 +98,17 @@ function Signup() {
         }
 
         // login
-        // const user = {};
+        loginDispatch(
+          loginSuccess({ id: newUserdata.id, avatar: newUserdata.avatar })
+        );
 
         // redirect to homepage
-        // setTimeout(() => {
-        //   window.location.href = "/test-covet-lux";
-        // });
-
-        // CREATE NEW USER: start
+        window.location.href = "/test-covet-lux";
       }
 
       signup();
     },
-    [loginState.isSubmit]
+    [loginDispatch, signupState.isSubmit]
   );
 
   return (
@@ -128,7 +126,7 @@ function Signup() {
           <InputField
             field={SIGNUP_FORM[1]}
             isRequired={true}
-            isShowPass={loginState.isShowPass}
+            isShowPass={signupState.isShowPass}
             setShowPass={() => dispatch({ type: "toggleShowPass" })}
             isPassword={true}></InputField>
           <button type="submit" className={`fill-btn ${styles.loginBtn}`}>
@@ -147,13 +145,13 @@ function Signup() {
       </form>
 
       <MessageBox
-        isShowed={loginState.successMess !== null}
+        isShowed={signupState.successMess !== null}
         setShow={() => dispatch({ type: "setSuccess", payload: null })}>
         <ion-icon
           name="checkmark-circle"
           class="icon"
           style={{ color: "rgb(88 252 97)" }}></ion-icon>
-        <p>{loginState.successMess}!</p>
+        <p>{signupState.successMess}!</p>
       </MessageBox>
 
       <Footer></Footer>

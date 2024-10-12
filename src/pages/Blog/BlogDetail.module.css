@@ -1,0 +1,65 @@
+/** @format */
+.backBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+  font-weight: 400;
+  transition: all 0.3s;
+}
+
+.backBtn:hover {
+  color: var(--orange);
+}
+
+.backBtn > span {
+  transition: all 0.3s;
+}
+
+.backBtn:hover > span {
+  transform: translateX(-2rem);
+}
+
+.blogContainer {
+  width: 70%;
+  margin: auto;
+  border: solid 1px black;
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  font-size: 1.6rem;
+}
+
+.title {
+  font-family: "Crimson Pro", serif;
+  font-weight: 400;
+  font-size: 6rem;
+}
+
+.imgContainer {
+  overflow: hidden;
+  height: 40rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary {
+  font-weight: 600;
+}
+
+.paragraph {
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.blockquote {
+  padding: 2rem;
+  border-left: solid 3px var(--orange);
+  line-height: 1.6;
+  font-size: 1.8rem;
+  font-style: italic;
+}

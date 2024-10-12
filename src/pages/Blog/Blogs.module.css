@@ -1,0 +1,80 @@
+/** @format */
+/* intro */
+.intro {
+  text-align: center;
+  margin: 5rem;
+}
+
+.intro > h1 {
+  font-family: "Crimson Pro", serif;
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.intro > p {
+  font-size: 1.7rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.introBorder {
+  margin: 2rem auto;
+  background-color: var(--orange);
+  height: 2px;
+  width: 50%;
+}
+
+/* blog container */
+.listContaner {
+  justify-content: center;
+  margin: 3rem 15rem 3rem;
+  row-gap: 4rem !important;
+}
+
+/* blog items */
+.blogItem {
+  border: solid 1px black;
+}
+
+.imgContainer {
+  overflow: hidden;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.blogImg:last-child {
+  position: absolute;
+  opacity: 0;
+  transition: all 0.3s;
+  top: 0;
+  left: 0;
+}
+
+.blogItem:hover .blogImg:last-child {
+  opacity: 1;
+}
+
+.blogTxt {
+  width: 100%;
+  padding: 2.5rem 4rem 3rem;
+  color: black;
+}
+
+.blogTitle {
+  font-size: 2.6rem;
+  margin: 1rem 0;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.blogItem:hover .blogTitle {
+  color: var(--orange);
+}
+
+.blogSummary {
+  line-height: 1.5;
+  font-size: 1.5rem;
+}

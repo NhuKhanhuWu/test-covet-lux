@@ -6,7 +6,7 @@ import InputField from "../../components/InputField/InputField.jsx";
 import { Link } from "react-router-dom";
 import styles from "./Login_Signup.module.css";
 import logo from "../../../public/icon-only.webp";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import useGetData from "../../hooks/useGetData.jsx";
 import { loginSuccess } from "../../redux/userSlide.js";
 import { useDispatch } from "react-redux";
@@ -23,51 +23,85 @@ let LOGIN_FORM = [
   },
 ];
 
+const initState = {
+  isShowPass: false,
+  isSubmit: false,
+  errorMess: null,
+  successMess: null,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "toogleShowPass":
+      return { ...state, isShowPass: !state.isShowPass };
+
+    case "submit":
+      return { ...state, isSubmit: true };
+
+    case "notSubmit":
+      return { ...state, isSubmit: false };
+
+    case "setError":
+      return { ...state, errorMess: action.payload };
+
+    case "setSuccess":
+      return { ...state, successMess: action.payload };
+
+    default:
+      throw "Unknown action";
+  }
+}
+
 function Login() {
   // show pass
-  const [isShowPass, setShowPass] = useState(false);
+  // const [isShowPass, setShowPass] = useState(false);
 
   // login
-  const [isSubmit, setSubmit] = useState(false);
-  const { dataResponse: userList } = useGetData("users");
+  // const [isSubmit, setSubmit] = useState(false);
 
-  // display message
-  const [isLoginSucces, setLoginSucces] = useState(false);
+  // // display message
+  // const [isLoginSucces, setLoginSucces] = useState(false);
 
-  // redux
-  const dispatch = useDispatch();
+  const [loginState, dispatch] = useReducer(reducer, initState); // manage login state
+  const { dataResponse: userList } = useGetData("users"); // get all user to check
+
+  // redux, store user to localStorage
+  const loginDispatch = useDispatch();
 
   useEffect(
     function () {
-      if (!isSubmit) return;
+      if (!loginState.isSubmit) return;
 
       // get email, pass
       const email = document.querySelector("#email").value;
       const password = document.querySelector("#password").value;
 
       // check username, pass
-      const user = userList.find((user) => user.email === email);
+      const user = userList.find(
+        (user) => user.email === email && user.password === password
+      );
 
       // if login success
-      if (user !== undefined && user.password === password) {
-        setLoginSucces(true);
+      if (user !== undefined) {
+        dispatch({ type: "setSuccess", payload: "Login successfully!" });
 
         // store in redux
-        dispatch(loginSuccess({ id: user.id, avatar: user.avatar }));
+        loginDispatch(loginSuccess({ id: user.id, avatar: user.avatar }));
 
         // redirect to homepage
         window.location.replace("/test-covet-lux");
       } else {
-        setLoginSucces(false);
-        // setSubmit(false);
+        dispatch({ type: "setError", payload: "Incorrect email/password" }); //show err message
+        dispatch({ type: "notSubmit" }); //set form to un submit
+        setTimeout(() => dispatch({ type: "setError", payload: null }), 5000); //hide err message
       }
     },
-    [isSubmit, userList]
+    [loginDispatch, loginState.isSubmit, userList]
   );
 
   function handleLogin(e) {
     e.preventDefault();
-    setSubmit(!isSubmit);
+    dispatch({ type: "submit" });
   }
 
   return (
@@ -80,21 +114,20 @@ function Login() {
             <h1 className={styles.formTitle}>Log in</h1>
           </FlexContainer>
 
-          {isSubmit && !isLoginSucces && (
-            <p style={{ color: "red" }}>Wrong email/password</p>
+          {loginState.errorMess && (
+            <p style={{ color: "red" }}>{loginState.errorMess}</p>
           )}
 
           {LOGIN_FORM.map((field, i) => (
             <InputField
-              isShowPass={isShowPass}
-              setShowPass={setShowPass}
+              isShowPass={loginState.isShowPass}
+              setShowPass={() => dispatch({ type: "toogleShowPass" })}
               field={field}
               key={`login-field${i}`}
               form={"login"}
               isRequired={true}
               isPassword={field.isPassword}></InputField>
           ))}
-          {/* <p>Show password</p> */}
 
           <button
             type="submit"

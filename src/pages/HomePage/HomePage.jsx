@@ -130,7 +130,6 @@ function HomePage() {
           content={introData.content}
           url={introData.url}></IntroSection>
         {/* intro section: end */}
-        <BlankDivider distance={0.5}></BlankDivider>
 
         {/* blog section: start */}
         <RenderQueryData

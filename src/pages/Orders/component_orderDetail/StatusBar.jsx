@@ -46,7 +46,6 @@ function StatusItem({ statusProps, color, dateStr }) {
 
   // Combine the time and date
   const formattedDate = `${hoursMinutes} ${dayMonthYear}`;
-  console.log(color);
 
   return (
     <div style={{ color: color, width: "10rem" }} className={styles.status}>

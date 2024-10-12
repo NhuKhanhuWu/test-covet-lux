@@ -137,6 +137,11 @@ button {
   color: rgb(255, 72, 72);
 }
 
+.thin-txt {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
 .small-avatar {
   width: 5rem;
   height: 5rem;

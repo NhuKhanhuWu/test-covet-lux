@@ -7,7 +7,11 @@ function ListHeader({ title, url = "", className = null }) {
   return (
     <div className={`${styles.listHeader} ${className}`}>
       <h3>{title}</h3>
-      {url && <Link to={url}>See more</Link>}
+      {url && (
+        <Link to={url} className="link">
+          See more
+        </Link>
+      )}
     </div>
   );
 }
