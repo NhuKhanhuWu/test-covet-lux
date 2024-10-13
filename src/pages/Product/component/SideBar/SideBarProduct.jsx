@@ -79,8 +79,13 @@ function PriceRange() {
   // update filter in redux
   const dispatch = useDispatch();
   function handlePriceFilter(e) {
+    // check price range
+    const from = priceFrom.current.value !== "" ? priceFrom.current.value : 0;
+    const to =
+      priceTo.current.value !== "" ? priceTo.current.value : 9999999999;
+
     e.preventDefault();
-    dispatch(editPrice([priceFrom.current.value, priceTo.current.value]));
+    dispatch(editPrice([from, to]));
   }
 
   return (

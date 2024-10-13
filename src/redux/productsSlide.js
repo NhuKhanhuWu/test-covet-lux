@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   items: [],
   status: "succeeded",
   error: null,
-  priceFilter: ["", ""],
+  priceFilter: [0, 99999999999],
   categoryFilter: "",
   titleFilter: "",
   page: 1,
