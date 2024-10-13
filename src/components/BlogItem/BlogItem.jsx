@@ -20,15 +20,15 @@ function BlogItem({ blog }) {
   );
 }
 
-BlogItem.propTypes = {
-  blog: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    description: PropTypes.string,
-    category: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-  }).isRequired,
-};
+// BlogItem.propTypes = {
+//   blog: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     images: PropTypes.array.isRequired,
+//     description: PropTypes.string,
+//     category: PropTypes.shape({
+//       name: PropTypes.string,
+//     }),
+//   }).isRequired,
+// };
 
 export default BlogItem;

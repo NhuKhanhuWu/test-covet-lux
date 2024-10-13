@@ -4,19 +4,18 @@ import { Link } from "react-router-dom";
 
 function BigBlogItem({ blog }) {
   const postDate = new Date(blog?.creationAt);
-  // const [isHover, setHover] = useState(false);
 
   return (
     <Link to={`/test-covet-lux/blog?id=${blog.id}`} className={styles.blogItem}>
       <div className={styles.imgContainer}>
         <img
           alt={blog.title}
-          src={blog.images[0]}
+          src={blog.images[0].replace("[", "").replace('"', "")}
           className={`img ${styles.blogImg}`}
           loading="lazy"></img>
         <img
           alt={blog.title}
-          src={blog.images[1]}
+          src={blog.images[1]?.replace("[", "").replace('"', "")}
           className={`img ${styles.blogImg}`}
           loading="lazy"></img>
       </div>

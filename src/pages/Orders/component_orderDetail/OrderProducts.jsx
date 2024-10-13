@@ -9,7 +9,9 @@ import styles from "../OrderDetail.module.css";
 function Product({ product, amount }) {
   return (
     <FlexContainer gap={2} margin={0} elClass={styles.product}>
-      <img alt={product.title} src={product.images[0]}></img>
+      <img
+        alt={product.title}
+        src={product.images[0].replace("[", "").replace('"', "")}></img>
 
       <FlexContainer margin={0} spaceBetween={true}>
         <div className={styles.inforContent}>

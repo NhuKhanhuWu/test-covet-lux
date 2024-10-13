@@ -10,6 +10,7 @@ import RenderQueryData from "../../components/RenderQueryData";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import FlexContainer from "../../components/FlexContainer";
 import { Link, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function BuySuccess() {
   const {
@@ -21,7 +22,7 @@ function BuySuccess() {
     !Array.isArray(recommenProducts) || recommenProducts.length === 0;
 
   // check if user login
-  const isLogin = localStorage.getItem("user") !== null;
+  const isLogin = useSelector((state) => state.user).user.id !== null;
 
   // render order detail url
   const [url] = useSearchParams();

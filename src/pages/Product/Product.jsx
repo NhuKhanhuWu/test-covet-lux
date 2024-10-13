@@ -82,8 +82,6 @@ function Product() {
         </GridContainer>
       </FlexContainer>
 
-      <BlankDivider distance={3}></BlankDivider>
-      {/* <Pagination query={query} count={3} currPage={page}></Pagination> */}
       <BlankDivider></BlankDivider>
 
       <Footer></Footer>

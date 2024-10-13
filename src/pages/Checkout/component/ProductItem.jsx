@@ -1,6 +1,7 @@
 /** @format */
 import styles from "../Checkout.module.css";
 import FlexContainer from "../../../components/FlexContainer";
+import { Link } from "react-router-dom";
 
 export default function ProductItem({ product }) {
   return (
@@ -9,14 +10,16 @@ export default function ProductItem({ product }) {
         <FlexContainer margin={0} gap={1}>
           <img
             alt={product.title}
-            src={product.images[0]}
+            src={product.images[0].replace("[", "").replace('"', "")}
             className={`img`}
             style={{ width: "9rem" }}
             loading="lazy"></img>
           <div
             className={`columnContent ${styles.productTxt}`}
             style={{ width: "60%" }}>
-            <p>{product.title}</p>
+            <Link to={`/test-covet-lux/product?product_id=${product.id}`}>
+              {product.title}
+            </Link>
             <p>X{product.amount}</p>
             <p>${product.price}</p>
           </div>

@@ -78,10 +78,13 @@ function Orders() {
                   Total:
                   <span>
                     $
-                    {order.reduce(
+                    {data[iOrder].goodsTotal >= 100
+                      ? data[iOrder].goodsTotal
+                      : data[iOrder].goodsTotal + 10}
+                    {/* {order.reduce(
                       (pre, curr) => (pre += curr.amount * curr.price),
                       0
-                    )}
+                    )} */}
                   </span>
                 </div>
               </Order>

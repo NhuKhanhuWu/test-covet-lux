@@ -10,13 +10,14 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function NavBar() {
-  // get user avatar
+  // get cart's product amount: start
+  const cartAmount = useSelector((state) => state.cart).productArray.length;
+  // get cart's product amount: end
+
+  // get user avatar: start
   const user = useSelector((state) => state.user).user;
 
-  let avatar;
-  if (user.id) {
-    avatar = user.avatar;
-  }
+  const avatar = user.id ? user.avatar : null;
 
   // search product by title
   const [tile, setTitle] = useState(
@@ -31,6 +32,7 @@ function NavBar() {
     dispacth(editTitle(title));
     navigate("/test-covet-lux/products");
   }
+  // get user avatar: end
 
   return (
     <nav className={styles.nav}>
@@ -72,8 +74,9 @@ function NavBar() {
           </button>
         </form>
 
-        <Link to="/test-covet-lux/cart">
+        <Link to="/test-covet-lux/cart" className={styles.cart}>
           <ion-icon name="cart-outline"></ion-icon>
+          <div>{cartAmount}</div>
         </Link>
 
         {/* display differen el when login/not login */}

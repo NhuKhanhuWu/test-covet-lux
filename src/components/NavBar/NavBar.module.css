@@ -84,6 +84,24 @@
   color: var(--orange);
 }
 
+/* cart's product amount: start */
+.cart {
+  position: relative;
+}
+
+.cart > div {
+  position: absolute;
+  bottom: 0;
+  right: -20%;
+  font-size: 1.2rem;
+  background-color: var(--orange);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+/* cart's product amount: end */
+
+/* avatart: start */
 .navLogo a {
   font-size: 2.5rem;
 }
@@ -93,4 +111,6 @@
   height: 4rem;
   border-radius: 999px;
 }
+/* avatart: end */
+
 /* nav link (right column): end */

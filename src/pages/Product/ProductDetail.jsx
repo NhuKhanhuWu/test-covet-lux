@@ -51,6 +51,7 @@ function ProductDetail() {
   // scroll to top of the page (to fix when click to recommend product, page stay in the same prosition)
   useEffect(
     function () {
+      setAmount(1);
       window.scrollTo(0, 0);
     },
     [productId]
