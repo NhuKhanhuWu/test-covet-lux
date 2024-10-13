@@ -1,0 +1,26 @@
+/** @format */
+
+.intro {
+  text-align: center;
+  margin: 5rem;
+}
+
+.intro > h1 {
+  font-family: "Crimson Pro", serif;
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.intro > p {
+  font-size: 1.7rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.introBorder {
+  margin: 2rem auto;
+  background-color: var(--orange);
+  height: 2px;
+  width: 50%;
+}

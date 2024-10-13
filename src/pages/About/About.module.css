@@ -1,0 +1,28 @@
+/** @format */
+.mainContainer {
+  width: 80%;
+  margin: 2rem auto 8rem;
+}
+
+.featureContainer {
+  border: solid 1px black;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.feature {
+  align-items: center;
+}
+
+.feature:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.featureImg {
+  width: 50%;
+}

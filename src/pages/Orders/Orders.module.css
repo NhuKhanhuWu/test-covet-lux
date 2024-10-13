@@ -21,7 +21,7 @@
 
 .order {
   border: solid 1px var(--gray);
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .orderHeader {

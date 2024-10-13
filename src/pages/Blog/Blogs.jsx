@@ -8,8 +8,13 @@ import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
 import BigBlogItem from "./componemt_blogs/BlogItem.jsx";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
-import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import styles from "./Blogs.module.css";
+import PageIntro from "../../components/PageIntro/PageIntro.jsx";
+
+const pageIntro = {
+  header: "Covet Lux Blog",
+  paragraph: `Welcome to the Covet Lux blog! Here, you’ll find the latest fashion trends, styling tips, and updates on new arrivals. Get inspired with outfit ideas, learn how to care for your favorite pieces, and dive into behind-the-scenes stories. Whether you're looking for shopping advice or just some fashion fun, our blog has you covered!`,
+};
 
 function Blogs() {
   // get blog data
@@ -17,25 +22,16 @@ function Blogs() {
     dataResponse: blogs,
     isError,
     isLoading,
-  } = useGetData("products?offset=5&limit=8");
+  } = useGetData("products?offset=0&limit=8");
 
   return (
     <>
       <NavBar></NavBar>
-      {/* <BlankDivider distance={1}></BlankDivider> */}
 
       <main>
-        <div className={styles.intro}>
-          <h1>Covet Lux Blog</h1>
-          <p>
-            Welcome to the Covet Lux blog! Here, you’ll find the latest fashion
-            trends, styling tips, and updates on new arrivals. Get inspired with
-            outfit ideas, learn how to care for your favorite pieces, and dive
-            into behind-the-scenes stories. Whether you're looking for shopping
-            advice or just some fashion fun, our blog has you covered!
-          </p>
-          <div className={styles.introBorder}></div>
-        </div>
+        <PageIntro
+          header={pageIntro.header}
+          paragraph={pageIntro.paragraph}></PageIntro>
 
         <RenderQueryData
           isError={isError}

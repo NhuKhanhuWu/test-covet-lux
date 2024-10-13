@@ -47,7 +47,8 @@
   justify-content: center;
 }
 
-.summary {
+.summary,
+.share {
   font-weight: 600;
 }
 
@@ -62,4 +63,21 @@
   line-height: 1.6;
   font-size: 1.8rem;
   font-style: italic;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.share ion-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--gray);
+  transition: all 0.3s;
+}
+
+.share ion-icon:hover {
+  color: var(--orange);
 }

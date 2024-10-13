@@ -9,6 +9,7 @@ import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import IntroSection from "../../components/IntroSection/IntroSection.jsx";
 import BlogItem from "../../components/BlogItem/BlogItem.jsx";
 import { BlankDivider, LineDivider } from "../../components/Divider.jsx";
+import GridContainer from "../../components/GridContainer.jsx";
 
 import useGetData from "../../hooks/useGetData.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
@@ -99,7 +100,7 @@ function HomePage() {
           <ListHeader
             title={"Best seller"}
             url={"/test-covet-lux/product"}></ListHeader>
-          <FlexContainer>
+          <FlexContainer elClass={styles.productContainer}>
             {newProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
             ))}
@@ -115,7 +116,7 @@ function HomePage() {
           <ListHeader
             title={"New product"}
             url={"/test-covet-lux/product"}></ListHeader>
-          <FlexContainer>
+          <FlexContainer elClass={styles.productContainer}>
             {bestProductList.map((product, i) => (
               <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
             ))}

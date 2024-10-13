@@ -52,7 +52,7 @@ function NavBar() {
           <Link to="/test-covet-lux/contact">CONTACT</Link>
         </li>
         <li>
-          <Link to="/test-covet-lux/infor">INFOR</Link>
+          <Link to="/test-covet-lux/infor">ABOUT</Link>
         </li>
       </ul>
 

@@ -2,6 +2,12 @@
 
 import { Link, useSearchParams } from "react-router-dom";
 import useGetData from "../../hooks/useGetData.jsx";
+import { useEffect } from "react";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from "react-share";
 
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
@@ -30,12 +36,18 @@ function formatDate(dateString) {
 
 function BlogDetail() {
   const [url] = useSearchParams();
+  const urlString = window.location.href;
   const blogId = url.get("id");
   const {
     dataResponse: blogData,
     isError,
     isLoading,
   } = useGetData(`products/${blogId}`);
+
+  //   scroll to top when load other blog
+  useEffect(function () {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -78,9 +90,26 @@ function BlogDetail() {
           <h2>{blogContent.header}</h2>
 
           <p className={styles.paragraph}>{blogContent.paragraph}</p>
+
+          <div className={styles.share}>
+            Share to:
+            <FacebookShareButton hashtag="covetlux" url={urlString}>
+              <ion-icon name="logo-facebook"></ion-icon>
+            </FacebookShareButton>
+            <TwitterShareButton
+              url={urlString}
+              windowHeight={1000}
+              windowWidth={1000}>
+              <ion-icon name="logo-twitter"></ion-icon>
+            </TwitterShareButton>
+            <LinkedinShareButton url={urlString}>
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </LinkedinShareButton>
+          </div>
         </RenderQueryData>
       </main>
 
+      <BlankDivider distance={4}></BlankDivider>
       <Footer></Footer>
     </>
   );

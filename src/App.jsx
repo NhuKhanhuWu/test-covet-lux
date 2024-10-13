@@ -15,8 +15,8 @@ import Login from "./pages/Login_Signup/Login.jsx";
 import Signup from "./pages/Login_Signup/Signup.jsx";
 
 import Blogs from "./pages/Blog/Blogs.jsx";
-import Contact from "./pages/Contact.jsx";
-import Infor from "./pages/Infor.jsx";
+import Contact from "./pages/Contact/Contact.jsx";
+import About from "./pages/About/About.jsx";
 
 import Account from "./pages/Account/Account.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
@@ -29,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/test-covet-lux" element={<HomePage />}></Route>
         <Route path="/test-covet-lux/contact" element={<Contact />}></Route>
-        <Route path="/test-covet-lux/infor" element={<Infor />}></Route>
+        <Route path="/test-covet-lux/infor" element={<About />}></Route>
         {/* product: start */}
         <Route path="/test-covet-lux/products" element={<Product />}></Route>
         <Route

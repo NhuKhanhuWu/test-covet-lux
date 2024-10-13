@@ -58,4 +58,16 @@ function InputField({
   );
 }
 
+export function TxtArea({ field, elClass }) {
+  return (
+    <div className={`${styles.inputField} ${elClass}`}>
+      <label htmlFor={field?.id}>{field?.label}</label>
+      <textarea
+        maxLength={field?.maxLength}
+        pattern={field?.pattern}
+        id={field?.id}></textarea>
+    </div>
+  );
+}
+
 export default InputField;
