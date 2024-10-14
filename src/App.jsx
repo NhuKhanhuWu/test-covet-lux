@@ -1,7 +1,10 @@
 /** @format */
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "./general.css";
+import "./responsive.css";
+
 import HomePage from "./pages/HomePage/HomePage.jsx";
 
 import Product from "./pages/Product/Product.jsx";

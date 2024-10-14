@@ -1,0 +1,22 @@
+/** @format */
+
+/* max width <=980px */
+@media screen and (max-width: 980px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+/* max width <=950px */
+@media screen and (max-width: 950px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+/* max width <=800px */
+@media screen and (max-width: 870px) {
+  html {
+    font-size: 50%;
+  }
+}

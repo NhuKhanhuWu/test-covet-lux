@@ -1,6 +1,7 @@
 /** @format */
 import styles from "./HomePage.module.css";
 import NavBar from "../../components/NavBar/NavBar.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 import BigBanner from "../../components/Banner/BigBanner.jsx";
 import SmallBanner from "../../components/Banner/SmallBanner.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
@@ -9,11 +10,11 @@ import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import IntroSection from "../../components/IntroSection/IntroSection.jsx";
 import BlogItem from "../../components/BlogItem/BlogItem.jsx";
 import { BlankDivider, LineDivider } from "../../components/Divider.jsx";
-import GridContainer from "../../components/GridContainer.jsx";
+import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 import useGetData from "../../hooks/useGetData.jsx";
-import Footer from "../../components/Footer/Footer.jsx";
-import RenderQueryData from "../../components/RenderQueryData.jsx";
+import { useMediaQuery } from "react-responsive";
+import { useEffect, useState } from "react";
 
 const bigBannerData = {
   header: "BLACK FRIDAY SALE",
@@ -45,52 +46,81 @@ const introData = {
   url: "/test-covet-lux/infor",
 };
 
+function SmlBannerContaner() {
+  return (
+    <>
+      <SmallBanner
+        header={smallBannerData[0].header}
+        url={smallBannerData[0].url}
+        imgUrl={smallBannerData[0].imgUrl}></SmallBanner>
+      <SmallBanner
+        header={smallBannerData[1].header}
+        url={smallBannerData[1].url}
+        imgUrl={smallBannerData[1].imgUrl}></SmallBanner>
+    </>
+  );
+}
+
+function Banner() {
+  return (
+    <div className={styles.banner}>
+      <div className={styles.bigBanner}>
+        <BigBanner
+          imgUrl={bigBannerData.imgUrl}
+          header={bigBannerData.header}
+          text={bigBannerData.text}
+          url={bigBannerData.url}></BigBanner>
+      </div>
+      <SmlBannerContaner></SmlBannerContaner>
+    </div>
+  );
+}
+
 function HomePage() {
+  const isSmallTablet = useMediaQuery({
+    query: "(max-width: 680px)",
+  });
+  const productQty = isSmallTablet ? 6 : 5;
+  const blogQty = useMediaQuery({
+    query: "(max-width: 680px) and (min-width:500px)",
+  })
+    ? 3
+    : 4;
+
+  // const [productQty, setQty] = useState(null);
+  // const [blogQty, setBlogQty] = useState(null);
+
+  // // get query according to current width
+  // useEffect(function () {
+  //   const currScreenWidth = window.innerWidth;
+
+  //   console.log(currScreenWidth);
+  // }, []);
+
   const {
     isLoading: newIsLoading,
     isError: newIsError,
     dataResponse: newProductList,
-  } = useGetData("products?offset=0&limit=5");
+  } = useGetData(`products?offset=0&limit=${productQty}`);
 
   const {
     isLoading: bestIsLoading,
     isError: bestIsError,
     dataResponse: bestProductList,
-  } = useGetData("products?offset=5&limit=5");
+  } = useGetData(`products?offset=5&limit=${productQty}`);
 
   const {
     isLoading: isBlogLoading,
     isError: blogErr,
     dataResponse: blogList,
-  } = useGetData("products?offset=10&limit=4");
+  } = useGetData(`products?offset=10&limit=${blogQty}`);
 
   return (
     <>
       <NavBar></NavBar>
 
       <main>
-        {/* banners: start */}
-        <div className={styles.banner}>
-          <div className={styles.bigBanner}>
-            <BigBanner
-              imgUrl={bigBannerData.imgUrl}
-              header={bigBannerData.header}
-              text={bigBannerData.text}
-              url={bigBannerData.url}></BigBanner>
-          </div>
-
-          {/* <div className={styles.smallBanner}> */}
-          <SmallBanner
-            header={smallBannerData[0].header}
-            url={smallBannerData[0].url}
-            imgUrl={smallBannerData[0].imgUrl}></SmallBanner>
-          <SmallBanner
-            header={smallBannerData[1].header}
-            url={smallBannerData[1].url}
-            imgUrl={smallBannerData[1].imgUrl}></SmallBanner>
-          {/* </div> */}
-        </div>
-        {/* banners: end */}
+        <Banner></Banner>
 
         {/* new product: start */}
         <RenderQueryData
@@ -141,7 +171,7 @@ function HomePage() {
           <ListHeader
             title={"New blog"}
             url={"/test-covet-lux/blog"}></ListHeader>
-          <FlexContainer>
+          <FlexContainer elClass={styles.blogContainer}>
             {blogList.map((blog, i) => (
               <BlogItem blog={blog} key={`blog-${i}`}></BlogItem>
             ))}

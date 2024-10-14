@@ -6,6 +6,7 @@ import styles from "./Banner.module.css";
 function BigBanner({ imgUrl, header, text, url }) {
   return (
     <div className={styles.bigBanner}>
+      <div className={styles.imgOverlay}></div>
       <img
         alt="jeans-sweater"
         src={imgUrl}
