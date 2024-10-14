@@ -1,7 +1,6 @@
 /** @format */
 
 .banner {
-  /* height: 90vh; */
   overflow: hidden;
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -13,3 +12,56 @@
   grid-row: span 2;
   height: 100%;
 }
+
+/* responesive: start */
+@media screen and (max-width: 680px) {
+  .productContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .introContainer {
+    padding: 5rem 3rem;
+  }
+
+  .blogContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .banner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .bigBanner {
+    grid-column: span 2;
+  }
+
+  .smallBanner {
+    display: flex;
+    width: 100%;
+  }
+
+  .smallBanner > a {
+    width: 50%;
+    flex-grow: 1;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .blogContainer {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .productContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* responesive: end */

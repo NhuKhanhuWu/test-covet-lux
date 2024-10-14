@@ -76,7 +76,7 @@ function BlogDetail() {
               <img
                 loading="lazy"
                 alt={blogData.title}
-                src={blogData?.images[0]}
+                src={blogData?.images[0].replace("[", "").replace('"', "")}
                 className={`img ${styles.blogImg}`}></img>
             </div>
           )}
