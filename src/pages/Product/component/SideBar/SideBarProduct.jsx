@@ -5,23 +5,25 @@ import styles from "./SideBarProduct.module.css";
 import RenderQueryData from "../../../../components/RenderQueryData.jsx";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { editCategory, editPrice } from "../../../../redux/productsSlide.js";
+import MediaQuery from "react-responsive";
 
-function Category() {
+function Category({ setOpen = null }) {
   // get category from data base
   const {
     dataResponse: categories,
     isLoading,
     isError,
   } = useGetData("categories");
-  const [isExpanded, setExpanded] = useState(false);
-
-  // highlight current category
-  const currCategory = useSelector((state) => state.products.categoryFilter);
 
   // update filter in redux
   const dispatch = useDispatch();
+
+  function handleCategoryFilter(category) {
+    dispatch(editCategory(category));
+    setOpen(false);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }
 
   return (
     <div className={styles.category}>
@@ -30,49 +32,22 @@ function Category() {
         isError={isError}
         isLoading={isLoading}
         isEmptyList={categories.length === 0}>
-        <div className="columnContent" style={{ marginBottom: "1.5rem" }}>
-          <p
-            onClick={() => dispatch(editCategory(""))}
-            className={currCategory === "" ? "orange-text" : ""}>
-            All category
-          </p>
-
-          {categories.slice(0, 4).map((catgr, i) => (
-            <p
-              onClick={() => {
-                dispatch(editCategory(catgr.id));
-                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-              }}
-              key={`category-${i}`}
-              className={catgr.id == currCategory ? "orange-text" : ""}>
+        <select
+          className={styles.categorySelector}
+          onChange={(e) => handleCategoryFilter(e.target.value)}>
+          <option value={""}>All category</option>
+          {categories.map((catgr, i) => (
+            <option value={catgr.id} key={`catgr${i}`}>
               {catgr.name}
-            </p>
+            </option>
           ))}
-
-          {/* expanded part: start */}
-          {isExpanded &&
-            categories.slice(4).map((catgr, i) => (
-              <p
-                key={`category-more-${i}`}
-                onClick={() => dispatch(editCategory(catgr.id))}
-                className={catgr.id == currCategory ? "orange-text" : ""}>
-                {catgr.name}
-              </p>
-            ))}
-          {/* expanded part: end */}
-        </div>
+        </select>
       </RenderQueryData>
-
-      <button
-        className="border-btn btn--small"
-        onClick={() => setExpanded(!isExpanded)}>
-        {isExpanded ? "Less" : "More"}
-      </button>
     </div>
   );
 }
 
-function PriceRange() {
+function PriceRange({ setOpen = null }) {
   const priceFrom = useRef(null);
   const priceTo = useRef(null);
 
@@ -86,6 +61,9 @@ function PriceRange() {
 
     e.preventDefault();
     dispatch(editPrice([from, to]));
+
+    // close filter bar
+    setOpen(false);
   }
 
   return (
@@ -119,8 +97,4 @@ function PriceRange() {
   );
 }
 
-function SideBarProduct({ children }) {
-  return <div className={styles.sideBar}>{children}</div>;
-}
-
-export { SideBarProduct, Category, PriceRange };
+export { Category, PriceRange };

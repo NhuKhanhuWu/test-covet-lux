@@ -1,15 +1,5 @@
 /** @format */
 /* genneral */
-.sideBar {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  position: -webkit-sticky; /* for Safari */
-  position: sticky;
-  top: 10%;
-  align-self: flex-start;
-}
-
 .sectionHeader {
   font-size: 1.6rem;
   text-transform: uppercase;
@@ -22,7 +12,18 @@
 }
 
 /* category */
-.category > div > p {
+.categorySelector {
+  width: 100%;
+  height: 4rem;
+  border: solid 1.5px black;
+}
+
+.categorySelector:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+.category > select > option {
   font-size: 1.6rem;
   color: var(--gray);
   border-bottom: solid 1.5px var(--gray);
@@ -33,12 +34,13 @@
 /* price range */
 .priceForm div {
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   margin-bottom: 1.5rem;
 }
 
 .priceForm input {
-  width: 10rem;
+  width: 15rem;
   height: 3rem;
   border: none;
   border-bottom: solid 1.5px;
@@ -50,3 +52,11 @@
   outline: none;
   border-color: var(--orange);
 }
+
+/* resposive: start */
+@media screen and (max-width: 650px) {
+  .categorySelector {
+    width: 30rem;
+  }
+}
+/* resposive: end */
