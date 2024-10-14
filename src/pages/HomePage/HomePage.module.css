@@ -20,10 +20,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .introContainer {
-    padding: 5rem 3rem;
-  }
-
   .blogContainer {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr);

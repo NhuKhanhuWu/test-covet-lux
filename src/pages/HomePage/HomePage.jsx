@@ -87,16 +87,6 @@ function HomePage() {
     ? 3
     : 4;
 
-  // const [productQty, setQty] = useState(null);
-  // const [blogQty, setBlogQty] = useState(null);
-
-  // // get query according to current width
-  // useEffect(function () {
-  //   const currScreenWidth = window.innerWidth;
-
-  //   console.log(currScreenWidth);
-  // }, []);
-
   const {
     isLoading: newIsLoading,
     isError: newIsError,

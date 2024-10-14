@@ -54,21 +54,6 @@ function NavIcon() {
 
   return (
     <ul className={styles.navLogo}>
-      {/* <form
-        className={styles.search}
-        onSubmit={(e) => handleFilterTitle(e, currTitleFilter.current.value)}>
-        <input
-          ref={currTitleFilter}
-          type="text"
-          placeholder="Search..."
-          value={tile}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button type="submit">
-          <ion-icon name="search-outline"></ion-icon>
-        </button>
-      </form> */}
-
       <div>
         <Link to="/test-covet-lux/cart" className={styles.cart}>
           <ion-icon name="cart-outline"></ion-icon>
