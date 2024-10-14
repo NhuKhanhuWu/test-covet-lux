@@ -18,3 +18,16 @@
   width: fit-content;
   text-transform: uppercase;
 }
+
+/* responsive: start */
+@media screen and (max-width: 700px) {
+  .footer {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer > div {
+    width: 100%;
+  }
+}
+/* responsive: end */

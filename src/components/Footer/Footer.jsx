@@ -19,10 +19,14 @@ function Footer() {
           <h3>Our blog</h3>
           <ul className={styles.columnContent}>
             <li>
-              <Link to="/blog">Blog</Link>
+              <Link to="/test-covet-lux/blog?id=10">
+                Classic Blue Baseball Cap
+              </Link>
             </li>
             <li>
-              <Link to="/blog">Blog</Link>
+              <Link to="/test-covet-lux/blog?id=8">
+                Classic Red Jogger Sweatpant
+              </Link>
             </li>
           </ul>
         </div>

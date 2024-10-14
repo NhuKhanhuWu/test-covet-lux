@@ -26,3 +26,11 @@
 .introContainer a {
   margin: auto;
 }
+
+/* resposive: start */
+@media screen and (max-width: 680px) {
+  .introContainer {
+    padding: 5rem 3rem;
+  }
+}
+/* resposive: end */
