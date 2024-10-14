@@ -88,3 +88,47 @@
   font-size: 5rem;
   margin-bottom: 1.5rem;
 }
+
+/* responsive: start */
+@media screen and (max-width: 690px) {
+  .productQty {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .productInfor {
+    flex-direction: column;
+  }
+
+  .productInfor > div {
+    flex-grow: 1;
+    width: 80%;
+    margin: auto;
+  }
+
+  .productText {
+    gap: 0.5rem;
+  }
+
+  .btn {
+    margin-top: 2rem !important;
+  }
+
+  .description {
+    margin: 0;
+  }
+
+  .reviewTxt {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .productQty {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* responsive: end */

@@ -14,7 +14,6 @@ import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 import useGetData from "../../hooks/useGetData.jsx";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useState } from "react";
 
 const bigBannerData = {
   header: "BLACK FRIDAY SALE",

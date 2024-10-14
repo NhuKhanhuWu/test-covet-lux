@@ -15,7 +15,7 @@ export function ByNowBtn({ product, amount, handleAddToCart }) {
         )
       }
       to={`/test-covet-lux/cart/`}
-      className="fill-btn">
+      className="fill-btn btn--small">
       Buy now
     </Link>
   );
