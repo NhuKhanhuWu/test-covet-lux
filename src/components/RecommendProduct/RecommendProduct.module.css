@@ -1,0 +1,14 @@
+/** @format */
+
+@media screen and (max-width: 680px) {
+  .productContainer {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .productContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}

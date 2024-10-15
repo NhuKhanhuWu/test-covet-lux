@@ -15,10 +15,10 @@
 
 /* responesive: start */
 @media screen and (max-width: 680px) {
-  .productContainer {
+  /* .productContainer {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr);
-  }
+  } */
 
   .blogContainer {
     display: grid !important;
@@ -55,9 +55,4 @@
   }
 }
 
-@media screen and (max-width: 420px) {
-  .productContainer {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 /* responesive: end */

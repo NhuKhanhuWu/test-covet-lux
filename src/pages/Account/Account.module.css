@@ -4,3 +4,18 @@
   flex-grow: 1;
   margin: 0 4rem;
 }
+
+/* responsive: start */
+@media screen and (max-width: 660px) {
+  .form {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  /* .formFiels {
+    grid-template-columns: 1fr !important;
+    gap: 1.3rem !important;
+  } */
+}
+/* responsive: end */

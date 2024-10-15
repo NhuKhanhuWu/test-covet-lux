@@ -64,7 +64,7 @@ export default function Payment() {
         </label>
       </div>
       {currMethod === "ePayment" && (
-        <div className={`columnContent`}>
+        <div className={`columnContent ${styles.ePayForm}`}>
           {INPUT_FIELDS_EPAYMENT.map((field, i) => (
             <InputField
               form={"paymentInfor"}

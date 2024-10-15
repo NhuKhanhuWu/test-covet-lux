@@ -5,7 +5,7 @@ import styles from "../ProductDetail.module.css";
 
 /** @format */
 function ImgList({ product }) {
-  const isMobile = useMediaQuery({ query: "(max-width: 650px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 530px)" });
 
   return (
     <>

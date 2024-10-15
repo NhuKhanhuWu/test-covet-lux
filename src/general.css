@@ -12,6 +12,7 @@
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -19,7 +20,8 @@ body {
   font-size: 1.4rem;
 }
 
-* {
+*,
+p {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

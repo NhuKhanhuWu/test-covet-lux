@@ -111,6 +111,10 @@
     font-size: 5.5rem;
     line-height: 1.1;
   }
+
+  .smallBannerTxt {
+    padding: 1rem 0;
+  }
 }
 
 @media screen and (max-width: 385px) {

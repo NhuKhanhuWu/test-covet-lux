@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import useGetDataList from "../../hooks/useGetDataList.jsx";
 import { useSelector } from "react-redux";
+import MediaQuery from "react-responsive";
 
 function Order({ children }) {
   return <div className={styles.order}>{children}</div>;
@@ -45,8 +46,17 @@ function Orders() {
     <>
       <NavBar></NavBar>
       <BlankDivider></BlankDivider>
-      <FlexContainer>
+
+      {/* mobile side bar: start */}
+      <MediaQuery maxWidth={539}>
         <SideBarAcc></SideBarAcc>
+      </MediaQuery>
+      {/* mobile side bar: end */}
+
+      <FlexContainer>
+        <MediaQuery minWidth={540}>
+          <SideBarAcc></SideBarAcc>
+        </MediaQuery>
 
         {/* order list */}
         <RenderQueryData

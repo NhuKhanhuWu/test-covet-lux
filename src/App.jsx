@@ -25,6 +25,7 @@ import Account from "./pages/Account/Account.jsx";
 import Orders from "./pages/Orders/Orders.jsx";
 import OrderDetail from "./pages/Orders/OrderDetail.jsx";
 import BlogDetail from "./pages/Blog/BlogDetail.jsx";
+import ScrollTopBtn from "./components/ScrollTopBtn/ScrollTopBtn.jsx";
 
 function App() {
   return (
@@ -70,6 +71,8 @@ function App() {
         <Route path="/test-covet-lux/blog" element={<BlogDetail />}></Route>
         {/* BLOG: END */}
       </Routes>
+
+      <ScrollTopBtn></ScrollTopBtn>
     </BrowserRouter>
   );
 }

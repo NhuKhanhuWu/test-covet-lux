@@ -2,7 +2,7 @@
 
 .intro {
   text-align: center;
-  margin: 5rem;
+  margin: 3rem;
 }
 
 .intro > h1 {
@@ -24,3 +24,16 @@
   height: 2px;
   width: 50%;
 }
+
+/* responsive: start */
+@media screen and (max-width: 400px) {
+  .intro {
+    margin: 3rem 2rem;
+  }
+
+  .intro > h1 {
+    line-height: 1;
+    font-size: 5.5rem;
+  }
+}
+/* responsive: end */

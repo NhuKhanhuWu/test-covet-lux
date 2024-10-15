@@ -1,6 +1,5 @@
 /** @format */
 
-import useGetLocal from "../../hooks/useGetLocal.jsx";
 import { useEffect, useState } from "react";
 
 import styles from "./Contact.module.css";

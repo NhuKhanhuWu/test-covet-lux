@@ -14,6 +14,10 @@ import { useSelector } from "react-redux";
 import { fetchFilteredProducts } from "../../redux/productsSlide.js";
 import { useDispatch } from "react-redux";
 import MediaQuery from "react-responsive";
+import {
+  SideBar,
+  SideBarBtn,
+} from "../../components/SideBarMobile/SideBarMobile.jsx";
 
 function Product() {
   const dispatch = useDispatch();
@@ -25,9 +29,14 @@ function Product() {
   // get product
   const productList = useSelector((state) => state.products.items);
 
-  // get product list
+  const [navHeight, setNavHeight] = useState(0);
+
   useEffect(
     function () {
+      // top position of btn
+      setNavHeight(document.querySelector("nav").clientHeight + 10);
+
+      // get product list
       dispatch(fetchFilteredProducts());
     },
     [categoryFilter, dispatch, priceFilter, titleFilter]
@@ -45,29 +54,25 @@ function Product() {
 
       {/* search bar for mobile: start */}
       <MediaQuery maxWidth={650}>
-        <div
-          className={`${styles.openFilterBtn}`}
-          onClick={() => setSearchOpen(!isSearchOpen)}>
+        <SideBarBtn callback={() => setSearchOpen(!isSearchOpen)}>
           <span className="material-symbols-outlined">filter_list</span> Filter
-        </div>
+        </SideBarBtn>
       </MediaQuery>
 
       <MediaQuery maxWidth={650}>
-        <div className={`${styles.sideBar} ${isSearchOpen && styles.open}`}>
-          <div
-            className={styles.closeBtn}
-            onClick={() => setSearchOpen(!isSearchOpen)}>
-            <span className="material-symbols-outlined">close</span>
-          </div>
+        <SideBar
+          isOpen={isSearchOpen}
+          setOpen={setSearchOpen}
+          navHeight={navHeight}>
           <Category setOpen={setSearchOpen}></Category>
           <PriceRange setOpen={setSearchOpen}></PriceRange>
-        </div>
+        </SideBar>
       </MediaQuery>
-      {/* search bar for mobile: start */}
+      {/* search bar for mobile: stendart */}
 
       <FlexContainer
         spaceBetween={true}
-        gap={5}
+        gap={3}
         elClass={styles.productContainer}>
         <MediaQuery minWidth={651}>
           <div className={`${styles.sideBar} ${isSearchOpen && styles.open}`}>

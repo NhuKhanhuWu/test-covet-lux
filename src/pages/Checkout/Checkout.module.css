@@ -10,6 +10,11 @@
 }
 
 /* infor col */
+.rightCol {
+  border-right: solid 1px var(--orange);
+  padding-right: 4rem;
+}
+
 .inforForm {
   gap: 2rem;
 }
@@ -25,6 +30,10 @@
 }
 
 /* product list */
+.product > td:not(:last-child) {
+  padding-bottom: 1rem;
+}
+
 .productInfor {
   width: 90%;
 }
@@ -32,6 +41,7 @@
 .productTxt {
   font-size: 1.4rem;
   font-weight: 500;
+  gap: 0;
 }
 
 /* total */
@@ -54,8 +64,45 @@
   color: var(--orange);
 }
 
-.inputInfor {
+.buyBtn {
+  width: 80%;
+  justify-content: center;
+  margin: auto;
 }
 
-.ePayment {
+/* responsive: start */
+@media screen and (max-width: 700px) {
+  .checkoutContainer {
+    flex-direction: column;
+  }
+
+  .leftCol {
+    padding: 0;
+    border: none;
+  }
+
+  .ePayForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .productTxt {
+    font-size: 1.6rem;
+  }
+
+  .total {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .btnContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buyBtn {
+    width: fit-content;
+    margin: 0;
+  }
 }
+/* responsive: end */

@@ -17,10 +17,14 @@
 }
 
 /* table header */
-.tableHeader > th:not(:last-child) {
+.tableHeader > th {
   border-bottom: solid;
   padding-bottom: 1rem;
   height: 4rem;
+}
+
+.productContainer {
+  padding-right: 3rem;
 }
 
 .productContainer > tbody > tr > th {
@@ -98,3 +102,54 @@
   font-size: 2rem;
   font-weight: 300;
 }
+
+/* responsive: start */
+@media screen and (max-width: 730px) {
+  .productRow > td:not(:first-child) {
+    padding-right: 2rem;
+  }
+}
+
+@media screen and (max-width: 715px) {
+  .cartContainer {
+    flex-direction: column;
+    margin: 2rem 7rem !important;
+  }
+
+  .productContainer {
+    padding-right: 0;
+  }
+
+  .productContainer {
+    border: none;
+  }
+
+  .totalContainer > a {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .imgContainer {
+    width: 20% !important;
+    padding-right: 1rem;
+  }
+
+  .money,
+  .delete {
+    width: 10%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .money {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .cartContainer {
+    margin: 2rem 3rem !important;
+  }
+}
+/* responsive: end */

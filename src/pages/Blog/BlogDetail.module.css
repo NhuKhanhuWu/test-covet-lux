@@ -41,7 +41,7 @@
 
 .imgContainer {
   overflow: hidden;
-  height: 40rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,3 +81,25 @@
 .share ion-icon:hover {
   color: var(--orange);
 }
+
+/* responsive: start */
+@media screen and (max-width: 600px) {
+  .blogContainer {
+    width: 90%;
+    padding: 4rem;
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    line-height: 1.2;
+    font-size: 5rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  /* .imgContainer {
+  } */
+}
+/* responsive: end */
