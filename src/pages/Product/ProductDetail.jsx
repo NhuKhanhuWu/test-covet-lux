@@ -25,17 +25,7 @@ import { ProductInfor } from "./component/ProductInfor.jsx";
 import { ByNowBtn } from "./component/ByNowBtn.jsx";
 import { DescripAndReview } from "./component/DescripAndReview.jsx";
 import { ToCartBtn } from "./component/ToCartBtn.jsx";
-
-function Stars({ rating }) {
-  const arr = Array.from({ length: Math.floor(rating) });
-  const ratingDemical = rating - Math.floor(rating);
-
-  return (
-    <div>
-      <ion-icon name="star"></ion-icon>
-    </div>
-  );
-}
+import { useMediaQuery } from "react-responsive";
 
 function ProductDetail() {
   // product details
@@ -69,13 +59,19 @@ function ProductDetail() {
     [productDetail]
   );
 
-  // get product by category
+  // get recommend product by category
+  const isSmallTablet = useMediaQuery({
+    query: "(max-width: 680px)",
+  });
+  const productQty = isSmallTablet ? 6 : 5;
   const {
     dataResponse: recommenedProduct,
     isLoading: isLoading_recommenedProduct,
     isError: isError_recommenedProduct,
   } = useGetData(
-    categoryId ? `products/?categoryId=${categoryId}&offset=0&limit=5` : null
+    categoryId
+      ? `products/?categoryId=${categoryId}&offset=0&limit=${productQty}`
+      : null
   );
 
   // add to cart handle
@@ -131,7 +127,6 @@ function ProductDetail() {
       {/* desription & reviews: start */}
       <BlankDivider distance={4}></BlankDivider>
       <DescripAndReview product={productDetail}></DescripAndReview>
-      <BlankDivider distance={2}></BlankDivider>
       {/* desription & reviews: end */}
 
       {/* recommened product: start */}
@@ -144,7 +139,7 @@ function ProductDetail() {
         <ListHeader
           title={"You may like"}
           url={`/test-covet-lux/products/?categoryId=${categoryId}&page=1`}></ListHeader>
-        <FlexContainer>
+        <FlexContainer elClass={styles.productQty}>
           {Array.isArray(recommenedProduct) &&
             recommenedProduct.map((product, i) => (
               <ProductItem

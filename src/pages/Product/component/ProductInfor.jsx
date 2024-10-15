@@ -1,13 +1,17 @@
 /** @format */
 
 import styles from "../ProductDetail.module.css";
+import MediaQuery from "react-responsive";
 
 export function ProductInfor({ product }) {
   return (
     <>
       <div>
         <h1>{product.title}</h1>
-        <div>⭐⭐⭐⭐⭐ (5.0) | 100 sold | 2 reviews</div>
+        <div style={{ margin: "0.5rem 0" }}>
+          ⭐⭐⭐⭐⭐ (5.0) | 100 sold | 2 reviews
+        </div>
+        <MediaQuery maxWidth={650}>100 sold | 2 reviews</MediaQuery>
       </div>
 
       <p className={`orange-text ${styles.price}`}>

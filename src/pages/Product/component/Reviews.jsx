@@ -16,7 +16,11 @@ export function Reviews({ reviews, showedEl }) {
               <p>{review.userName}</p>
               <span>⭐⭐⭐⭐⭐</span>
               <p>27/09/2024</p>
-              <p style={{ marginTop: "1rem", width: "60%" }}>{review.text}</p>
+              <p
+                style={{ marginTop: "1rem", width: "60%" }}
+                className={styles.reviewTxt}>
+                {review.text}
+              </p>
             </div>
           </FlexContainer>
         </div>

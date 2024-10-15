@@ -1,10 +1,11 @@
 /** @format */
 import { PropTypes } from "proptype";
 import styles from "./BlogItem.module.css";
+import { Link } from "react-router-dom";
 
 function BlogItem({ blog }) {
   return (
-    <div className={styles.blog}>
+    <Link to={`/test-covet-lux/blog?id=${blog.id}`} className={styles.blog}>
       <div className="overflow-container">
         <img
           alt={blog.title}
@@ -16,7 +17,7 @@ function BlogItem({ blog }) {
       <p className={styles.title}>{blog.title}</p>
       <p className={styles.category}>{blog.category.name}</p>
       <p>{blog.description.slice(0, 100)}[...]</p>
-    </div>
+    </Link>
   );
 }
 
