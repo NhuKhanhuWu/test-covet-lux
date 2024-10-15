@@ -45,3 +45,11 @@
   resize: none;
   font-family: "Inter", sans-serif;
 }
+
+/* responsive: start */
+@media screen and (max-width: 425px) {
+  .container {
+    width: 100%;
+  }
+}
+/* responsive: end */

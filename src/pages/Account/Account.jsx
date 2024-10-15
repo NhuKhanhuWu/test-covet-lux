@@ -12,6 +12,7 @@ import GridContainer from "../../components/GridContainer.jsx";
 
 import styles from "./Account.module.css";
 import { useEffect, useState } from "react";
+import MediaQuery from "react-responsive";
 
 function Account() {
   // get user infor
@@ -19,6 +20,7 @@ function Account() {
 
   // handle submit form
   const [isSubmit, setSubmit] = useState(false);
+
   useEffect(
     function () {
       if (!isSubmit) return;
@@ -67,15 +69,24 @@ function Account() {
   return (
     <>
       <NavBar></NavBar>
-      <FlexContainer>
+
+      {/* mobile side bar: start */}
+      <MediaQuery maxWidth={539}>
         <SideBarAcc></SideBarAcc>
+      </MediaQuery>
+      {/* mobile side bar: end */}
+
+      <FlexContainer>
+        <MediaQuery minWidth={540}>
+          <SideBarAcc></SideBarAcc>
+        </MediaQuery>
         <form
           className={styles.form}
           onSubmit={(e) => {
             e.preventDefault();
             setSubmit(true);
           }}>
-          <GridContainer numCol={2} gapCol={6}>
+          <GridContainer numCol={2} gapCol={6} elClass={styles.formFiels}>
             {accountForm.map((field, i) => (
               <InputField field={field} key={i}></InputField>
             ))}

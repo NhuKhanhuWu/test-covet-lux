@@ -1,0 +1,20 @@
+/** @format */
+
+.btn {
+  border: solid 1.5px black;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--orange);
+}

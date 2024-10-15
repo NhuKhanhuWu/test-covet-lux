@@ -26,3 +26,37 @@
 .featureImg {
   width: 50%;
 }
+
+/* responsive: start */
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    width: 90%;
+  }
+
+  .featureContainer {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mainContainer {
+    width: 80%;
+  }
+
+  .feature,
+  .feature:nth-child(even) {
+    flex-direction: column;
+    border-bottom: solid 1px var(--light-gray);
+    padding-bottom: 4rem;
+    margin-bottom: 0 !important;
+  }
+
+  .feature:last-child {
+    border: none;
+  }
+
+  .featureImg {
+    width: 100%;
+  }
+}
+/* responsive: end */

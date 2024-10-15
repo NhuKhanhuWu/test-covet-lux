@@ -65,7 +65,7 @@ function Cart() {
         isLoading={isLoading}
         isEmptyList={productList.length === 0}
         emptyMess={<EmptyCart></EmptyCart>}>
-        <FlexContainer gap={2}>
+        <FlexContainer gap={2} elClass={styles.cartContainer}>
           <ProductContainer>
             {productList !== null && (
               <>

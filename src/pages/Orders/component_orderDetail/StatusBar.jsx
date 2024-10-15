@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import FlexContainer from "../../../components/FlexContainer";
 import styles from "../OrderDetail.module.css";
+import MediaQuery from "react-responsive";
 
 const generalStatus = [
   {
@@ -34,9 +35,8 @@ const ePayStatus = generalStatus.toSpliced(1, 0, {
   id: "paid",
 });
 
-function StatusItem({ statusProps, color, dateStr }) {
+function StatusTxt({ dateStr, statusProps }) {
   const date = new Date(dateStr);
-
   // Format the date
   const hoursMinutes = date.toLocaleTimeString("en-GB", {
     hour: "2-digit",
@@ -48,16 +48,42 @@ function StatusItem({ statusProps, color, dateStr }) {
   const formattedDate = `${hoursMinutes} ${dayMonthYear}`;
 
   return (
-    <div style={{ color: color, width: "10rem" }} className={styles.status}>
-      {statusProps.icon}
-      <p style={{ color: "black" }}>{statusProps.statusTxt}</p>
+    <>
+      <p style={{ color: "black" }}>{statusProps?.statusTxt}</p>
       {dateStr !== null ? (
         <div style={{ color: "var(--gray)" }}>{formattedDate}</div>
       ) : (
         ""
       )}
+    </>
+  );
+}
+
+function StatusItem({ statusProps, color, dateStr }) {
+  return (
+    <div style={{ color: color }} className={styles.status}>
+      {statusProps.icon}
+      {/* medium tablet */}
+      <MediaQuery minWidth={580}>
+        <StatusTxt statusProps={statusProps} dateStr={dateStr}></StatusTxt>
+      </MediaQuery>
+
+      {/* small tablet, phone */}
+      <MediaQuery maxWidth={579}>
+        <div className={styles.statusTxt}>
+          <StatusTxt statusProps={statusProps} dateStr={dateStr}></StatusTxt>
+        </div>
+      </MediaQuery>
     </div>
   );
+}
+
+function ShowStatusBtn() {
+  function handleShowStatus() {
+    const statusList = document.querySelectorAll(`.${styles.status}`);
+    statusList.forEach((status) => status.classList.toggle(`${styles.show}`));
+  }
+  return <button onClick={() => handleShowStatus()}>Status detail</button>;
 }
 
 export function StatusBar({ orderInfor }) {
@@ -69,7 +95,6 @@ export function StatusBar({ orderInfor }) {
   const currStatusIndex = statusBarData.findIndex(
     (data) => data.id === currStatus
   );
-  console.log(currStatus, statusBarData);
 
   // get process bar 'top' position
   const [iconHeight, setIconHeight] = useState(0);
@@ -81,7 +106,9 @@ export function StatusBar({ orderInfor }) {
   }, []);
 
   return (
-    <FlexContainer elClass={styles.statusBar} margin={0}>
+    <FlexContainer elClass={styles.statusBar} margin={null}>
+      <ShowStatusBtn></ShowStatusBtn>
+
       {statusBarData.map((status, i) => (
         <StatusItem
           dateStr={i <= currStatusIndex ? orderInfor.date : null}
@@ -91,9 +118,13 @@ export function StatusBar({ orderInfor }) {
             i <= currStatusIndex ? "var(--green)" : "var(--gray)"
           }></StatusItem>
       ))}
-      <div
-        className={styles.statusProcess}
-        style={{ top: `${iconHeight / 2}px` }}></div>
+
+      {/* process bar - medium tablet */}
+      <MediaQuery minWidth={580}>
+        <div
+          className={styles.statusProcess}
+          style={{ top: `${iconHeight / 2}px` }}></div>
+      </MediaQuery>
     </FlexContainer>
   );
 }

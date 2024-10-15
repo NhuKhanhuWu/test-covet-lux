@@ -22,3 +22,15 @@
   margin-top: 2rem;
   gap: 5rem;
 }
+
+@media screen and (max-width: 450px) {
+  .redirect {
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .redirect {
+    flex-direction: column;
+  }
+}

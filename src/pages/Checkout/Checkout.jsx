@@ -27,13 +27,14 @@ import { addOrder } from "../../redux/ordersSlide";
 
 function BuyBtn() {
   return (
-    <button
-      type="submit"
-      form="paymentInfor"
-      className="fill-btn"
-      style={{ width: "80%", justifyContent: "center", margin: "auto" }}>
-      BUY
-    </button>
+    <div className={styles.btnContainer}>
+      <button
+        type="submit"
+        form="paymentInfor"
+        className={`${styles.buyBtn} fill-btn`}>
+        BUY NOW
+      </button>
+    </div>
   );
 }
 
@@ -125,13 +126,8 @@ function Checkout() {
   return (
     <>
       <NavBar></NavBar>
-      <FlexContainer>
-        <div
-          style={{
-            width: "50%",
-            borderRight: "solid 1px var(--orange)",
-            paddingRight: "4rem",
-          }}>
+      <FlexContainer elClass={styles.checkoutContainer}>
+        <div className={styles.leftCol}>
           <ListHeader
             title={"Personal information"}
             className={styles.header}></ListHeader>

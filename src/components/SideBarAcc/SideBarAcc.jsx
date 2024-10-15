@@ -5,8 +5,9 @@ import styles from "./SideBarAcc.module.css";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/userSlide";
 
-function SideBarAcc() {
+function BarContent() {
   const dispatch = useDispatch();
+
   function handleLogout() {
     // log out
     dispatch(logOut());
@@ -16,13 +17,21 @@ function SideBarAcc() {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <NavLink to="/test-covet-lux/account">Account</NavLink>
       {/* <NavLink to="/test-covet-lux/change_pass">Change password</NavLink> */}
       <NavLink to="/test-covet-lux/orders">Orders</NavLink>
       <NavLink to="/test-covet-lux/logout" onClick={() => handleLogout()}>
         Log out
       </NavLink>
+    </>
+  );
+}
+
+function SideBarAcc() {
+  return (
+    <div className={styles.container}>
+      <BarContent></BarContent>
     </div>
   );
 }

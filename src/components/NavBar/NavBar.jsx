@@ -176,7 +176,7 @@ function SideNavBar() {
   // set nav bar height being side bar top
   useEffect(function () {
     const nav = document.querySelector(`.${styles.nav}`);
-    setHeight(nav.clientHeight);
+    setHeight(nav.clientHeight + 1);
   }, []);
 
   // toogle side bar

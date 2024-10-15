@@ -4,7 +4,6 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import BigBanner from "../../components/Banner/BigBanner.jsx";
 import SmallBanner from "../../components/Banner/SmallBanner.jsx";
-import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import FlexContainer from "../../components/FlexContainer.jsx";
 import ListHeader from "../../components/ListHeader/ListHeader.jsx";
 import IntroSection from "../../components/IntroSection/IntroSection.jsx";
@@ -14,6 +13,7 @@ import RenderQueryData from "../../components/RenderQueryData.jsx";
 
 import useGetData from "../../hooks/useGetData.jsx";
 import { useMediaQuery } from "react-responsive";
+import RecommendProduct from "../../components/RecommendProduct/RecommendProduct.jsx";
 
 const bigBannerData = {
   header: "BLACK FRIDAY SALE",
@@ -25,8 +25,8 @@ const bigBannerData = {
 
 const smallBannerData = [
   {
-    header: "EXPLORE INTERESTING BLOG POSTS",
-    url: "/test-covet-lux/blog",
+    header: "EXPLORE OUR BLOGS",
+    url: "/test-covet-lux/blogs",
     imgUrl:
       "https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
@@ -76,27 +76,11 @@ function Banner() {
 }
 
 function HomePage() {
-  const isSmallTablet = useMediaQuery({
-    query: "(max-width: 680px)",
-  });
-  const productQty = isSmallTablet ? 6 : 5;
   const blogQty = useMediaQuery({
     query: "(max-width: 680px) and (min-width:500px)",
   })
     ? 3
     : 4;
-
-  const {
-    isLoading: newIsLoading,
-    isError: newIsError,
-    dataResponse: newProductList,
-  } = useGetData(`products?offset=0&limit=${productQty}`);
-
-  const {
-    isLoading: bestIsLoading,
-    isError: bestIsError,
-    dataResponse: bestProductList,
-  } = useGetData(`products?offset=5&limit=${productQty}`);
 
   const {
     isLoading: isBlogLoading,
@@ -112,35 +96,11 @@ function HomePage() {
         <Banner></Banner>
 
         {/* new product: start */}
-        <RenderQueryData
-          isError={newIsError}
-          isLoading={newIsLoading}
-          isEmptyList={newProductList.length === 0}>
-          <ListHeader
-            title={"Best seller"}
-            url={"/test-covet-lux/product"}></ListHeader>
-          <FlexContainer elClass={styles.productContainer}>
-            {newProductList.map((product, i) => (
-              <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
-            ))}
-          </FlexContainer>
-        </RenderQueryData>
+        <RecommendProduct offset={0} query={"products/?"}></RecommendProduct>
         {/* new product: end */}
 
         {/* best seller product: start */}
-        <RenderQueryData
-          isError={bestIsError}
-          isLoading={bestIsLoading}
-          isEmptyList={bestProductList.length === 0}>
-          <ListHeader
-            title={"New product"}
-            url={"/test-covet-lux/product"}></ListHeader>
-          <FlexContainer elClass={styles.productContainer}>
-            {bestProductList.map((product, i) => (
-              <ProductItem product={product} key={`new-prd-${i}`}></ProductItem>
-            ))}
-          </FlexContainer>
-        </RenderQueryData>
+        <RecommendProduct offset={7} query={"products/?"}></RecommendProduct>
         {/* best seller product: end */}
 
         <LineDivider distance={2} color={"rgb(252, 108, 34)"}></LineDivider>
@@ -159,7 +119,7 @@ function HomePage() {
           {" "}
           <ListHeader
             title={"New blog"}
-            url={"/test-covet-lux/blog"}></ListHeader>
+            url={"/test-covet-lux/blogs"}></ListHeader>
           <FlexContainer elClass={styles.blogContainer}>
             {blogList.map((blog, i) => (
               <BlogItem blog={blog} key={`blog-${i}`}></BlogItem>

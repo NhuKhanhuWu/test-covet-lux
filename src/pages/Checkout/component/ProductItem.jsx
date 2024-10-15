@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function ProductItem({ product }) {
   return (
-    <tr>
+    <tr className={styles.product}>
       <td>
         <FlexContainer margin={0} gap={1}>
           <img

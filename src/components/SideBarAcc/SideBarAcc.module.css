@@ -5,8 +5,7 @@
   flex-direction: column;
   gap: 3rem;
   border-right: solid 1px var(--orange);
-  padding: 1rem 3rem;
-  padding-left: 0;
+  padding: 2rem 3rem 2rem 0;
   font-size: 1.6rem;
   font-weight: 600;
   height: fit-content;
@@ -21,3 +20,34 @@
   padding-right: 6rem;
   padding-bottom: 0.5rem;
 }
+
+/* responsive: start */
+@media screen and (max-width: 540px) {
+  .container {
+    padding: 2rem 3rem;
+    flex-direction: row;
+    border: none;
+    justify-content: center;
+    gap: 0;
+    top: 12%;
+    background-color: white;
+  }
+
+  .container > a {
+    width: fit-content;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-right: solid 1.5px var(--gray);
+  }
+
+  .container > a:last-child {
+    border: none;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container > a {
+    padding: 0.5rem 1rem;
+  }
+}
+/* responsive: end */

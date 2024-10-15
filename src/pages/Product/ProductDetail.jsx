@@ -8,16 +8,12 @@ import styles from "./ProductDetail.module.css";
 import useGetData from "../../hooks/useGetData";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
-import { useEffect, useState } from "react";
-
-// for test rendering reviews
-import ListHeader from "../../components/ListHeader/ListHeader.jsx";
-import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import { AmountInput } from "../../components/AmountInput/AmountInput.jsx";
 
-// redux
+// cart
 import { addToCart } from "../../redux/cartSlide";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
 // components
 import { Images } from "./component/Images.jsx";
@@ -25,7 +21,7 @@ import { ProductInfor } from "./component/ProductInfor.jsx";
 import { ByNowBtn } from "./component/ByNowBtn.jsx";
 import { DescripAndReview } from "./component/DescripAndReview.jsx";
 import { ToCartBtn } from "./component/ToCartBtn.jsx";
-import { useMediaQuery } from "react-responsive";
+import RecommendProduct from "../../components/RecommendProduct/RecommendProduct.jsx";
 
 function ProductDetail() {
   // product details
@@ -57,21 +53,6 @@ function ProductDetail() {
       if (productDetail.category) setCategoryId(productDetail.category.id);
     },
     [productDetail]
-  );
-
-  // get recommend product by category
-  const isSmallTablet = useMediaQuery({
-    query: "(max-width: 680px)",
-  });
-  const productQty = isSmallTablet ? 6 : 5;
-  const {
-    dataResponse: recommenedProduct,
-    isLoading: isLoading_recommenedProduct,
-    isError: isError_recommenedProduct,
-  } = useGetData(
-    categoryId
-      ? `products/?categoryId=${categoryId}&offset=0&limit=${productQty}`
-      : null
   );
 
   // add to cart handle
@@ -130,24 +111,9 @@ function ProductDetail() {
       {/* desription & reviews: end */}
 
       {/* recommened product: start */}
-      <RenderQueryData
-        isError={isError_recommenedProduct}
-        isLoading={isLoading_recommenedProduct}
-        isEmptyList={
-          !Array.isArray(recommenedProduct) || recommenedProduct.length === 0
-        }>
-        <ListHeader
-          title={"You may like"}
-          url={`/test-covet-lux/products/?categoryId=${categoryId}&page=1`}></ListHeader>
-        <FlexContainer elClass={styles.productQty}>
-          {Array.isArray(recommenedProduct) &&
-            recommenedProduct.map((product, i) => (
-              <ProductItem
-                key={`recommen-${i}`}
-                product={product}></ProductItem>
-            ))}
-        </FlexContainer>
-      </RenderQueryData>
+      <RecommendProduct
+        query={`products/?categoryId=${categoryId}&`}
+        offset={0}></RecommendProduct>
       {/* recommened product: end */}
 
       <BlankDivider></BlankDivider>

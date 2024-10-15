@@ -11,7 +11,7 @@ export function ProductInfor({ product }) {
         <div style={{ margin: "0.5rem 0" }}>
           ⭐⭐⭐⭐⭐ (5.0) | 100 sold | 2 reviews
         </div>
-        <MediaQuery maxWidth={650}>100 sold | 2 reviews</MediaQuery>
+        {/* <MediaQuery maxWidth={650}>100 sold | 2 reviews</MediaQuery> */}
       </div>
 
       <p className={`orange-text ${styles.price}`}>
