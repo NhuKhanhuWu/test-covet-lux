@@ -64,8 +64,8 @@
 
 .statusProcess {
   position: absolute;
-  left: 10%;
-  width: 80%;
+  left: 5%;
+  width: 90%;
   height: 3px;
   background-color: var(--green);
   z-index: -10;

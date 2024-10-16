@@ -10,7 +10,7 @@
 }
 
 /* infor col */
-.rightCol {
+.leftCol {
   border-right: solid 1px var(--orange);
   padding-right: 4rem;
 }
@@ -65,15 +65,22 @@
 }
 
 .buyBtn {
-  width: 80%;
+  width: 45%;
   justify-content: center;
   margin: auto;
 }
 
 /* responsive: start */
+@media screen and (max-width: 770px) {
+  .buyBtn {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .checkoutContainer {
     flex-direction: column;
+    padding: 0 3rem;
   }
 
   .leftCol {
@@ -103,6 +110,12 @@
   .buyBtn {
     width: fit-content;
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .checkoutContainer {
+    padding: 0 1rem;
   }
 }
 /* responsive: end */
