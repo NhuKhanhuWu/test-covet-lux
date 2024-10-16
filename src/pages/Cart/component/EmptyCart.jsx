@@ -7,7 +7,7 @@ import styles from "../Cart.module.css";
 export function EmptyCart() {
   return (
     <div className={`columnContent ${styles.emtyContainer}`}>
-      <img alt="empty cart" src={emptyCart} style={{ width: "35%" }}></img>
+      <img alt="empty cart" src={emptyCart} className={styles.emtyImg}></img>
       <p className={styles.emptyTxt}>Your cart is empty</p>
       <Link to="/test-covet-lux/products?page=1" className={`border-btn`}>
         Go shopping{" "}

@@ -1,5 +1,6 @@
 /** @format */
 
+import { Link } from "react-router-dom";
 import FlexContainer from "../../../components/FlexContainer";
 import RenderQueryData from "../../../components/RenderQueryData";
 import useGetDataList from "../../../hooks/useGetDataList";
@@ -15,7 +16,11 @@ function Product({ product, amount }) {
 
       <FlexContainer margin={0} spaceBetween={true} gap={0}>
         <div className={styles.inforContent}>
-          <p className={styles.productTitle}>{product.title}</p>
+          <Link
+            to={`/test-covet-lux/product?product_id=${product.id}`}
+            className={styles.productTitle}>
+            {product.title}
+          </Link>
           <p>X{amount}</p>
           <p>${product.price}</p>
         </div>

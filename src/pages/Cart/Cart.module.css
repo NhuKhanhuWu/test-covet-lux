@@ -98,6 +98,10 @@
   gap: 3rem;
 }
 
+.emtyImg {
+  width: 35%;
+}
+
 .emptyTxt {
   font-size: 2rem;
   font-weight: 300;
@@ -107,6 +111,10 @@
 @media screen and (max-width: 730px) {
   .productRow > td:not(:first-child) {
     padding-right: 2rem;
+  }
+
+  .emtyImg {
+    width: 55%;
   }
 }
 
@@ -139,17 +147,19 @@
   .delete {
     width: 10%;
   }
+
+  .emtyImg {
+    width: 70%;
+  }
 }
 
 @media screen and (max-width: 460px) {
   .money {
     text-align: center;
   }
-}
-
-@media screen and (max-width: 460px) {
   .cartContainer {
     margin: 2rem 3rem !important;
   }
 }
+
 /* responsive: end */

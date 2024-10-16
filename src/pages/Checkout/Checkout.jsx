@@ -82,8 +82,6 @@ function Checkout() {
     function () {
       if (!isBuy) return;
 
-      console.log(1);
-
       // get personal infor & store in personalInfor variable
       let personalInfor = {};
       const personalEls = document.querySelectorAll(`.inputInfor`);
