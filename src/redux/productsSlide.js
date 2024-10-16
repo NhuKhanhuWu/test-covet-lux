@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   categoryFilter: "",
   titleFilter: "",
   page: 1,
+  hasMore: true,
 };
 
 // Thunk to fetch products based on filters
@@ -31,7 +32,7 @@ export const fetchFilteredProducts = createAsyncThunk(
     const response = await axios.get(
       `https://api.escuelajs.co/api/v1/products/${query}`
     );
-    return response.data; // Return filtered data from the API
+    return { data: response.data, hasMore: response.data.length > 0 }; // Return filtered data from the API
   }
 );
 
@@ -49,6 +50,15 @@ const productsSlice = createSlice({
     editPrice: (state, action) => {
       state.priceFilter = action.payload;
     },
+    increasePage: (state) => {
+      state.page++; //increase page when user scroll
+    },
+    // reset when filter change
+    resetProducts: (state) => {
+      state.items = [];
+      state.page = 1;
+      state.hasMore = true;
+    },
   },
 
   extraReducers: (builder) => {
@@ -58,7 +68,8 @@ const productsSlice = createSlice({
       })
       .addCase(fetchFilteredProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items = action.payload; // Update the state with filtered products
+        state.items = [...state.items, ...action.payload.data]; // Update the state with filtered products
+        state.hasMore = action.payload.hasMore;
       })
       .addCase(fetchFilteredProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -67,6 +78,12 @@ const productsSlice = createSlice({
   },
 });
 
-export const { editCategory, editPrice, editTitle } = productsSlice.actions;
+export const {
+  editCategory,
+  editPrice,
+  editTitle,
+  increasePage,
+  resetProducts,
+} = productsSlice.actions;
 productsSlice.reducer;
 export default productsSlice;

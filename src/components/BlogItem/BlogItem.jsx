@@ -1,5 +1,4 @@
 /** @format */
-import { PropTypes } from "proptype";
 import styles from "./BlogItem.module.css";
 import { Link } from "react-router-dom";
 
@@ -20,16 +19,5 @@ function BlogItem({ blog }) {
     </Link>
   );
 }
-
-// BlogItem.propTypes = {
-//   blog: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     images: PropTypes.array.isRequired,
-//     description: PropTypes.string,
-//     category: PropTypes.shape({
-//       name: PropTypes.string,
-//     }),
-//   }).isRequired,
-// };
 
 export default BlogItem;
