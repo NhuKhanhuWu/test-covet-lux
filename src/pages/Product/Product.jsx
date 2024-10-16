@@ -7,17 +7,23 @@ import GridContainer from "../../components/GridContainer.jsx";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import ProductItem from "../../components/ProductItem/ProductItem.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
-
-import styles from "./Product.module.css";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { fetchFilteredProducts } from "../../redux/productsSlide.js";
-import { useDispatch } from "react-redux";
-import MediaQuery from "react-responsive";
 import {
   SideBar,
   SideBarBtn,
 } from "../../components/SideBarMobile/SideBarMobile.jsx";
+
+import styles from "./Product.module.css";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  fetchFilteredProducts,
+  increasePage,
+  resetProducts,
+} from "../../redux/productsSlide.js";
+import { useDispatch } from "react-redux";
+import MediaQuery from "react-responsive";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../../components/Loader/Loader.jsx";
 
 function Product() {
   const dispatch = useDispatch();
@@ -27,26 +33,40 @@ function Product() {
   const priceFilter = useSelector((state) => state.products.priceFilter);
 
   // get product
-  const productList = useSelector((state) => state.products.items);
+  const {
+    items: productList,
+    status,
+    hasMore,
+  } = useSelector((state) => state.products);
 
+  // search bar
   const [navHeight, setNavHeight] = useState(0);
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   useEffect(
     function () {
       // top position of btn
       setNavHeight(document.querySelector("nav").clientHeight + 10);
 
+      // reset when filter change
+      dispatch(resetProducts());
+
       // get product list
       dispatch(fetchFilteredProducts());
+
+      // scroll to top
+      window.scrollTo(0, 0);
     },
     [categoryFilter, dispatch, priceFilter, titleFilter]
   );
 
-  // render products
-  const status = useSelector((state) => state.products.status);
-
-  // open & close search bar
-  const [isSearchOpen, setSearchOpen] = useState(false);
+  // Load more products when user scrolls down
+  const fetchMoreData = () => {
+    if (status !== "loading" && status != "failed") {
+      dispatch(increasePage()); // Increment the page
+      dispatch(fetchFilteredProducts()); // Fetch more products
+    }
+  };
 
   return (
     <>
@@ -70,29 +90,40 @@ function Product() {
           <PriceRange setOpen={setSearchOpen}></PriceRange>
         </SideBar>
       </MediaQuery>
-      {/* search bar for mobile: stendart */}
+      {/* search bar for mobile: end */}
 
       <FlexContainer
         spaceBetween={true}
         gap={3}
         elClass={styles.productContainer}>
+        {/* search bar for desktop: start */}
         <MediaQuery minWidth={651}>
           <div className={`${styles.sideBar} ${isSearchOpen && styles.open}`}>
             <Category></Category>
             <PriceRange></PriceRange>
           </div>
         </MediaQuery>
+        {/* search bar for desktop:  end */}
 
-        <GridContainer numCol={4} elClass={styles.productContainer}>
+        {/* products: start */}
+        <InfiniteScroll
+          dataLength={productList.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<Loader></Loader>}>
           <RenderQueryData
-            isError={status === "failed"}
-            isLoading={status === "loading"}
-            isEmptyList={productList.length === 0}>
-            {productList.map((product, i) => (
-              <ProductItem key={`product-${i}`} product={product} />
-            ))}
+            // loading={false}
+            isEmptyList={productList.length === 0 && status !== "loading"}
+            // isLoading={status === "loading"}
+          >
+            <GridContainer numCol={4} elClass={styles.productContainer}>
+              {productList.map((product, i) => (
+                <ProductItem key={`product-${i}`} product={product} />
+              ))}
+            </GridContainer>
           </RenderQueryData>
-        </GridContainer>
+        </InfiniteScroll>
+        {/* products: end */}
       </FlexContainer>
 
       <BlankDivider></BlankDivider>
