@@ -95,11 +95,15 @@
   position: absolute;
   bottom: 0;
   right: -20%;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background-color: var(--orange);
-  color: white;
-  padding: 0.2rem 0.5rem;
+  color: #fff;
   border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* cart's product amount: end */
 

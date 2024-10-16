@@ -13,7 +13,7 @@ function Product({ product, amount }) {
         alt={product.title}
         src={product.images[0].replace("[", "").replace('"', "")}></img>
 
-      <FlexContainer margin={0} spaceBetween={true}>
+      <FlexContainer margin={0} spaceBetween={true} gap={0}>
         <div className={styles.inforContent}>
           <p className={styles.productTitle}>{product.title}</p>
           <p>X{amount}</p>

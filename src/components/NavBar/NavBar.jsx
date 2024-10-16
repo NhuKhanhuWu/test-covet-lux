@@ -57,6 +57,7 @@ function NavIcon() {
       <div>
         <Link to="/test-covet-lux/cart" className={styles.cart}>
           <ion-icon name="cart-outline"></ion-icon>
+          {/* {cartAmount !== 0 && <div>{cartAmount}</div>} */}
           <div>{cartAmount}</div>
         </Link>
 

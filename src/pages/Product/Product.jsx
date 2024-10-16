@@ -54,7 +54,9 @@ function Product() {
 
       {/* search bar for mobile: start */}
       <MediaQuery maxWidth={650}>
-        <SideBarBtn callback={() => setSearchOpen(!isSearchOpen)}>
+        <SideBarBtn
+          callback={() => setSearchOpen(!isSearchOpen)}
+          navHeight={navHeight}>
           <span className="material-symbols-outlined">filter_list</span> Filter
         </SideBarBtn>
       </MediaQuery>
