@@ -4,6 +4,9 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form {
@@ -20,3 +23,41 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+/* responsive: start */
+@media screen and (max-width: 900px) {
+  .img {
+    transform: scale(1.5);
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .form {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .form {
+    width: 65%;
+  }
+
+  .img {
+    transform: scale(2);
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .form {
+    width: 75%;
+    padding: 3rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .img {
+    transform: scale(2.5);
+  }
+}
+
+/* responsive: end */

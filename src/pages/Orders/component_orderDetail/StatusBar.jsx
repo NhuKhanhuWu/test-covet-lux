@@ -80,10 +80,23 @@ function StatusItem({ statusProps, color, dateStr }) {
 
 function ShowStatusBtn() {
   function handleShowStatus() {
-    const statusList = document.querySelectorAll(`.${styles.status}`);
-    statusList.forEach((status) => status.classList.toggle(`${styles.show}`));
+    // show/hide status
+    const statusList = document.querySelectorAll(`.${styles.statusBar}`);
+    statusList.forEach((status) => status.classList.toggle(styles.show));
+
+    // rotate show detail btn icon
+    document
+      .querySelector(`.${styles.arrowIcon}`)
+      .classList.toggle(styles.statusOpen);
   }
-  return <button onClick={() => handleShowStatus()}>Status detail</button>;
+  return (
+    <button className={styles.showStatusBtn} onClick={() => handleShowStatus()}>
+      Status detail
+      <span className={`material-symbols-outlined ${styles.arrowIcon}`}>
+        keyboard_arrow_up
+      </span>
+    </button>
+  );
 }
 
 export function StatusBar({ orderInfor }) {
@@ -106,25 +119,28 @@ export function StatusBar({ orderInfor }) {
   }, []);
 
   return (
-    <FlexContainer elClass={styles.statusBar} margin={null}>
-      <ShowStatusBtn></ShowStatusBtn>
-
-      {statusBarData.map((status, i) => (
-        <StatusItem
-          dateStr={i <= currStatusIndex ? orderInfor.date : null}
-          statusProps={status}
-          key={`status-${i}`}
-          color={
-            i <= currStatusIndex ? "var(--green)" : "var(--gray)"
-          }></StatusItem>
-      ))}
-
-      {/* process bar - medium tablet */}
-      <MediaQuery minWidth={580}>
-        <div
-          className={styles.statusProcess}
-          style={{ top: `${iconHeight / 2}px` }}></div>
+    <div className={styles.statusBarContainer}>
+      <MediaQuery maxWidth={530}>
+        <ShowStatusBtn></ShowStatusBtn>
       </MediaQuery>
-    </FlexContainer>
+      <FlexContainer elClass={styles.statusBar} margin={null}>
+        {statusBarData.map((status, i) => (
+          <StatusItem
+            dateStr={i <= currStatusIndex ? orderInfor.date : null}
+            statusProps={status}
+            key={`status-${i}`}
+            color={
+              i <= currStatusIndex ? "var(--green)" : "var(--gray)"
+            }></StatusItem>
+        ))}
+
+        {/* process bar - medium tablet */}
+        <MediaQuery minWidth={530}>
+          <div
+            className={styles.statusProcess}
+            style={{ top: `${iconHeight / 2 + 2}px` }}></div>
+        </MediaQuery>
+      </FlexContainer>
+    </div>
   );
 }

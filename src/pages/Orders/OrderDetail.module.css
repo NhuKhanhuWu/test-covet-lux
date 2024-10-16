@@ -31,13 +31,18 @@
 /* header */
 
 /* order status bar */
-.statusBar {
+.statusBarContainer {
   grid-area: status-bar;
+  border-bottom: solid 2px var(--light-gray);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.statusBar {
   position: relative;
   justify-content: space-between;
-  border-bottom: solid 2px var(--light-gray);
-  margin-top: 3rem !important;
-  padding: 0 4rem 4rem 4rem;
 }
 
 .status {
@@ -61,12 +66,31 @@
   position: absolute;
   left: 10%;
   width: 80%;
-  backgr .status > span {
-    font-size: 2.3rem;
-  }
-  ound-color: var(--green);
+  height: 3px;
+  background-color: var(--green);
   z-index: -10;
   margin: auto;
+}
+
+.showStatusBtn {
+  border: solid 1px gray;
+  width: fit-content;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.arrowIcon {
+  color: var(--gray);
+  transition: all 0.5s;
+}
+
+.statusOpen {
+  transform: rotateZ(180deg);
 }
 /* order status bar: end */
 
@@ -140,31 +164,65 @@
 /* order infor: end */
 
 /* responsive: start */
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 530px) {
   .statusBar {
     flex-direction: column;
-    gap: 2rem !important;
+    gap: 1rem !important;
     align-items: center;
+    transition: all 1s;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .status {
     flex-direction: row;
-    width: 49%;
-    margin: auto;
-    transition: all 0.5s;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
+    width: 100%;
+    margin-left: 50%;
   }
 
   .status > span {
-    font-size: 2.5rem;
-    border: solid 2px;
+    font-size: 3rem;
+    border: none;
+    padding: 0.5rem;
   }
 
   .show {
     max-height: fit-content;
     opacity: 1;
+    pointer-events: all;
+  }
+
+  .orderProducts {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .content {
+    width: 90%;
+    grid-template-areas:
+      "header header"
+      "status-bar status-bar"
+      "address address"
+      "payment payment"
+      "products products";
+  }
+
+  .address {
+    border: none;
+    border-bottom: solid 2px var(--light-gray);
+  }
+
+  .product {
+    gap: 1rem !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .status {
+    margin-left: 35%;
   }
 }
 /* responsive: end */

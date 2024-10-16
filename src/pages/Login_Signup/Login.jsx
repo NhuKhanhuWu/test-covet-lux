@@ -1,15 +1,16 @@
 /** @format */
+import useGetData from "../../hooks/useGetData.jsx";
+import { useEffect, useReducer } from "react";
+import { useDispatch } from "react-redux";
+
+import styles from "./Login_Signup.module.css";
+import logo from "../../../public/icon-only.webp";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import FormPage from "../../components/FormPage/FormPage";
 import InputField from "../../components/InputField/InputField.jsx";
 import { Link } from "react-router-dom";
-import styles from "./Login_Signup.module.css";
-import logo from "../../../public/icon-only.webp";
-import { useEffect, useReducer, useState } from "react";
-import useGetData from "../../hooks/useGetData.jsx";
 import { loginSuccess } from "../../redux/userSlide.js";
-import { useDispatch } from "react-redux";
 import FlexContainer from "../../components/FlexContainer.jsx";
 
 let LOGIN_FORM = [
@@ -53,15 +54,6 @@ function reducer(state, action) {
 }
 
 function Login() {
-  // show pass
-  // const [isShowPass, setShowPass] = useState(false);
-
-  // login
-  // const [isSubmit, setSubmit] = useState(false);
-
-  // // display message
-  // const [isLoginSucces, setLoginSucces] = useState(false);
-
   const [loginState, dispatch] = useReducer(reducer, initState); // manage login state
   const { dataResponse: userList } = useGetData("users"); // get all user to check
 
