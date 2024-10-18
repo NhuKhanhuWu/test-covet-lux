@@ -3,10 +3,9 @@
 import useGetData from "../../../../hooks/useGetData.jsx";
 import styles from "./SideBarProduct.module.css";
 import RenderQueryData from "../../../../components/RenderQueryData.jsx";
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { editCategory, editPrice } from "../../../../redux/productsSlide.js";
-import MediaQuery from "react-responsive";
 
 function Category({ setOpen = null }) {
   // get category from data base
@@ -15,6 +14,9 @@ function Category({ setOpen = null }) {
     isLoading,
     isError,
   } = useGetData("categories");
+
+  // get current filter
+  const currFilter = useSelector((state) => state.products).categoryFilter;
 
   // update filter in redux
   const dispatch = useDispatch();
@@ -37,7 +39,10 @@ function Category({ setOpen = null }) {
           onChange={(e) => handleCategoryFilter(e.target.value)}>
           <option value={""}>All category</option>
           {categories.map((catgr, i) => (
-            <option value={catgr.id} key={`catgr${i}`}>
+            <option
+              value={catgr.id}
+              key={`catgr${i}`}
+              selected={catgr.id === currFilter}>
               {catgr.name}
             </option>
           ))}

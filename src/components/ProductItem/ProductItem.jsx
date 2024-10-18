@@ -2,8 +2,15 @@
 import PropTypes from "prop-types";
 import styles from "./ProductItem.module.css";
 import { Link } from "react-router-dom";
+import { editCategory } from "../../redux/productsSlide";
+import { useDispatch } from "react-redux";
+
+// function handleCategoryFilter() {}
 
 function ProductItem({ product }) {
+  // filter product by category
+  const dispatch = useDispatch();
+
   return (
     <Link to={`/test-covet-lux/product?product_id=${product.id}`}>
       <div className={styles.container}>
@@ -25,7 +32,9 @@ function ProductItem({ product }) {
 
         <div>
           <Link
-            to={`/test-covet-lux/products/?categoryId=${product.category.id}&page=1`}
+            onClick={() => dispatch(editCategory(product.category.id))}
+            to={`/test-covet-lux/products/`}
+            // ?categoryId=${product.category.id}
             className="link">
             {product.category.name}
           </Link>{" "}

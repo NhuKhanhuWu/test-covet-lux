@@ -29,7 +29,7 @@ function Product() {
   // get product
   const productList = useSelector((state) => state.products.items);
 
-  const [navHeight, setNavHeight] = useState(0);
+  const [navHeight, setNavHeight] = useState(0); //get btn side bar position
 
   useEffect(
     function () {
