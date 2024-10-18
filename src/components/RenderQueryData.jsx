@@ -1,6 +1,6 @@
 /** @format */
 import Loader from "./Loader/Loader";
-import NoResult from "./NoResult/Noresult";
+import NoResult from "./NoResult/NoResult.jsx";
 
 function RenderQueryData({
   children,
