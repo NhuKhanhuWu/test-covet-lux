@@ -1,5 +1,5 @@
 /** @format */
-import styles from "./Noresult.module.css";
+import styles from "./NoResult.module.css";
 
 function NoResult() {
   return (
