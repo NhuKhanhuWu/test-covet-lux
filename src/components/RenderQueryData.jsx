@@ -1,6 +1,6 @@
 /** @format */
 import Loader from "./Loader/Loader";
-// import NoResult from "./NoResult/Noresult";
+import NoResult from "./NoResult/Noresult";
 
 function RenderQueryData({
   children,
@@ -16,7 +16,7 @@ function RenderQueryData({
       {!isLoading &&
         !isError &&
         isEmptyList &&
-        (emptyMess !== null ? emptyMess : "Mo result")}
+        (emptyMess !== null ? emptyMess : <NoResult></NoResult>)}
       {!isLoading && !isError && !isEmptyList && children}
       {isError && "error"}
     </>
