@@ -1,22 +1,22 @@
 /** @format */
 import Loader from "./Loader/Loader";
+// import NoResult from "./NoResult/Noresult";
 
 function RenderQueryData({
   children,
   isLoading,
   isError,
   isEmptyList = true,
-  renderError = false,
   emptyMess = null,
+  loading = true,
 }) {
   return (
     <>
-      {isLoading && <Loader></Loader>}
+      {loading && isLoading && <Loader></Loader>}
       {!isLoading &&
         !isError &&
         isEmptyList &&
-        // !renderError &&
-        (emptyMess !== null ? emptyMess : "No result")}
+        (emptyMess !== null ? emptyMess : "Mo result")}
       {!isLoading && !isError && !isEmptyList && children}
       {isError && "error"}
     </>
