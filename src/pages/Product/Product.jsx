@@ -92,7 +92,7 @@ function Product() {
       </MediaQuery>
       {/* search bar for mobile: end */}
 
-      <FlexContainer gap={3} elClass={styles.productContainer}>
+      <FlexContainer gap={4} elClass={styles.productContainer}>
         {/* search bar for desktop: start */}
         <MediaQuery minWidth={651}>
           <div className={`${styles.sideBar} ${isSearchOpen && styles.open}`}>
@@ -103,21 +103,23 @@ function Product() {
         {/* search bar for desktop:  end */}
 
         {/* products: start */}
-        <InfiniteScroll
-          style={{ margin: "auto" }}
-          dataLength={productList.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<Loader></Loader>}>
-          <RenderQueryData
-            isEmptyList={productList.length === 0 && status !== "loading"}>
-            <GridContainer numCol={4} elClass={styles.productContainer}>
-              {productList.map((product, i) => (
-                <ProductItem key={`product-${i}`} product={product} />
-              ))}
-            </GridContainer>
-          </RenderQueryData>
-        </InfiniteScroll>
+        <div style={{ margin: "auto" }}>
+          <InfiniteScroll
+            dataLength={productList.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<Loader></Loader>}>
+            <RenderQueryData
+              isEmptyList={productList.length === 0 && status !== "loading"}
+              emptyMess={true}>
+              <GridContainer numCol={4} elClass={styles.productContainer}>
+                {productList.map((product, i) => (
+                  <ProductItem key={`product-${i}`} product={product} />
+                ))}
+              </GridContainer>
+            </RenderQueryData>
+          </InfiniteScroll>
+        </div>
         {/* products: end */}
       </FlexContainer>
 

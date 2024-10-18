@@ -83,6 +83,12 @@
 }
 
 /* responsive: start */
+@media screen and (min-width: 426px) {
+  .imgContainer > img {
+    width: 80%;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .blogContainer {
     width: 90%;
@@ -98,8 +104,4 @@
   }
 }
 
-@media screen and (max-width: 400px) {
-  /* .imgContainer {
-  } */
-}
 /* responsive: end */
