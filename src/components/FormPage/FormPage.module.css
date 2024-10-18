@@ -1,12 +1,17 @@
 /** @format */
 
 .formContainer {
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  /* overflow: hidden; */
+  background-image: url("../../../public/jeans-sweater.jpeg");
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .form {
@@ -25,12 +30,6 @@
 }
 
 /* responsive: start */
-@media screen and (max-width: 900px) {
-  .img {
-    transform: scale(1.5);
-  }
-}
-
 @media screen and (max-width: 620px) {
   .form {
     width: 55%;
@@ -41,10 +40,6 @@
   .form {
     width: 65%;
   }
-
-  .img {
-    transform: scale(2);
-  }
 }
 
 @media screen and (max-width: 440px) {
@@ -53,11 +48,4 @@
     padding: 3rem;
   }
 }
-
-@media screen and (max-width: 360px) {
-  .img {
-    transform: scale(2.5);
-  }
-}
-
 /* responsive: end */
