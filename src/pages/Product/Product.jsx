@@ -92,10 +92,7 @@ function Product() {
       </MediaQuery>
       {/* search bar for mobile: end */}
 
-      <FlexContainer
-        spaceBetween={true}
-        gap={3}
-        elClass={styles.productContainer}>
+      <FlexContainer gap={3} elClass={styles.productContainer}>
         {/* search bar for desktop: start */}
         <MediaQuery minWidth={651}>
           <div className={`${styles.sideBar} ${isSearchOpen && styles.open}`}>
@@ -107,6 +104,7 @@ function Product() {
 
         {/* products: start */}
         <InfiniteScroll
+          style={{ margin: "auto" }}
           dataLength={productList.length}
           next={fetchMoreData}
           hasMore={hasMore}

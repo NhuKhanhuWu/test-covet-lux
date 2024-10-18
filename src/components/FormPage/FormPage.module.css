@@ -1,7 +1,7 @@
 /** @format */
 
 .formContainer {
-  min-height: 100vh;
+  min-height: 90vh;
   /* overflow: hidden; */
   background-image: url("../../../public/jeans-sweater.jpeg");
   position: relative;
