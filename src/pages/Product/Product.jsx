@@ -39,13 +39,9 @@ function Product() {
     hasMore,
   } = useSelector((state) => state.products);
 
-<<<<<<< HEAD
-  const [navHeight, setNavHeight] = useState(0); //get btn side bar position
-=======
   // search bar
   const [navHeight, setNavHeight] = useState(0);
   const [isSearchOpen, setSearchOpen] = useState(false);
->>>>>>> 083f6a5aaa03cc2c5b313bc7bde5b09048e1aa97
 
   useEffect(
     function () {
@@ -116,10 +112,7 @@ function Product() {
           hasMore={hasMore}
           loader={<Loader></Loader>}>
           <RenderQueryData
-            // loading={false}
-            isEmptyList={productList.length === 0 && status !== "loading"}
-            // isLoading={status === "loading"}
-          >
+            isEmptyList={productList.length === 0 && status !== "loading"}>
             <GridContainer numCol={4} elClass={styles.productContainer}>
               {productList.map((product, i) => (
                 <ProductItem key={`product-${i}`} product={product} />
