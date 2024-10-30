@@ -18,7 +18,7 @@ import PersonalInfor from "./component/PersonalInfor.jsx";
 import Payment from "./component/Payment";
 import ProductList from "./component/ProductList";
 import Total from "./component/Total";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +34,15 @@ function BuyBtn() {
         className={`${styles.buyBtn} fill-btn`}>
         BUY NOW
       </button>
+
+      <p
+        className={`${styles.noteTxt} copyRight`}
+        style={{ textAlign: "center" }}>
+        <Link to="/test-covet-lux/login" className="link">
+          Login
+        </Link>{" "}
+        to track your order.
+      </p>
     </div>
   );
 }

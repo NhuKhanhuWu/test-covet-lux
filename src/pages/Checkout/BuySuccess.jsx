@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 
 function BuySuccess() {
   // check if user login
-  const isLogin = useSelector((state) => state.user).user.id !== null;
+  const isLogin = useSelector((state) => state.user).user.id !== undefined;
+  console.log(isLogin);
 
   // render order detail url
   const [url] = useSearchParams();

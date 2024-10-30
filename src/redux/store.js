@@ -8,7 +8,7 @@ import orderSlide from "./ordersSlide";
 import productsSlice from "./productsSlide";
 import userSlice from "./userSlide";
 
-// Persist configuratio
+// Persist configuration
 const cartPersistConfig = {
   key: "cart", // Key to store in localStorage
   storage, // LocalStorage as the storage option
