@@ -1,3 +1,7 @@
+**Deploy link:** https://nhukhanhuwu.github.io/test-covet-lux/
+
+**Backup deploy:** https://nhukhanhuwu.github.io/covet-lux-fake-api/
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
