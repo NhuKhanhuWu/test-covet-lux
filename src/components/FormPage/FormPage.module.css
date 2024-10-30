@@ -1,24 +1,20 @@
 /** @format */
 
 .formContainer {
-  min-height: 90vh;
-  /* overflow: hidden; */
+  padding: 2rem 0;
   background-image: url("../../../public/jeans-sweater.jpeg");
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
 }
 
 .form {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: white;
   padding: 5rem;
   padding-top: 3rem;

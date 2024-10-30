@@ -26,6 +26,9 @@ import { reset } from "../../redux/cartSlide";
 import { addOrder } from "../../redux/ordersSlide";
 
 function BuyBtn() {
+  // check if user login
+  const isLogin = useSelector((state) => state.user).user.id !== undefined;
+
   return (
     <div className={styles.btnContainer}>
       <button
@@ -35,14 +38,16 @@ function BuyBtn() {
         BUY NOW
       </button>
 
-      <p
-        className={`${styles.noteTxt} copyRight`}
-        style={{ textAlign: "center" }}>
-        <Link to="/test-covet-lux/login" className="link">
-          Login
-        </Link>{" "}
-        to track your order.
-      </p>
+      {!isLogin && (
+        <p
+          className={`${styles.noteTxt} copyRight`}
+          style={{ textAlign: "center" }}>
+          <Link to="/test-covet-lux/login" className="link">
+            Login
+          </Link>{" "}
+          to track your order.
+        </p>
+      )}
     </div>
   );
 }
