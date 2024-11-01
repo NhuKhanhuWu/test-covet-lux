@@ -13,9 +13,10 @@ function RenderQueryData({
   return (
     <>
       {loading && isLoading && <Loader></Loader>}
-      {!isLoading && !isError && isEmptyList && emptyMess && (
-        <NoResult></NoResult>
-      )}
+      {!isLoading &&
+        !isError &&
+        isEmptyList &&
+        (emptyMess || <NoResult></NoResult>)}
       {!isLoading && !isError && !isEmptyList && children}
       {isError && "error"}
     </>

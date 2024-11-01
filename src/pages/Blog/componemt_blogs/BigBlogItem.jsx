@@ -1,6 +1,8 @@
 /** @format */
-import styles from "../Blogs.module.css";
 import { Link } from "react-router-dom";
+
+import styles from "../Blogs.module.css";
+import Img from "../../../components/Img.jsx";
 
 function BigBlogItem({ blog }) {
   const postDate = new Date(blog?.creationAt);
@@ -8,16 +10,14 @@ function BigBlogItem({ blog }) {
   return (
     <Link to={`/test-covet-lux/blog?id=${blog.id}`} className={styles.blogItem}>
       <div className={styles.imgContainer}>
-        <img
+        <Img
           alt={blog.title}
-          src={blog.images[0].replace("[", "").replace('"', "")}
-          className={`img ${styles.blogImg}`}
-          loading="lazy"></img>
-        <img
+          imgSrc={blog.images[0]}
+          elClass={`img ${styles.blogImg}`}></Img>
+        <Img
           alt={blog.title}
-          src={blog.images[1]?.replace("[", "").replace('"', "")}
-          className={`img ${styles.blogImg}`}
-          loading="lazy"></img>
+          imgSrc={blog.images[1]}
+          elClass={`img ${styles.blogImg}`}></Img>
       </div>
 
       <div className={styles.blogTxt}>

@@ -1,18 +1,18 @@
 /** @format */
 
 import { Link } from "react-router-dom";
+import useGetDataList from "../../../hooks/useGetDataList";
+
+import styles from "../OrderDetail.module.css";
 import FlexContainer from "../../../components/FlexContainer";
 import RenderQueryData from "../../../components/RenderQueryData";
-import useGetDataList from "../../../hooks/useGetDataList";
-import styles from "../OrderDetail.module.css";
+import Img from "../../../components/Img";
 
 /** @format */
 function Product({ product, amount }) {
   return (
     <FlexContainer gap={2} margin={0} elClass={styles.product}>
-      <img
-        alt={product.title}
-        src={product.images[0].replace("[", "").replace('"', "")}></img>
+      <Img alt={product.title} imgSrc={product.images[0]}></Img>
 
       <FlexContainer margin={0} spaceBetween={true} gap={0}>
         <div className={styles.inforContent}>

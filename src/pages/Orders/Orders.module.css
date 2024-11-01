@@ -36,6 +36,10 @@
   padding-bottom: 2rem;
 }
 
+.productImg {
+  width: 7rem;
+}
+
 .productText {
   display: flex;
   flex-direction: column;

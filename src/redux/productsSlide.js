@@ -59,6 +59,10 @@ const productsSlice = createSlice({
       state.page = 1;
       state.hasMore = true;
     },
+    // reset filter when exit page
+    resetFilter: () => {
+      INITIAL_STATE;
+    },
   },
 
   extraReducers: (builder) => {
@@ -84,6 +88,7 @@ export const {
   editTitle,
   increasePage,
   resetProducts,
+  resetFilter,
 } = productsSlice.actions;
 productsSlice.reducer;
 export default productsSlice;

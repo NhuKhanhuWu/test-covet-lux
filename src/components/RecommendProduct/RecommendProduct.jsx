@@ -11,7 +11,7 @@ import { useMediaQuery } from "react-responsive";
 function RecommendProduct({ query, offset }) {
   // responesive
   const isSmallTablet = useMediaQuery({
-    query: "(max-width: 680px)",
+    query: "(max-width: 730px)",
   });
   const productQty = isSmallTablet ? 6 : 5;
 

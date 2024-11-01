@@ -6,11 +6,10 @@ import { BlankDivider } from "../../components/Divider";
 import GridContainer from "../../components/GridContainer.jsx";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
-import BigBlogItem from "./componemt_blogs/BlogItem.jsx";
+import BigBlogItem from "./componemt_blogs/BigBlogItem.jsx";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import styles from "./Blogs.module.css";
 import PageIntro from "../../components/PageIntro/PageIntro.jsx";
-import ScrollTopBtn from "../../components/ScrollTopBtn/ScrollTopBtn.jsx";
 
 const pageIntro = {
   header: "Covet Lux Blog",

@@ -77,7 +77,7 @@ function Banner() {
 
 function HomePage() {
   const blogQty = useMediaQuery({
-    query: "(max-width: 680px) and (min-width:500px)",
+    query: "(max-width: 730px) and (min-width:500px)",
   })
     ? 3
     : 4;

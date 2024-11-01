@@ -1,7 +1,8 @@
 /** @format */
-
 import MediaQuery, { useMediaQuery } from "react-responsive";
+
 import styles from "../ProductDetail.module.css";
+import Img from "../../../components/Img";
 
 /** @format */
 function ImgList({ product }) {
@@ -14,11 +15,7 @@ function ImgList({ product }) {
           <div
             key={`img-${i}`}
             className={`${isMobile && "carousel-item"} ${i === 0 && "active"}`}>
-            <img
-              className={`img`}
-              alt={product.title}
-              src={img?.replace("[", "").replace('"', "")}
-              loading="lazy"></img>
+            <Img alt={product.title} elClass={"img"} imgSrc={img}></Img>
           </div>
         ))}
     </>

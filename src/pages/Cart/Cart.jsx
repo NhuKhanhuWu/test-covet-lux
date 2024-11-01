@@ -50,8 +50,6 @@ function Cart() {
   // store total money (cost+shipping-discount...) in state
   const [totalMoney, setTotalMoney] = useState(0);
 
-  const isEmpty = productList === null || productList.length === 0;
-
   return (
     <>
       <NavBar></NavBar>

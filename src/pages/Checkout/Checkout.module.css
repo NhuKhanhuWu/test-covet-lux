@@ -35,6 +35,10 @@
   padding-bottom: 1rem;
 }
 
+.productImg {
+  width: 9rem;
+}
+
 .productInfor {
   width: 100%;
 }

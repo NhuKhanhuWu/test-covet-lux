@@ -1,15 +1,17 @@
 /** @format */
 import { Link } from "react-router-dom";
-import FlexContainer from "../../../components/FlexContainer";
+
 import styles from "../Orders.module.css";
+import FlexContainer from "../../../components/FlexContainer";
+import Img from "../../../components/Img.jsx";
 
 export function Product({ product }) {
   return (
     <FlexContainer margin={2} gap={1} elClass={`${styles.product} gray-text`}>
-      <img
+      <Img
         alt={product.title}
-        src={product?.images[0]?.replace("[", "").replace('"', "")}
-        style={{ width: "7rem" }}></img>
+        imgSrc={product?.images[0]}
+        elClass={styles.productImg}></Img>
 
       <div className={styles.productText}>
         <Link

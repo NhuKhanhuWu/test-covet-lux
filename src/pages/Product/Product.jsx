@@ -19,8 +19,10 @@ import {
   fetchFilteredProducts,
   increasePage,
   resetProducts,
+  resetFilter,
 } from "../../redux/productsSlide.js";
 import { useDispatch } from "react-redux";
+import usePageExit from "../../hooks/usePageExit.jsx";
 import MediaQuery from "react-responsive";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -67,6 +69,9 @@ function Product() {
       dispatch(fetchFilteredProducts()); // Fetch more products
     }
   };
+
+  // reset filter when leave page
+  usePageExit(dispatch(resetFilter()));
 
   return (
     <>

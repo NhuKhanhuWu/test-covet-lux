@@ -2,18 +2,17 @@
 import styles from "../Checkout.module.css";
 import FlexContainer from "../../../components/FlexContainer";
 import { Link } from "react-router-dom";
+import Img from "../../../components/Img.jsx";
 
 export default function ProductItem({ product }) {
   return (
     <tr className={styles.product}>
       <td>
         <FlexContainer margin={0} gap={1}>
-          <img
+          <Img
             alt={product.title}
-            src={product.images[0].replace("[", "").replace('"', "")}
-            className={`img`}
-            style={{ width: "9rem" }}
-            loading="lazy"></img>
+            elClass={`img ${styles.productImg}`}
+            imgSrc={product.images[0]}></Img>
           <div
             className={`columnContent ${styles.productTxt}`}
             style={{ width: "60%" }}>

@@ -1,7 +1,11 @@
 /** @format */
+import getImg from "../../../hooks/useGetImg.jsx";
 
-import { AmountInput } from "../../../components/AmountInput/AmountInput.jsx";
+import imgPlaceHolder from "../../../../public/img-not-available.jpg";
+
 import styles from "../Cart.module.css";
+import { AmountInput } from "../../../components/AmountInput/AmountInput.jsx";
+import Img from "../../../components/Img.jsx";
 
 // redux
 import { changeAmount, removeFromCart } from "../../../redux/cartSlide.js";
@@ -9,19 +13,32 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import MediaQuery from "react-responsive";
 
+// function Img({ productList, index }) {
+//   const img = getImg(productList[index].images[0]);
+
+//   return (
+//     <img
+//       className={styles.img}
+//       alt={productList[index].title}
+//       src={img}
+//       onError={(e) => {
+//         e.target.onError = null;
+//         e.target.src = imgPlaceHolder;
+//       }}
+//       loading="lazy"></img>
+//   );
+// }
+
 function BigTablet({ index, productList, updateAmount, handleDelete }) {
   return (
     <>
       {productList[index] && (
         <tr className={styles.productRow}>
           <td>
-            <img
-              className={styles.img}
+            <Img
               alt={productList[index].title}
-              src={productList[index].images[0]
-                .replace("[", "")
-                .replace('"', "")}
-              loading="lazy"></img>
+              elClass={styles.img}
+              imgSrc={productList[index].images[0]}></Img>
           </td>
 
           <td>
@@ -30,7 +47,6 @@ function BigTablet({ index, productList, updateAmount, handleDelete }) {
               to={`/test-covet-lux/product?product_id=${productList[index].id}`}>
               {productList[index].title}
             </Link>
-            {/* <p></p> */}
           </td>
 
           <td className={styles.money}>
@@ -70,13 +86,10 @@ function SmallTablet({ index, productList, updateAmount, handleDelete }) {
       {productList[index] && (
         <tr className={styles.productRow}>
           <td className={styles.imgContainer}>
-            <img
-              className={styles.img}
+            <Img
               alt={productList[index].title}
-              src={productList[index].images[0]
-                .replace("[", "")
-                .replace('"', "")}
-              loading="lazy"></img>
+              elClass={styles.img}
+              imgSrc={productList[index].images[0]}></Img>
           </td>
 
           <td>
@@ -120,13 +133,10 @@ function BigPhone({ index, productList, updateAmount, handleDelete }) {
       {productList[index] && (
         <tr className={styles.productRow}>
           <td className={styles.imgContainer}>
-            <img
-              className={styles.img}
+            <Img
               alt={productList[index].title}
-              src={productList[index].images[0]
-                .replace("[", "")
-                .replace('"', "")}
-              loading="lazy"></img>
+              elClass={styles.img}
+              imgSrc={productList[index].images[0]}></Img>
           </td>
 
           <td>

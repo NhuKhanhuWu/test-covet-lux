@@ -1,16 +1,17 @@
 /** @format */
-import styles from "./BlogItem.module.css";
 import { Link } from "react-router-dom";
+
+import styles from "./BlogItem.module.css";
+import Img from "../Img.jsx";
 
 function BlogItem({ blog }) {
   return (
     <Link to={`/test-covet-lux/blog?id=${blog.id}`} className={styles.blog}>
       <div className="overflow-container">
-        <img
+        <Img
           alt={blog.title}
-          src={blog?.images[0]?.replace("[", "").replace('"', "")}
-          className={`img overflow-item ${styles.blogImg}`}
-          loading="lazy"></img>
+          imgSrc={blog.images[0]}
+          elClass={`img overflow-item ${styles.blogImg}`}></Img>
       </div>
 
       <p className={styles.title}>{blog.title}</p>

@@ -9,11 +9,12 @@ import {
   LinkedinShareButton,
 } from "react-share";
 
+import styles from "./BlogDetail.module.css";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/NavBar/NavBar";
 import RenderQueryData from "../../components/RenderQueryData.jsx";
 import { BlankDivider } from "../../components/Divider.jsx";
-import styles from "./BlogDetail.module.css";
+import Img from "../../components/Img.jsx";
 
 const blogContent = {
   summary:
@@ -73,11 +74,15 @@ function BlogDetail() {
 
           {blogData?.images && (
             <div className={styles.imgContainer}>
-              <img
+              <Img
+                alt={blogData.title}
+                imgSrc={blogData?.images[0]}
+                elClass={`img ${styles.blogImg}`}></Img>
+              {/* <img
                 loading="lazy"
                 alt={blogData.title}
                 src={blogData?.images[0].replace("[", "").replace('"', "")}
-                className={`img ${styles.blogImg}`}></img>
+                className={`img ${styles.blogImg}`}></img> */}
             </div>
           )}
 
