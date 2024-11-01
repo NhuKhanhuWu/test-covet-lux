@@ -115,8 +115,7 @@ function Product() {
             hasMore={hasMore}
             loader={<Loader></Loader>}>
             <RenderQueryData
-              isEmptyList={productList.length === 0 && status !== "loading"}
-              emptyMess={true}>
+              isEmptyList={productList.length === 0 && status !== "loading"}>
               <GridContainer numCol={4} elClass={styles.productContainer}>
                 {productList.map((product, i) => (
                   <ProductItem key={`product-${i}`} product={product} />
