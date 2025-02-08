@@ -26,6 +26,7 @@ import Orders from "./pages/Orders/Orders.jsx";
 import OrderDetail from "./pages/Orders/OrderDetail.jsx";
 import BlogDetail from "./pages/Blog/BlogDetail.jsx";
 import ScrollTopBtn from "./components/ScrollTopBtn/ScrollTopBtn.jsx";
+import ChatBox from "./components/ChatBox/ChatBox.tsx";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
         {/* BLOG: END */}
       </Routes>
 
+      <ChatBox></ChatBox>
       <ScrollTopBtn></ScrollTopBtn>
     </BrowserRouter>
   );
