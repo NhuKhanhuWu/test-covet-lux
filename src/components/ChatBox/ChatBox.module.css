@@ -1,0 +1,28 @@
+/**
+ * chat box container
+ *
+ * @format
+ */
+
+.chatBox {
+  border: solid 1px var(--orange);
+  width: 35rem;
+  height: 44rem;
+  position: fixed;
+  right: 3%;
+  bottom: 0;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px 10px 0 0;
+  font-size: 1.4rem;
+}
+
+.ai {
+  background-color: rgb(240, 240, 240);
+}
+
+.user {
+  background-color: rgba(255, 204, 178, 0.774);
+  align-self: end;
+  margin-right: 1rem;
+}

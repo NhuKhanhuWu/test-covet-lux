@@ -4,7 +4,6 @@ import imgPlaceHolder from "../../public/img-not-available.jpg";
 
 function Img({ alt, elClass, imgSrc }) {
   const img = getImg(imgSrc);
-  console.log(alt);
 
   return (
     <img
