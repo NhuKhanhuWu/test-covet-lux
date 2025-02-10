@@ -3,6 +3,29 @@
  *
  * @format
  */
+.chatIcon {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid black;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chatIcon:hover {
+  background-color: var(--orange);
+}
+
+.chatIcon span {
+  font-size: 2rem;
+}
 
 .chatBox {
   border: solid 1px var(--orange);
@@ -17,12 +40,29 @@
   font-size: 1.4rem;
 }
 
+.chatBubble {
+  max-width: 75%;
+}
+
+/* txt container */
 .ai {
   background-color: rgb(240, 240, 240);
+  align-self: flex-start;
 }
 
 .user {
   background-color: rgba(255, 204, 178, 0.774);
   align-self: end;
   margin-right: 1rem;
+}
+/* txt container */
+
+.submitBtn {
+  font-size: 2rem;
+  color: var(--orange);
+}
+
+.disabled {
+  color: gray;
+  cursor: auto;
 }
