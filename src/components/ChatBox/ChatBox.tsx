@@ -1,83 +1,66 @@
 /** @format */
-import React from "react";
+import React, { useState } from "react";
 import { FC } from "react";
-import { Formik, Form, Field } from "formik";
 
 import styles from "./ChatBox.module.css";
+import { ChatInput } from "./ChatInput";
+import MessageContainer from "./MessageContainer";
 
-interface ChatMessage {
+export interface ChatMessage {
   sender: "ai" | "user";
   message: string;
 }
 
-interface ChatBubbleProps {
-  chat: ChatMessage;
+interface ChatIconProps {
+  isExpanded: boolean;
+  setIsExpanded: Function;
 }
 
-const testChat: ChatMessage[] = [
-  { sender: "ai", message: "Hi, how can I help you" },
-  { sender: "user", message: "How to know when my order will arrive" },
-];
+interface ChatIconProps {
+  isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-// INPUT TEXT
-const ChatInput: FC<ChatMessage> = () => {
-  return (
-    <Formik
-      initialValues={{ message: "" }}
-      onSubmit={(values, { resetForm }) => {
-        resetForm();
-      }}>
-      {({ values, isSubmitting }) => (
-        <Form className="flex items-center gap-2 p-2 border rounded-md">
-          <Field
-            type="text"
-            name="message"
-            placeholder="Type a message..."
-            className="flex-1 p-2 border rounded-md"
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting || !values.message.trim()}
-            className={styles.submitBtn}>
-            <span className="material-symbols-outlined">send</span>
-          </button>
-        </Form>
-      )}
-    </Formik>
-  );
-};
+const ChatIcon: FC<ChatIconProps> = ({ isExpanded, setIsExpanded }) => {
+  const handleClick = () => setIsExpanded((prev) => !prev);
 
-// CHAT BUBBLE
-const ChatBubble: FC<ChatBubbleProps> = ({ chat }) => {
   return (
-    <div className={`py-3 px-4 rounded-3xl w-3/4 ${styles[chat.sender]}`}>
-      <p>{chat.message}</p>
-    </div>
+    <button className={styles.chatIcon} onClick={handleClick}>
+      <span className="material-symbols-outlined text-2xl">chat</span>
+    </button>
   );
 };
 
 // CHAT BOX
 const ChatBox: FC = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <div className={`${styles.chatBox} flex flex-col`}>
-      {/* header */}
-      <div className="flex justify-between items-center border-b border-gray-300 pb-3 text-2xl font-medium">
-        <p className="title">Chat Box AI</p>
-        <span className="material-symbols-outlined cursor-pointer">
-          minimize
-        </span>
-      </div>
+    <>
+      {!isExpanded ? (
+        <ChatIcon
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}></ChatIcon>
+      ) : (
+        <div className={`${styles.chatBox} flex flex-col`}>
+          {/* header */}
+          <div className="flex justify-between items-center border-b border-gray-300 pb-3 text-2xl font-medium">
+            <p className="title">Chat Box AI</p>
+            <span
+              className="material-symbols-outlined cursor-pointer"
+              onClick={() => setIsExpanded((isExpanded) => !isExpanded)}>
+              minimize
+            </span>
+          </div>
 
-      {/* message container */}
-      <div className="flex-1 flex flex-column gap-4 my-4 overflow-y-scroll">
-        {testChat.map((chat, i) => (
-          <ChatBubble chat={chat} key={`chat-${i}`}></ChatBubble>
-        ))}
-      </div>
+          {/* message container */}
+          <MessageContainer></MessageContainer>
 
-      {/* chat input */}
-      <ChatInput sender={"ai"} message={""} />
-    </div>
+          {/* chat input */}
+          <ChatInput sender={"ai"} message={""} />
+        </div>
+      )}
+    </>
   );
 };
 

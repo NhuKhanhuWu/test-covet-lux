@@ -7,6 +7,7 @@ import cartSlide from "./cartSlide";
 import orderSlide from "./ordersSlide";
 import productsSlice from "./productsSlide";
 import userSlice from "./userSlide";
+import chatSlide from "./chatSlide";
 
 // Persist configuration
 const cartPersistConfig = {
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   orders: persistedOrderReducer,
   products: productsSlice.reducer,
   user: persistedUserReducer,
+  chat: chatSlide.reducer,
 });
 
 // Configure the store

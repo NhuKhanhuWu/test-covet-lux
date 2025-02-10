@@ -9,25 +9,29 @@ interface ChatMessage {
 
 interface ChatState {
   chatArray: ChatMessage[];
+  isLoading: boolean;
+  err: string;
 }
 
 const initialState: ChatState = {
   chatArray: [],
+  isLoading: false,
+  err: "",
 };
 
 const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    // add new chat
     addChat: (state, action: PayloadAction<ChatMessage>) => {
       if (!action.payload.message) return;
 
       // add new chat
       state.chatArray.push(action.payload);
-
-      // call api
     },
 
+    // edit chat
     editChat: (
       state,
       action: PayloadAction<{ index: number; message: ChatMessage }>
@@ -39,11 +43,19 @@ const chatSlice = createSlice({
 
       // add new chat
       state.chatArray.push(action.payload.message);
+    },
 
-      // call api
+    // set loading status
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
+    // set err message
+    setErr: (state, action) => {
+      state.err = action.payload;
     },
   },
 });
 
-export const { addChat, editChat } = chatSlice.actions;
-export default chatSlice.reducer;
+export const { addChat, editChat, setIsLoading, setErr } = chatSlice.actions;
+export default chatSlice;

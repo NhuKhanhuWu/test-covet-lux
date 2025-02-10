@@ -1,6 +1,14 @@
 /** @format */
 import { useState } from "react";
+import * as Yup from "yup";
+import { Field } from "formik";
 import styles from "./InputField.module.css";
+
+export const EmailSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
 
 function InputField({
   field,
@@ -34,7 +42,7 @@ function InputField({
   return (
     <div className={styles.inputField}>
       <label htmlFor={field?.id}>{field?.label}</label>
-      <input
+      <Field
         onChange={(e) => handleChangeValue(e)}
         required={isRequired}
         className={isEpayment ? "ePayment" : "inputInfor"}
@@ -44,7 +52,7 @@ function InputField({
         type={type}
         value={input}
         placeholder={checkedPlaceholder}
-        id={field?.id}></input>
+        id={field?.id}></Field>
       {isPassword && (
         <p
           className="link"
