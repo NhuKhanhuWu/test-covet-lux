@@ -16,9 +16,9 @@ import MediaQuery from "react-responsive";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import {
-  fullNameValidation,
-  phoneValidation,
-  textNumberValidation,
+  nameValidate,
+  phoneValidate,
+  txtNumValidate,
 } from "../../components/InputField/Validate.js";
 
 const ACCOUNT_FORM = [
@@ -54,12 +54,12 @@ function Account() {
   const [isShowMessage, setShowMessage] = useState(false); // display message box
 
   const accountInforValidate = Yup.object().shape({
-    name: fullNameValidation,
-    phone: phoneValidation,
-    city: textNumberValidation,
-    provine: textNumberValidation,
-    ward: textNumberValidation,
-    specificAddress: textNumberValidation,
+    name: nameValidate,
+    phone: phoneValidate,
+    city: txtNumValidate,
+    provine: txtNumValidate,
+    ward: txtNumValidate,
+    specificAddress: txtNumValidate,
   }); // form validation
   const initValue = {
     name: user?.name ?? "",

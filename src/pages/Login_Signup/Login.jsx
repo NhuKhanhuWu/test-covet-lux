@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import { login } from "../../redux/userSlide.js";
 import { Form, Formik } from "formik";
 import {
-  emailValidation,
-  passwordValidation,
+  emailValidate,
+  passValidate,
 } from "../../components/InputField/Validate.js";
 
 const LOGIN_FORM = [
@@ -61,8 +61,8 @@ function Login() {
   const [loginErr, setLoginErr] = useState(""); // show login err message
   const dispatch = useDispatch();
   const loginValidation = Yup.object().shape({
-    email: emailValidation,
-    password: passwordValidation,
+    email: emailValidate,
+    password: passValidate,
   });
 
   function handleLogin(values) {

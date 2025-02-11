@@ -22,6 +22,7 @@ function Order({ children }) {
 function Orders() {
   // get data from localStorage
   const data = useSelector((state) => state.orders).orderArray;
+  console.log(data);
 
   //   get product list from order
   const productList = data?.map((order) => order?.products);

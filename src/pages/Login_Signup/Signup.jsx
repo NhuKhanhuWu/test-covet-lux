@@ -10,8 +10,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import styles from "./Login_Signup.module.css";
 import {
-  emailValidation,
-  passwordValidation,
+  emailValidate,
+  passValidate,
 } from "../../components/InputField/Validate.js";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlide";
@@ -38,9 +38,10 @@ const SIGNUP_FORM = [
 function Signup() {
   const dispatch = useDispatch();
   const [isShowPass, setIsShowPass] = useState(false); // show pass on password fied
+  const [errMessage, setErrMessage] = useState("");
   const signupValidation = Yup.object().shape({
-    email: emailValidation,
-    password: passwordValidation,
+    email: emailValidate,
+    password: passValidate,
   });
 
   async function handleSignup(values) {
@@ -66,6 +67,7 @@ function Signup() {
       // redirect to homepage
       window.location.href = "/test-covet-lux";
     } catch (err) {
+      setErrMessage("Invalid email");
       throw new Error(err);
     }
   }
@@ -84,6 +86,11 @@ function Signup() {
             <FormPage backgroundImg={"https://shorturl.at/lTpKz"}>
               {/* header */}
               <h1 className={styles.formTitle}>Sign up</h1>
+
+              {/* err message */}
+              {errMessage && (
+                <p className="text-red-500 text-m mt-1">{errMessage}</p>
+              )}
 
               {/* fields */}
               {SIGNUP_FORM.map((field, i) => (

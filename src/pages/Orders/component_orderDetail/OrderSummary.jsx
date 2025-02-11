@@ -5,8 +5,7 @@ import styles from "../OrderDetail.module.css";
 
 function OrderSummary({ orderInfor }) {
   //   order shipment
-  const shipmentInfor = orderInfor.personalInfor;
-  const address = `${shipmentInfor.specificAddress}, ${shipmentInfor.ward}, ${shipmentInfor.provine}, ${shipmentInfor.city}`;
+  const address = `${orderInfor.specificAddress}, ${orderInfor.ward}, ${orderInfor.province}, ${orderInfor.city}`;
 
   return (
     <>
@@ -15,10 +14,10 @@ function OrderSummary({ orderInfor }) {
 
         <ul className={styles.inforContent}>
           <li>
-            <span>Name: {shipmentInfor.name}</span>
+            <span>Name: {orderInfor.name}</span>
           </li>
           <li>
-            <span>Phone: {shipmentInfor.phone}</span>
+            <span>Phone: {orderInfor.phone}</span>
           </li>
           <li>
             <span>Address: {address}</span>
@@ -44,16 +43,13 @@ function OrderSummary({ orderInfor }) {
           <FlexContainer spaceBetween={true} margin={0}>
             <span>Total</span>
             <span className={styles.total}>
-              $
-              {Math.round(
-                (orderInfor.deliverFee + orderInfor.goodsTotal) * 100
-              ) / 100}
+              {orderInfor.deliverFee + orderInfor.goodsTotal}
             </span>
           </FlexContainer>
 
           <FlexContainer spaceBetween={true} margin={0}>
             <span>Methob</span>
-            <span>{orderInfor.payMethod.toUpperCase()}</span>
+            <span>{orderInfor.paymentMethod.toUpperCase()}</span>
           </FlexContainer>
         </div>
       </div>

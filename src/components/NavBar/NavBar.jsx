@@ -48,7 +48,6 @@ function NavIcon() {
 
   // get user avatar: start
   const user = useSelector((state) => state.user).user;
-  console.log(user);
 
   const avatar = user.id ? user.avatar : null;
   // get user avatar: end

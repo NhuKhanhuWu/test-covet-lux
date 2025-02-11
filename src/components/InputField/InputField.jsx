@@ -49,7 +49,7 @@ function InputField({
 
       {/* error message */}
       <ErrorMessage
-        name={field.name}
+        name={field.name || ""}
         component="p"
         className="text-red-500 text-m mt-1"
       />
