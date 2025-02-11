@@ -24,6 +24,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../redux/cartSlide";
 import { addOrder } from "../../redux/ordersSlide";
+import { Form, Formik } from "formik";
 
 function BuyBtn() {
   // check if user login
@@ -143,15 +144,17 @@ function Checkout() {
           <ListHeader
             title={"Personal information"}
             className={styles.header}></ListHeader>
-          <form
-            onSubmit={(e) => {
-              handleBuy(e);
-            }}
-            id="paymentInfor"
-            className={`columnContent ${styles.inforForm}`}>
-            <PersonalInfor></PersonalInfor>
-            <Payment></Payment>
-          </form>
+          <Formik>
+            <Form
+              onSubmit={(e) => {
+                handleBuy(e);
+              }}
+              id="paymentInfor"
+              className={`columnContent ${styles.inforForm}`}>
+              <PersonalInfor></PersonalInfor>
+              <Payment></Payment>
+            </Form>
+          </Formik>
         </div>
 
         <div style={{ flexGrow: "1" }}>

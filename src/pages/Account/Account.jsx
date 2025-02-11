@@ -6,65 +6,77 @@ import Footer from "../../components/Footer/Footer.jsx";
 import SideBarAcc from "../../components/SideBarAcc/SideBarAcc.jsx";
 import InputField from "../../components/InputField/InputField.jsx";
 import MessageBox from "../../components/MessageBox/MessageBox.jsx";
+import styles from "./Account.module.css";
 
 import useGetLocal from "../../hooks/useGetLocal.jsx";
 import GridContainer from "../../components/GridContainer.jsx";
 
-import styles from "./Account.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MediaQuery from "react-responsive";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import {
+  fullNameValidation,
+  phoneValidation,
+  textNumberValidation,
+} from "../../components/InputField/Validate.js";
+
+const ACCOUNT_FORM = [
+  { id: "name", label: "Full name", name: "name" },
+  {
+    id: "phone",
+    label: "Phone",
+    type: "tel",
+    placeholder: "+84 | 0213 456 789",
+    maxLength: 10,
+    name: "phone",
+  },
+  {
+    id: "city",
+    label: "City/provine",
+    name: "city",
+  },
+  {
+    id: "provine",
+    label: "Provine",
+    name: "provine",
+  },
+  { id: "ward", label: "Ward", name: "ward" },
+  {
+    id: "specificAddress",
+    label: "Specific Address",
+    name: "specificAddress",
+  },
+];
 
 function Account() {
-  // get user infor
-  const user = useGetLocal("personal_infor");
+  const user = useGetLocal("personal_infor"); // get user infor
+  const [isShowMessage, setShowMessage] = useState(false); // display message box
 
-  // handle submit form
-  const [isSubmit, setSubmit] = useState(false);
+  const accountInforValidate = Yup.object().shape({
+    name: fullNameValidation,
+    phone: phoneValidation,
+    city: textNumberValidation,
+    provine: textNumberValidation,
+    ward: textNumberValidation,
+    specificAddress: textNumberValidation,
+  }); // form validation
+  const initValue = {
+    name: user?.name ?? "",
+    phone: user?.phone ?? "",
+    city: user?.city ?? "",
+    provine: user?.provine ?? "",
+    ward: user?.ward ?? "",
+    specificAddress: user?.specificAddress ?? "",
+  }; //init value
 
-  useEffect(
-    function () {
-      if (!isSubmit) return;
+  function handleUpdateInfor(values) {
+    // store in local storage
+    localStorage.setItem("personal_infor", JSON.stringify(values));
 
-      // get form input
-      const inputEls = document.querySelectorAll(".inputInfor");
-      let userInfor = {};
-      inputEls?.forEach((input) => {
-        userInfor[input.id] = input.value;
-      });
-
-      // store in local storage
-      localStorage.setItem("personal_infor", JSON.stringify(userInfor));
-
-      // display message
-      setShowMessage(true);
-    },
-    [isSubmit]
-  );
-
-  // form template
-  const accountForm = [
-    { id: "name", label: "Full name", value: user?.name },
-    {
-      id: "phone",
-      label: "Phone",
-      type: "tel",
-      value: user?.phone,
-      placeholder: "+84 | 0213 456 789",
-      pattern: "(\\+84|0)\\d{7,10}",
-      maxLength: 10,
-    },
-    { id: "city", label: "City/provine", value: user?.city },
-    { id: "provine", label: "Provine", value: user?.provine },
-    { id: "ward", label: "Ward", value: user?.ward },
-    {
-      id: "specificAddress",
-      label: "Specific Address",
-      value: user?.specificAddress,
-    },
-  ];
-
-  // display message box
-  const [isShowMessage, setShowMessage] = useState(false);
+    // display message
+    setShowMessage(true);
+  }
 
   return (
     <>
@@ -80,22 +92,26 @@ function Account() {
         <MediaQuery minWidth={540}>
           <SideBarAcc></SideBarAcc>
         </MediaQuery>
-        <form
-          className={styles.form}
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSubmit(true);
-          }}>
-          <GridContainer numCol={2} gapCol={6} elClass={styles.formFiels}>
-            {accountForm.map((field, i) => (
-              <InputField field={field} key={i}></InputField>
-            ))}
+        <Formik
+          initialValues={initValue}
+          validationSchema={accountInforValidate}
+          validateOnBlur={false}
+          validateOnChange={false}
+          onSubmit={handleUpdateInfor}>
+          {({ handleSubmit }) => (
+            <Form className={styles.form} onSubmit={handleSubmit}>
+              <GridContainer numCol={2} gapCol={6} elClass={styles.formFiels}>
+                {ACCOUNT_FORM.map((field, i) => (
+                  <InputField field={field} key={`field-${i}`}></InputField>
+                ))}
 
-            <button type="submit" className="fill-btn">
-              Save change
-            </button>
-          </GridContainer>
-        </form>
+                <button type="submit" className="fill-btn">
+                  Save change
+                </button>
+              </GridContainer>
+            </Form>
+          )}
+        </Formik>
       </FlexContainer>
 
       <MessageBox isShowed={isShowMessage} setShow={setShowMessage}>
