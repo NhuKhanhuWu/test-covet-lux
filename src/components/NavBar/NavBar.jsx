@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import logo from "../../../public/logo-no-background.png";
 import { useSelector } from "react-redux";
-import { editTitle } from "../../redux/productsSlide";
-import { useDispatch } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import MediaQuery from "react-responsive";
 import FlexContainer from "../FlexContainer";
+
+import SearchBar from "./SearchBar";
 
 function Logo() {
   return (
@@ -76,39 +75,6 @@ function NavIcon() {
         )}
       </div>
     </ul>
-  );
-}
-
-function SearchBar() {
-  // search product by title
-  const [tile, setTitle] = useState(
-    useSelector((state) => state.products.titleFilter)
-  );
-  const dispacth = useDispatch();
-  const navigate = useNavigate(); //redirect to product page
-  const currTitleFilter = useRef(); //get current seach titlr
-
-  function handleFilterTitle(e, title) {
-    e.preventDefault();
-    dispacth(editTitle(title));
-    navigate("/test-covet-lux/products");
-  }
-
-  return (
-    <form
-      className={styles.search}
-      onSubmit={(e) => handleFilterTitle(e, currTitleFilter.current.value)}>
-      <input
-        ref={currTitleFilter}
-        type="text"
-        placeholder="Search..."
-        value={tile}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <button type="submit">
-        <ion-icon name="search-outline"></ion-icon>
-      </button>
-    </form>
   );
 }
 
