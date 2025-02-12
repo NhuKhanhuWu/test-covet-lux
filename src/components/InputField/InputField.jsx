@@ -1,23 +1,14 @@
 /** @format */
-import { useState } from "react";
-import * as Yup from "yup";
-import { Field } from "formik";
+import { ErrorMessage, Field } from "formik";
 import styles from "./InputField.module.css";
-
-export const EmailSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
 
 function InputField({
   field,
-  isEpayment,
-  isRequired,
-  form,
-  isPassword,
-  isShowPass,
-  setShowPass,
+  isEpayment = false,
+  form = "",
+  isPassword = false,
+  isShowPass = false,
+  setShowPass = () => {},
 }) {
   const checkedPlaceholder =
     field?.placeholder !== undefined ? field?.placeholder : field?.label;
@@ -32,36 +23,36 @@ function InputField({
     }
   }
 
-  // change value
-  const [input, setInput] = useState(field?.value);
-  function handleChangeValue(e) {
-    e.preventDefault();
-    setInput(e.value);
-  }
-
   return (
     <div className={styles.inputField}>
       <label htmlFor={field?.id}>{field?.label}</label>
+      {/* input field */}
       <Field
-        onChange={(e) => handleChangeValue(e)}
-        required={isRequired}
         className={isEpayment ? "ePayment" : "inputInfor"}
         maxLength={field?.maxLength}
-        pattern={field?.pattern}
         form={form}
         type={type}
-        value={input}
         placeholder={checkedPlaceholder}
-        id={field?.id}></Field>
+        id={field?.id}
+        name={field.name}></Field>
+
+      {/* show pass btn */}
       {isPassword && (
         <p
           className="link"
           onClick={() => {
-            setShowPass(!isShowPass);
+            setShowPass((isShowPass) => !isShowPass);
           }}>
           {isShowPass ? "Hide" : "Show"} password
         </p>
       )}
+
+      {/* error message */}
+      <ErrorMessage
+        name={field.name || ""}
+        component="p"
+        className="text-red-500 text-m mt-1"
+      />
     </div>
   );
 }

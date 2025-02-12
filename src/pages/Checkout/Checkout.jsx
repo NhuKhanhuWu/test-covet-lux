@@ -1,7 +1,5 @@
 /** @format */
 
-import { useEffect, useState } from "react";
-
 import useGetDataList from "../../hooks/useGetDataList";
 
 // general component
@@ -24,6 +22,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../redux/cartSlide";
 import { addOrder } from "../../redux/ordersSlide";
+import { Form, Formik } from "formik";
+import useGetLocal from "../../hooks/useGetLocal.jsx";
+import {
+  cardCodeValidate,
+  expiredDateValidate,
+  nameValidate,
+  payMethodValidate,
+  phoneValidate,
+  txtNumValidate,
+  visaPassValidate,
+} from "../../components/InputField/Validate.js";
+import * as Yup from "yup";
 
 function BuyBtn() {
   // check if user login
@@ -60,7 +70,43 @@ function Checkout() {
     cart.map((item) => item.id)
   );
 
-  // attrach amount to products array
+  // get personal infor from local storage
+  const infor = useGetLocal("personal_infor");
+  const initPersonalInfor = {
+    // pre-fill form
+    name: infor?.name,
+    phone: infor?.phone,
+    city: infor?.city,
+    province: infor?.provine,
+    ward: infor?.ward,
+    specificAddress: infor?.specificAddress,
+  };
+
+  // validation
+  const whenOnlinePayment = (schema) =>
+    schema.when("paymentMethod", {
+      is: "ePayment",
+      then: (s) => s.required("This field is required"),
+      otherwise: (s) => s.notRequired(),
+    });
+  const validationFields = {
+    name: nameValidate,
+    phone: phoneValidate,
+    city: txtNumValidate,
+    province: txtNumValidate,
+    ward: txtNumValidate,
+    specificAddress: txtNumValidate,
+    paymentMethod: payMethodValidate,
+    cardCode: whenOnlinePayment(cardCodeValidate),
+    expiredDate: whenOnlinePayment(expiredDateValidate),
+    password: whenOnlinePayment(visaPassValidate),
+    ownerName: whenOnlinePayment(nameValidate),
+  };
+  const validationSchema = Yup.object().shape(validationFields);
+
+  const dispatch = useDispatch(); // store orders, clear cart
+
+  // handle checkout
   const productList = dataResponse.map((item, i) => {
     return {
       ...item,
@@ -68,92 +114,67 @@ function Checkout() {
     };
   });
 
-  // calc total money
   const total = productList.reduce(
     (pre, curr) => (pre += curr.amount * curr.price),
     0
-  );
-
-  // shipping fee
-  const deliverFee = total >= 100 ? 0 : 10;
-
-  // handle buy product
-  const [isBuy, setBuy] = useState(false);
-  const orderId = new Date().valueOf();
+  ); // calc total money
+  const orderId = new Date().valueOf(); // create orderId
 
   // redirect to 'by_success' page
   const redirect = useNavigate();
+  function handleBuy(values) {
+    // store order
+    const { cardCode, expiredDate, password, ownerName, ...newOrder } = values;
 
-  function handleBuy(e) {
-    e.preventDefault();
-    setBuy(true);
-  }
-
-  // clear cart
-  const dispatch = useDispatch();
-
-  useEffect(
-    function () {
-      if (!isBuy) return;
-
-      // get personal infor & store in personalInfor variable
-      let personalInfor = {};
-      const personalEls = document.querySelectorAll(`.inputInfor`);
-
-      personalEls.forEach((input) => {
-        personalInfor[input.id] = input.value;
-      });
-
-      // get payment method
-      const paymentMethod = document.querySelector(
-        'input[name="payment-method"]:checked'
-      ).value;
-
-      /// STORE ORDER TO LOCAL STORAGE
-      // create new order
-      const newOrder = {
+    dispatch(
+      addOrder({
+        ...newOrder,
         id: orderId,
-        personalInfor: personalInfor,
-        payMethod: paymentMethod,
         products: cart,
-        date: new Date(),
+        status: "placed",
         goodsTotal: total,
-        deliverFee: deliverFee,
-        status: paymentMethod === "cod" ? "confirmed" : "paid",
-      };
+        deliverFee: total >= 100 ? 0 : 5,
+      })
+    );
 
-      dispatch(addOrder({ ...newOrder }));
+    // clear cart
+    dispatch(reset());
 
-      // clear cart
-      dispatch(reset());
-
-      // redirect
-      redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
-        replace: true,
-      });
-    },
-    [isBuy, productList]
-  );
+    redirect;
+    redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
+      replace: true,
+    });
+  }
 
   return (
     <>
       <NavBar></NavBar>
       <FlexContainer elClass={styles.checkoutContainer}>
+        {/* checkout form */}
         <div className={styles.leftCol}>
           <ListHeader
             title={"Personal information"}
             className={styles.header}></ListHeader>
-          <form
-            onSubmit={(e) => {
-              handleBuy(e);
-            }}
-            id="paymentInfor"
-            className={`columnContent ${styles.inforForm}`}>
-            <PersonalInfor></PersonalInfor>
-            <Payment></Payment>
-          </form>
+          <Formik
+            initialValues={initPersonalInfor}
+            validationSchema={validationSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
+            onSubmit={handleBuy}>
+            {({ handleSubmit }) => (
+              <Form
+                onSubmit={handleSubmit}
+                id="paymentInfor"
+                className={`columnContent ${styles.inforForm}`}>
+                <PersonalInfor></PersonalInfor>
+                <Payment></Payment>
+              </Form>
+            )}
+          </Formik>
         </div>
+        {/* checkout form */}
 
+        {/* product */}
         <div style={{ flexGrow: "1" }}>
           <ListHeader
             title={"Order information"}

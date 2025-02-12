@@ -1,158 +1,123 @@
 /** @format */
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
 
 import InputField from "../../components/InputField/InputField";
 import FormPage from "../../components/FormPage/FormPage";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import styles from "./Login_Signup.module.css";
-import FlexContainer from "../../components/FlexContainer";
-import logo from "../../../public/icon-only.webp";
-import { Link } from "react-router-dom";
-import { useEffect, useReducer } from "react";
-import MessageBox from "../../components/MessageBox/MessageBox";
+import {
+  emailValidate,
+  passValidate,
+} from "../../components/InputField/Validate.js";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../redux/userSlide.js";
+import { login } from "../../redux/userSlide";
+import axios from "axios";
 
 const SIGNUP_FORM = [
-  { id: "email", type: "email", label: "Email", placeholder: "abc@gmail.com" },
+  {
+    id: "email",
+    type: "email",
+    label: "Email",
+    placeholder: "abc@gmail.com",
+    name: "email",
+  },
   {
     id: "password",
     type: "password",
     label: "Password",
-    placeholder: "password",
+    placeholder: "Password",
+    name: "password",
+    isPassword: true,
   },
 ];
 
-const initState = {
-  isSubmit: false,
-  isShowPass: false,
-  errorMess: null,
-  successMess: null,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "submit":
-      return { ...state, isSubmit: true };
-
-    case "notSubmit":
-      return { ...state, isSubmit: false };
-
-    case "toggleShowPass":
-      return { ...state, isShowPass: !state.isShowPass };
-
-    case "setSuccess":
-      return { ...state, successMess: action.payload };
-
-    default:
-      throw "Unknown action";
-  }
-}
-
 function Signup() {
-  const [signupState, dispatch] = useReducer(reducer, initState);
-  const loginDispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [isShowPass, setIsShowPass] = useState(false); // show pass on password fied
+  const [errMessage, setErrMessage] = useState("");
+  const signupValidation = Yup.object().shape({
+    email: emailValidate,
+    password: passValidate,
+  });
 
-  function handleSignup(e) {
-    e.preventDefault();
-    dispatch({ type: "submit" });
+  async function handleSignup(values) {
+    // CREATE NEW USER
+    const newUser = {
+      ...values,
+      name: "User",
+      avatar: "https://cdn-icons-png.flaticon.com/512/147/147144.png",
+    };
+    try {
+      // send api request
+      const createUserRes = await axios.post(
+        "https://api.escuelajs.co/api/v1/users/",
+        newUser
+      );
+      const createdUser = createUserRes.data;
+
+      if (!createdUser) return;
+
+      // login
+      dispatch(login({ avatar: newUser.avatar, id: createdUser.id }));
+
+      // redirect to homepage
+      window.location.href = "/test-covet-lux";
+    } catch (err) {
+      setErrMessage("Invalid email");
+      throw new Error(err);
+    }
   }
-
-  useEffect(
-    function () {
-      async function signup() {
-        if (!signupState.isSubmit) return;
-
-        // get email, pass input
-        const email = document.querySelector("#email").value;
-        const password = document.querySelector("#password").value;
-
-        // CREATE NEW USER: start
-        const newUser = {
-          name: "User",
-          email: email,
-          password: password,
-          avatar: "https://cdn-icons-png.flaticon.com/512/147/147144.png",
-        };
-
-        const createUserRequest = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newUser),
-        };
-
-        const newUserRes = await fetch(
-          "https://api.escuelajs.co/api/v1/users/",
-          createUserRequest
-        );
-
-        const newUserdata = await newUserRes.json();
-
-        // if create success
-        if (newUserdata !== undefined) {
-          // display message
-          dispatch({
-            type: "setSuccess",
-            payload: "Your account has been created",
-          });
-        }
-
-        // login
-        loginDispatch(
-          loginSuccess({ id: newUserdata.id, avatar: newUserdata.avatar })
-        );
-
-        // redirect to homepage
-        window.location.href = "/test-covet-lux";
-      }
-
-      signup();
-    },
-    [loginDispatch, signupState.isSubmit]
-  );
 
   return (
     <>
       <NavBar></NavBar>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={signupValidation}
+        validateOnBlur={false}
+        validateOnChange={false}
+        onSubmit={handleSignup}>
+        {({ handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <FormPage backgroundImg={"https://shorturl.at/lTpKz"}>
+              {/* header */}
+              <h1 className={styles.formTitle}>Sign up</h1>
 
-      <form onSubmit={(e) => handleSignup(e)}>
-        <FormPage backgroundImg={"https://shorturl.at/lTpKz"}>
-          <FlexContainer margin={0} elClass={styles.formHeader} gap={1}>
-            <img className={`img ${styles.logo}`} src={logo}></img>
-            <h1 className={styles.formTitle}>Sign up</h1>
-          </FlexContainer>
+              {/* err message */}
+              {errMessage && (
+                <p className="text-red-500 text-m mt-1">{errMessage}</p>
+              )}
 
-          <InputField field={SIGNUP_FORM[0]} isRequired={true}></InputField>
-          <InputField
-            field={SIGNUP_FORM[1]}
-            isRequired={true}
-            isShowPass={signupState.isShowPass}
-            setShowPass={() => dispatch({ type: "toggleShowPass" })}
-            isPassword={true}></InputField>
-          <button type="submit" className={`fill-btn ${styles.loginBtn}`}>
-            SIGN UP
-          </button>
+              {/* fields */}
+              {SIGNUP_FORM.map((field, i) => (
+                <InputField
+                  isShowPass={isShowPass}
+                  setShowPass={setIsShowPass}
+                  field={field}
+                  key={`login-field${i}`}
+                  form={"signup"}
+                  isPassword={field.isPassword}></InputField>
+              ))}
+              <button type="submit" className={`fill-btn ${styles.loginBtn}`}>
+                SIGN UP
+              </button>
 
-          <div>
-            <p>
-              Already have an account?{" "}
-              <Link to={"/test-covet-lux/login"} className="link">
-                Login here!
-              </Link>
-            </p>
-          </div>
-        </FormPage>
-      </form>
-
-      <MessageBox
-        isShowed={signupState.successMess !== null}
-        setShow={() => dispatch({ type: "setSuccess", payload: null })}>
-        <ion-icon
-          name="checkmark-circle"
-          class="icon"
-          style={{ color: "rgb(88 252 97)" }}></ion-icon>
-        <p>{signupState.successMess}!</p>
-      </MessageBox>
+              <div>
+                <p>
+                  Already have an account?{" "}
+                  <Link to={"/test-covet-lux/login"} className="link">
+                    Login here!
+                  </Link>
+                </p>
+              </div>
+            </FormPage>
+          </Form>
+        )}
+      </Formik>
 
       <Footer></Footer>
     </>

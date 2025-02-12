@@ -44,6 +44,7 @@ function OrderProducts({ orderInfor }) {
     "products",
     orderProducts.map((product) => product.id)
   );
+  console.log(productsList);
 
   return (
     <div className={styles.orderProducts}>

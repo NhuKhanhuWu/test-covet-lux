@@ -4,61 +4,73 @@ import styles from "../Checkout.module.css";
 
 import ListHeader from "../../../components/ListHeader/ListHeader.jsx";
 import InputField from "../../../components/InputField/InputField";
+import { Field } from "formik";
 
-export default function Payment() {
-  const [currMethod, setMethod] = useState("cod");
-  const INPUT_FIELDS_EPAYMENT = [
-    {
-      id: "cardCode",
-      label: "Card code",
-      placeholder: "0123 4567 8901 2345",
-    },
-    {
-      id: "expiredDate",
-      label: "Expired date",
-      placeholder: "DD/MM/YY",
-      type: "date",
-    },
-    {
-      id: "password",
-      label: "Password",
-      placeholder: "3 character",
-      maxLength: 3,
-    },
-    { id: "ownerName", label: "Owner name", placeholder: "John Wilson" },
-  ];
+const INPUT_FIELDS_EPAYMENT = [
+  {
+    id: "cardCode",
+    label: "Card code",
+    placeholder: "0123 4567 8901 2345",
+    name: "cardCode",
+  },
+  {
+    id: "expiredDate",
+    label: "Expired date",
+    placeholder: "DD/MM/YY",
+    type: "date",
+    name: "expiredDate",
+  },
+  {
+    id: "password",
+    label: "Password",
+    placeholder: "3 character",
+    name: "password",
+    isPassword: true,
+    type: "password",
+  },
+  {
+    id: "ownerName",
+    label: "Owner name",
+    placeholder: "John Wilson",
+    name: "ownerName",
+  },
+];
+
+function Cod({ setMethod }) {
+  return (
+    <div
+      style={{
+        marginBottom: "2rem",
+        paddingBottom: "2rem",
+        borderBottom: "solid 1px var(--gray)",
+      }}>
+      <Field
+        required
+        type="radio"
+        name="paymentMethod"
+        value="cod"
+        id="cod"
+        onClick={() => setMethod("cod")}></Field>
+      <label htmlFor="cod" className={styles.paymentLabel}>
+        COD
+      </label>
+    </div>
+  );
+}
+
+function EPayment({ setMethod, currMethod }) {
+  const [isShowPass, setShowPass] = useState(false);
 
   return (
-    <div>
-      <ListHeader
-        title={"Payment information"}
-        className={styles.header}></ListHeader>
-      <div
-        style={{
-          marginBottom: "2rem",
-          paddingBottom: "2rem",
-          borderBottom: "solid 1px var(--gray)",
-        }}>
-        <input
-          required
-          type="radio"
-          name="payment-method"
-          value="cod"
-          id="cod"
-          onClick={() => setMethod("cod")}></input>
-        <label htmlFor="cod" className={styles.paymentLabel}>
-          COD
-        </label>
-      </div>
-
+    <>
       <div style={{ marginBottom: "2rem" }}>
-        <input
+        <Field
           onClick={() => setMethod("ePayment")}
           required
           type="radio"
-          name="payment-method"
+          name="paymentMethod"
           value="ePayment"
-          id="ePayment"></input>
+          id="ePayment"></Field>
         <label htmlFor="ePayment" className={styles.paymentLabel}>
           Online payment
         </label>
@@ -68,16 +80,33 @@ export default function Payment() {
           {INPUT_FIELDS_EPAYMENT.map((field, i) => (
             <InputField
               form={"paymentInfor"}
-              isRequired={currMethod === "ePayment"}
               isEpayment={true}
               field={field}
-              key={`payment-${i}`}></InputField>
+              key={`payment-${i}`}
+              isPassword={field.isPassword}
+              isShowPass={isShowPass}
+              setShowPass={setShowPass}></InputField>
           ))}
           <p className={`copyRight ${styles.noteTxt}`}>
             We won't store your card infor
           </p>
         </div>
       )}
+    </>
+  );
+}
+
+export default function Payment() {
+  const [currMethod, setMethod] = useState("cod");
+
+  return (
+    <div>
+      <ListHeader
+        title={"Payment information"}
+        className={styles.header}></ListHeader>
+      <Cod setMethod={setMethod}></Cod>
+
+      <EPayment currMethod={currMethod} setMethod={setMethod}></EPayment>
     </div>
   );
 }
