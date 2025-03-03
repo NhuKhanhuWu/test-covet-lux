@@ -61,10 +61,11 @@ export function TxtArea({ field, elClass }) {
   return (
     <div className={`${styles.inputField} ${elClass}`}>
       <label htmlFor={field?.id}>{field?.label}</label>
-      <textarea
+      <Field
+        as="textarea"
         maxLength={field?.maxLength}
         pattern={field?.pattern}
-        id={field?.id}></textarea>
+        id={field?.id}></Field>
     </div>
   );
 }

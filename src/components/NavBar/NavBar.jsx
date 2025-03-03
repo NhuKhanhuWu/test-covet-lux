@@ -30,9 +30,9 @@ function NavLink() {
       <li>
         <Link to="/test-covet-lux/blogs">BLOG</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/test-covet-lux/contact">CONTACT</Link>
-      </li>
+      </li> */}
       <li>
         <Link to="/test-covet-lux/infor">ABOUT</Link>
       </li>
