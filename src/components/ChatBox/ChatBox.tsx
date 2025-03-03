@@ -42,7 +42,7 @@ const ChatBox: FC = () => {
           isExpanded={isExpanded}
           setIsExpanded={setIsExpanded}></ChatIcon>
       ) : (
-        <div className={`${styles.chatBox} flex flex-col`}>
+        <div className={`${styles.chatBox} flex flex-col z-999`}>
           {/* header */}
           <div className="flex justify-between items-center border-b border-gray-300 pb-3 text-2xl font-medium">
             <p className="title">Chat Box AI</p>
