@@ -1,0 +1,77 @@
+{
+  "totalRevenue": 500000,
+  "revenueByProduct": [
+    {
+      "productId": 18,
+      "title": "Handmade Fresh Table",
+      "price": 68,
+      "quantitySold": 1000,
+      "revenue": 68000
+    },
+    {
+      "productId": 19,
+      "title": "Rustic Wooden Chicken",
+      "price": 300,
+      "quantitySold": 500,
+      "revenue": 15000
+    },
+    {
+      "productId": 20,
+      "title": "Sleek Comfort-Fit Over-Ear Headphones",
+      "price": 28,
+      "quantitySold": 1000,
+      "revenue": 28000
+    },
+    {
+      "productId": 21,
+      "title": "Efficient 2-Slice Toaster",
+      "price": 48,
+      "quantitySold": 2000,
+      "revenue": 28000
+    },
+    {
+      "productId": 22,
+      "title": "Sleek Wireless Computer Mouse",
+      "price": 10,
+      "quantitySold": 220,
+      "revenue": 2200
+    }
+  ],
+  "revenueByCategory": [
+    {
+      "categoryId": 1,
+      "categoryName": "Clothes",
+      "revenue": 200000,
+      "quantitySold": 1890
+    },
+    {
+      "categoryId": 2,
+      "categoryName": "Electronics",
+      "revenue": 100000,
+      "quantitySold": 945
+    },
+    {
+      "categoryId": 3,
+      "categoryName": "Furniture",
+      "revenue": 200000,
+      "quantitySold": 1885
+    }
+  ],
+  "revenueByProvince": [
+    {
+      "province": "Hồ Chí Minh",
+      "revenue": 250000,
+      "quantitySold": 2100
+    },
+    {
+      "province": "Hà Nội",
+      "revenue": 150000,
+      "quantitySold": 1420
+    },
+    {
+      "province": "Đà Nẵng",
+      "revenue": 100000,
+      "quantitySold": 1200
+    }
+  ]
+}

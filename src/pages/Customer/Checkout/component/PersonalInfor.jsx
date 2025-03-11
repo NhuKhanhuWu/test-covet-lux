@@ -1,6 +1,6 @@
 /** @format */
 import InputField from "../../../../components/InputField/InputField";
-import GridContainer from "../../../../components/GridContainer";
+import LocationForm from "../../../../components/CityCheckoutForm/LocationForm";
 
 const INPUT_FIELDS_INFOR = [
   { id: "name", label: "Full name", name: "name" },
@@ -10,16 +10,6 @@ const INPUT_FIELDS_INFOR = [
     type: "tel",
     placeholder: "+84 | 0213 456 789",
     name: "phone",
-  },
-];
-const ADDRESS = [
-  { id: "city", label: "City/provine", name: "city" },
-  { id: "provine", label: "Provine", name: "province" },
-  { id: "ward", label: "Ward", name: "ward" },
-  {
-    id: "specificAddress",
-    label: "Specific Address",
-    name: "specificAddress",
   },
 ];
 
@@ -35,15 +25,7 @@ export default function PersonalInfor() {
             isRequired={true}></InputField>
         ))}
       </div>
-      <GridContainer numCol={2} gap={2}>
-        {ADDRESS.map((field, i) => (
-          <InputField
-            form={"paymentInfor"}
-            key={`address${i}`}
-            field={field}
-            isRequired={true}></InputField>
-        ))}
-      </GridContainer>
+      <LocationForm></LocationForm>
     </div>
   );
 }

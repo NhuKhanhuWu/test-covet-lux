@@ -50,7 +50,6 @@ function BlogDetail() {
 
   return (
     <>
-      <NavBar></NavBar>
       <BlankDivider distance={2}></BlankDivider>
 
       {/* back to blog list */}
@@ -76,11 +75,6 @@ function BlogDetail() {
                 alt={blogData.title}
                 imgSrc={blogData?.images[0]}
                 elClass={`img ${styles.blogImg}`}></Img>
-              {/* <img
-                loading="lazy"
-                alt={blogData.title}
-                src={blogData?.images[0].replace("[", "").replace('"', "")}
-                className={`img ${styles.blogImg}`}></img> */}
             </div>
           )}
 
@@ -113,7 +107,6 @@ function BlogDetail() {
       </main>
 
       <BlankDivider distance={4}></BlankDivider>
-      <Footer></Footer>
     </>
   );
 }

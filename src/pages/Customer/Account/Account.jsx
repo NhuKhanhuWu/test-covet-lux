@@ -18,6 +18,7 @@ import {
   phoneValidate,
   txtNumValidate,
 } from "../../../components/InputField/Validate.js";
+import LocationForm from "../../../components/CityCheckoutForm/LocationForm.jsx";
 
 const ACCOUNT_FORM = [
   { id: "name", label: "Full name", name: "name" },
@@ -29,41 +30,59 @@ const ACCOUNT_FORM = [
     maxLength: 10,
     name: "phone",
   },
-  {
-    id: "city",
-    label: "City/provine",
-    name: "city",
-  },
-  {
-    id: "provine",
-    label: "Provine",
-    name: "provine",
-  },
-  { id: "ward", label: "Ward", name: "ward" },
-  {
-    id: "specificAddress",
-    label: "Specific Address",
-    name: "specificAddress",
-  },
 ];
+
+// form validation
+const accountInforValidate = Yup.object().shape({
+  name: nameValidate,
+  phone: phoneValidate,
+  city: txtNumValidate,
+  district: txtNumValidate,
+  ward: txtNumValidate,
+  specificAddress: txtNumValidate,
+});
+
+function InforForm({ initValue, handleUpdateInfor }) {
+  return (
+    <FlexContainer>
+      <MediaQuery minWidth={540}>
+        <SideBarAcc></SideBarAcc>
+      </MediaQuery>
+      <Formik
+        initialValues={initValue}
+        validationSchema={accountInforValidate}
+        validateOnBlur={false}
+        validateOnChange={false}
+        onSubmit={handleUpdateInfor}>
+        {({ handleSubmit }) => (
+          <Form className={styles.form} onSubmit={handleSubmit}>
+            <GridContainer numCol={2} gap={1.5} elClass={styles.formFiels}>
+              {ACCOUNT_FORM.map((field, i) => (
+                <InputField field={field} key={`field-${i}`}></InputField>
+              ))}
+
+              <LocationForm elClass="col-span-[2]"></LocationForm>
+
+              <button type="submit" className="fill-btn">
+                Save change
+              </button>
+            </GridContainer>
+          </Form>
+        )}
+      </Formik>
+    </FlexContainer>
+  );
+}
 
 function Account() {
   const user = useGetLocal("personal_infor"); // get user infor
   const [isShowMessage, setShowMessage] = useState(false); // display message box
 
-  const accountInforValidate = Yup.object().shape({
-    name: nameValidate,
-    phone: phoneValidate,
-    city: txtNumValidate,
-    provine: txtNumValidate,
-    ward: txtNumValidate,
-    specificAddress: txtNumValidate,
-  }); // form validation
   const initValue = {
     name: user?.name ?? "",
     phone: user?.phone ?? "",
     city: user?.city ?? "",
-    provine: user?.provine ?? "",
+    district: user?.district ?? "",
     ward: user?.ward ?? "",
     specificAddress: user?.specificAddress ?? "",
   }; //init value
@@ -84,31 +103,9 @@ function Account() {
       </MediaQuery>
       {/* mobile side bar: end */}
 
-      <FlexContainer>
-        <MediaQuery minWidth={540}>
-          <SideBarAcc></SideBarAcc>
-        </MediaQuery>
-        <Formik
-          initialValues={initValue}
-          validationSchema={accountInforValidate}
-          validateOnBlur={false}
-          validateOnChange={false}
-          onSubmit={handleUpdateInfor}>
-          {({ handleSubmit }) => (
-            <Form className={styles.form} onSubmit={handleSubmit}>
-              <GridContainer numCol={2} gapCol={6} elClass={styles.formFiels}>
-                {ACCOUNT_FORM.map((field, i) => (
-                  <InputField field={field} key={`field-${i}`}></InputField>
-                ))}
-
-                <button type="submit" className="fill-btn">
-                  Save change
-                </button>
-              </GridContainer>
-            </Form>
-          )}
-        </Formik>
-      </FlexContainer>
+      <InforForm
+        initValue={initValue}
+        handleUpdateInfor={handleUpdateInfor}></InforForm>
 
       <MessageBox isShowed={isShowMessage} setShow={setShowMessage}>
         <>

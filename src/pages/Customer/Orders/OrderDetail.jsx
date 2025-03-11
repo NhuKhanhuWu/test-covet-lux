@@ -21,7 +21,6 @@ function OrderDetail() {
 
   return (
     <>
-      <NavBar></NavBar>
       <BlankDivider distance={4}></BlankDivider>
 
       <div className={styles.content}>
@@ -33,7 +32,6 @@ function OrderDetail() {
       </div>
 
       <BlankDivider distance={4}></BlankDivider>
-      <Footer></Footer>
     </>
   );
 }

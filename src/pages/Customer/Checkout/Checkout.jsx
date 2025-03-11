@@ -41,12 +41,12 @@ const whenOnlinePayment = (schema) =>
     otherwise: (s) => s.notRequired(),
   });
 const validationFields = {
-  name: nameValidate,
-  phone: phoneValidate,
-  city: txtNumValidate,
-  province: txtNumValidate,
-  ward: txtNumValidate,
-  specificAddress: txtNumValidate,
+  name: nameValidate.required(),
+  phone: phoneValidate.required(),
+  city: txtNumValidate.required(),
+  district: txtNumValidate.required(),
+  ward: txtNumValidate.required(),
+  specificAddress: txtNumValidate.required(),
   paymentMethod: payMethodValidate,
   cardCode: whenOnlinePayment(cardCodeValidate),
   expiredDate: whenOnlinePayment(expiredDateValidate),
@@ -55,13 +55,14 @@ const validationFields = {
 };
 const validationSchema = Yup.object().shape(validationFields);
 
-function BuyBtn() {
+function BuyBtn({ handleSubmit }) {
   // check if user login
   const isLogin = useSelector((state) => state.user).user.id !== undefined;
 
   return (
     <div className={styles.btnContainer}>
       <button
+        onClick={handleSubmit}
         type="submit"
         form="paymentInfor"
         className={`${styles.buyBtn} fill-btn`}>
@@ -91,15 +92,14 @@ function Checkout() {
   );
 
   // get personal infor from local storage
-  const infor = useGetLocal("personal_infor");
+  const infor = useGetLocal("personal_infor") || {};
   const initPersonalInfor = {
-    // pre-fill form
-    name: infor?.name,
-    phone: infor?.phone,
-    city: infor?.city,
-    province: infor?.provine,
-    ward: infor?.ward,
-    specificAddress: infor?.specificAddress,
+    name: infor.name || "",
+    phone: infor.phone || "",
+    city: infor.city || "",
+    district: infor.district || "",
+    ward: infor.ward || "",
+    specificAddress: infor.specificAddress || "",
   };
 
   const dispatch = useDispatch(); // store orders, clear cart
@@ -116,13 +116,13 @@ function Checkout() {
     (pre, curr) => (pre += curr.amount * curr.price),
     0
   ); // calc total money
-  const orderId = new Date().valueOf(); // create orderId
 
   // redirect to 'by_success' page
   const redirect = useNavigate();
-  function handleBuy(values) {
+  function handleBuy(values, { setSubmitting }) {
     // store order
     const { ...newOrder } = values;
+    const orderId = new Date().valueOf(); // create orderId
 
     dispatch(
       addOrder({
@@ -138,60 +138,62 @@ function Checkout() {
     // clear cart
     dispatch(reset());
 
-    redirect;
     redirect(`/test-covet-lux/buy_success?order_id=${orderId}`, {
       replace: true,
     });
+
+    setSubmitting(false);
   }
 
   return (
     <>
       <FlexContainer elClass={styles.checkoutContainer}>
         {/* checkout form */}
-        <div className={styles.leftCol}>
-          <ListHeader
-            title={"Personal information"}
-            className={styles.header}></ListHeader>
-          <Formik
-            initialValues={initPersonalInfor}
-            validationSchema={validationSchema}
-            validateOnBlur={false}
-            validateOnChange={false}
-            onSubmit={handleBuy}>
-            {({ handleSubmit }) => (
-              <Form
-                onSubmit={handleSubmit}
-                id="paymentInfor"
-                className={`columnContent ${styles.inforForm}`}>
-                <PersonalInfor></PersonalInfor>
-                <Payment></Payment>
-              </Form>
-            )}
-          </Formik>
-        </div>
-        {/* checkout form */}
+        <Formik
+          initialValues={initPersonalInfor}
+          validationSchema={validationSchema}
+          validateOnBlur={false}
+          validateOnChange={false}
+          onSubmit={handleBuy}>
+          {({ handleSubmit }) => (
+            <>
+              {/* checkout form */}
+              <div className={styles.leftCol}>
+                <ListHeader
+                  title={"Personal information"}
+                  className={styles.header}></ListHeader>
 
-        {/* product */}
-        <div style={{ flexGrow: "1" }}>
-          <ListHeader
-            title={"Order information"}
-            className={styles.header}></ListHeader>
+                <Form
+                  onSubmit={handleSubmit}
+                  id="paymentInfor"
+                  className={`columnContent ${styles.inforForm}`}>
+                  <PersonalInfor></PersonalInfor>
+                  <Payment></Payment>
+                </Form>
+              </div>
 
-          <RenderQueryData
-            isError={isError}
-            isLoading={isLoading}
-            isEmptyList={
-              !Array.isArray(productList) && productList.length === 0
-            }>
-            <ProductList productList={productList}></ProductList>
-          </RenderQueryData>
+              {/* product */}
+              <div style={{ flexGrow: "1" }}>
+                <ListHeader
+                  title={"Order information"}
+                  className={styles.header}></ListHeader>
 
-          <ListHeader
-            title={"Total detail"}
-            className={styles.header}></ListHeader>
-          <Total total={total}></Total>
-          <BuyBtn></BuyBtn>
-        </div>
+                <RenderQueryData
+                  isError={isError}
+                  isLoading={isLoading}
+                  isEmptyList={!productList || productList.length === 0}>
+                  <ProductList productList={productList}></ProductList>
+                </RenderQueryData>
+
+                <ListHeader
+                  title={"Total detail"}
+                  className={styles.header}></ListHeader>
+                <Total total={total}></Total>
+                <BuyBtn handleSubmit={handleSubmit}></BuyBtn>
+              </div>
+            </>
+          )}
+        </Formik>
       </FlexContainer>
 
       <BlankDivider></BlankDivider>
