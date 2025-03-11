@@ -1,8 +1,8 @@
 /** @format */
 
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-import "./general.css";
+import "./App.css";
 import "./responsive.css";
 
 import HomePage from "./pages/Customer/HomePage/HomePage.jsx";
@@ -28,13 +28,12 @@ import ScrollTopBtn from "./components/ScrollTopBtn/ScrollTopBtn.jsx";
 import ChatBox from "./components/ChatBox/ChatBox.tsx";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
-import Dashboard from "./pages/Admin/Dashboard.jsx";
-import AdminSidebar from "./components/AdminSidebar/AdminSidebar.jsx";
+import Analyst from "./pages/Admin/Analyst/Analyst.jsx";
 
 function App() {
   const location = useLocation();
   const navBar = location.pathname.includes("/test-covet-lux/admin") ? (
-    <AdminSidebar></AdminSidebar>
+    ""
   ) : (
     <NavBar></NavBar>
   );
@@ -91,7 +90,7 @@ function App() {
         {/* ADMIN: START */}
         <Route
           path="/test-covet-lux/admin/analyst"
-          element={<Dashboard></Dashboard>}></Route>
+          element={<Analyst></Analyst>}></Route>
         {/* ADMIN: END */}
       </Routes>
 

@@ -4,7 +4,7 @@ import styles from "../Checkout.module.css";
 
 import ListHeader from "../../../../components/ListHeader/ListHeader.jsx";
 import InputField from "../../../../components/InputField/InputField";
-import { Field } from "formik";
+import { ErrorMessage, Field } from "formik";
 
 const INPUT_FIELDS_EPAYMENT = [
   {
@@ -36,6 +36,7 @@ const INPUT_FIELDS_EPAYMENT = [
   },
 ];
 
+// cod methob radio btn
 function Cod({ setMethod }) {
   return (
     <div
@@ -58,12 +59,14 @@ function Cod({ setMethod }) {
   );
 }
 
+// online methob radio btn
 function EPayment({ setMethod, currMethod }) {
   const [isShowPass, setShowPass] = useState(false);
 
   return (
     <>
       <div style={{ marginBottom: "2rem" }}>
+        {/* field */}
         <Field
           onClick={() => setMethod("ePayment")}
           required
@@ -104,9 +107,16 @@ export default function Payment() {
       <ListHeader
         title={"Payment information"}
         className={styles.header}></ListHeader>
-      <Cod setMethod={setMethod}></Cod>
 
+      <Cod setMethod={setMethod}></Cod>
       <EPayment currMethod={currMethod} setMethod={setMethod}></EPayment>
+
+      {/* error message */}
+      <ErrorMessage
+        name="paymentMethod"
+        component="p"
+        className="text-red-500 text-m mt-1"
+      />
     </div>
   );
 }

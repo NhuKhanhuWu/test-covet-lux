@@ -5,7 +5,7 @@ import styles from "../OrderDetail.module.css";
 
 function OrderSummary({ orderInfor }) {
   //   order shipment
-  const address = `${orderInfor.specificAddress}, ${orderInfor.ward}, ${orderInfor.province}, ${orderInfor.city}`;
+  const address = `${orderInfor.specificAddress}, ${orderInfor.ward}, ${orderInfor.district}, ${orderInfor.city}`;
 
   return (
     <>
