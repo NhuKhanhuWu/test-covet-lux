@@ -1,5 +1,5 @@
 /** @format */
-import Loader from "./Loader/Loader";
+import IconLoader from "./Loader/IconLoader.jsx";
 import NoResult from "./NoResult/NoResult.jsx";
 
 function RenderQueryData({
@@ -14,7 +14,7 @@ function RenderQueryData({
 
   return (
     <>
-      {loading && isLoading && <Loader></Loader>}
+      {loading && isLoading && <IconLoader></IconLoader>}
       {!isLoading && !isError && isEmptyList && mtyMessage}
       {!isLoading && !isError && !isEmptyList && children}
       {isError && "error"}

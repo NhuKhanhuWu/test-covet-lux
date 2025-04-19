@@ -1,5 +1,6 @@
 /** @format */
 
+/* icon loader */
 .loaderContainer {
   width: 100%;
   padding: 3rem 0;
@@ -33,4 +34,20 @@
     box-shadow: 20px 0 #0002, -20px 0 #000;
     background: #000;
   }
+}
+
+/* page loader */
+/* styles.css */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.slow-spin {
+  animation: spin 5s linear infinite;
+}
+
+.fast-spin {
+  animation: spin 0.5s linear infinite;
 }
