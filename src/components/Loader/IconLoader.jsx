@@ -1,7 +1,7 @@
 /** @format */
 import styles from "./Loader.module.css";
 
-function Loader() {
+function IconLoader() {
   return (
     <div className={styles.loaderContainer}>
       <div className={styles.loader}></div>
@@ -9,4 +9,4 @@ function Loader() {
   );
 }
 
-export default Loader;
+export default IconLoader;

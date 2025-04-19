@@ -1,104 +1,85 @@
 /** @format */
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
 import "./responsive.css";
 
-import HomePage from "./pages/Customer/HomePage/HomePage.jsx";
-import Product from "./pages/Customer/Product/Product.jsx";
-import ProductDetail from "./pages/Customer/Product/ProductDetail.jsx";
+// import pages
+import { lazy, Suspense } from "react";
+import PageLoader from "./components/Loader/PageLoader.jsx";
+const HomePage = lazy(() => import("./pages/Customer/HomePage/HomePage.jsx"));
+const Product = lazy(() => import("./pages/Customer/Product/Product.jsx"));
+const ProductDetail = lazy(() =>
+  import("./pages/Customer/Product/ProductDetail.jsx")
+);
 
-import Cart from "./pages/Customer/Cart/Cart.jsx";
-import Checkout from "./pages/Customer/Checkout/Checkout.jsx";
-import BuySuccess from "./pages/Customer/Checkout/BuySuccess.jsx";
+const Cart = lazy(() => import("./pages/Customer/Cart/Cart.jsx"));
+const Checkout = lazy(() => import("./pages/Customer/Checkout/Checkout.jsx"));
+const BuySuccess = lazy(() =>
+  import("./pages/Customer/Checkout/BuySuccess.jsx")
+);
 
-import Login from "./pages/Customer/Login_Signup/Login.jsx";
-import Signup from "./pages/Customer/Login_Signup/Signup.jsx";
+const Login = lazy(() => import("./pages/Customer/Login_Signup/Login.jsx"));
+const Signup = lazy(() => import("./pages/Customer/Login_Signup/Signup.jsx"));
 
-import Blogs from "./pages/Customer/Blog/Blogs.jsx";
-import Contact from "./pages/Customer/Contact/Contact.jsx";
-import About from "./pages/Customer/About/About.jsx";
+const Blogs = lazy(() => import("./pages/Customer/Blog/Blogs.jsx"));
+const BlogDetail = lazy(() => import("./pages/Customer/Blog/BlogDetail.jsx"));
 
-import Account from "./pages/Customer/Account/Account.jsx";
-import Orders from "./pages/Customer/Orders/Orders.jsx";
-import OrderDetail from "./pages/Customer/Orders/OrderDetail.jsx";
-import BlogDetail from "./pages/Customer/Blog/BlogDetail.jsx";
-import ScrollTopBtn from "./components/ScrollTopBtn/ScrollTopBtn.jsx";
-import ChatBox from "./components/ChatBox/ChatBox.tsx";
-import NavBar from "./components/NavBar/NavBar.jsx";
-import Footer from "./components/Footer/Footer.jsx";
-import Analyst from "./pages/Admin/Analyst/Analyst.jsx";
+const Contact = lazy(() => import("./pages/Customer/Contact/Contact.jsx"));
+const About = lazy(() => import("./pages/Customer/About/About.jsx"));
+
+const Account = lazy(() => import("./pages/Customer/Account/Account.jsx"));
+const Orders = lazy(() => import("./pages/Customer/Orders/Orders.jsx"));
+const OrderDetail = lazy(() =>
+  import("./pages/Customer/Orders/OrderDetail.jsx")
+);
+
+const Analyst = lazy(() => import("./pages/Admin/Analyst/Analyst.jsx"));
+const AppLayout = lazy(() => import("./AppLayout.jsx"));
+
+const router = createBrowserRouter([
+  {
+    path: "/test-covet-lux",
+    element: <AppLayout />,
+    children: [
+      { path: "", element: <HomePage /> },
+      { path: "contact", element: <Contact /> },
+      { path: "infor", element: <About /> },
+
+      // Product
+      { path: "products", element: <Product /> },
+      { path: "product", element: <ProductDetail /> },
+
+      // Cart & Checkout
+      { path: "cart", element: <Cart /> },
+      { path: "checkout", element: <Checkout /> },
+      { path: "buy_success", element: <BuySuccess /> },
+
+      // Auth
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> },
+
+      // Account & Orders
+      { path: "account", element: <Account /> },
+      { path: "orders", element: <Orders /> },
+      { path: "order", element: <OrderDetail /> },
+
+      // Blog
+      { path: "blogs", element: <Blogs /> },
+      { path: "blog", element: <BlogDetail /> },
+
+      // Admin
+      { path: "admin/analyst", element: <Analyst /> },
+    ],
+  },
+]);
 
 function App() {
-  const location = useLocation();
-  const navBar = location.pathname.includes("/test-covet-lux/admin") ? (
-    ""
-  ) : (
-    <NavBar></NavBar>
-  );
-
-  const footer =
-    location.pathname == "/test-covet-lux/dashboard" ? "" : <Footer></Footer>;
-
   return (
-    <>
-      {navBar}
-
-      <Routes>
-        {/* USER: START */}
-        <Route path="/test-covet-lux" element={<HomePage />}></Route>
-        <Route path="/test-covet-lux/contact" element={<Contact />}></Route>
-        <Route path="/test-covet-lux/infor" element={<About />}></Route>
-        {/* product: start */}
-        <Route path="/test-covet-lux/products" element={<Product />}></Route>
-        <Route
-          path="/test-covet-lux/product"
-          element={<ProductDetail />}></Route>
-        {/* product:end */}
-        {/* cart & checkout: start */}
-        <Route path="/test-covet-lux/cart" element={<Cart></Cart>}></Route>
-        <Route
-          path="/test-covet-lux/checkout"
-          element={<Checkout></Checkout>}></Route>
-        <Route
-          path="/test-covet-lux/buy_success"
-          element={<BuySuccess></BuySuccess>}></Route>
-        {/* cart & checkout: end */}
-        {/* login, signin: start */}
-        <Route path="/test-covet-lux/login" element={<Login></Login>}></Route>
-        <Route
-          path="/test-covet-lux/signup"
-          element={<Signup></Signup>}></Route>
-        {/* login, signin: end */}
-        {/* acccount, order: start */}
-        <Route
-          path="/test-covet-lux/account"
-          element={<Account></Account>}></Route>
-        <Route
-          path="/test-covet-lux/orders"
-          element={<Orders></Orders>}></Route>{" "}
-        <Route
-          path="/test-covet-lux/order"
-          element={<OrderDetail></OrderDetail>}></Route>
-        {/* acccount, order: end */}
-        {/* blog: start */}
-        <Route path="/test-covet-lux/blogs" element={<Blogs />}></Route>
-        <Route path="/test-covet-lux/blog" element={<BlogDetail />}></Route>
-        {/* blog: end */}
-        {/* USER: END */}
-        {/* ADMIN: START */}
-        <Route
-          path="/test-covet-lux/admin/analyst"
-          element={<Analyst></Analyst>}></Route>
-        {/* ADMIN: END */}
-      </Routes>
-
-      <ChatBox></ChatBox>
-      <ScrollTopBtn></ScrollTopBtn>
-
-      {footer}
-    </>
+    <Suspense fallback={<PageLoader />}>
+      <RouterProvider router={router}></RouterProvider>;
+    </Suspense>
   );
 }
 
