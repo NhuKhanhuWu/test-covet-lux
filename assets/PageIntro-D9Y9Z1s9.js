@@ -1,0 +1,1 @@
+import{j as r}from"./index-DJfziI53.js";const s="_intro_1y3vy_3",i="_introBorder_1y3vy_21",o={intro:s,introBorder:i};function c({header:n,paragraph:t}){return r.jsxs("div",{className:o.intro,children:[r.jsx("h1",{children:n}),r.jsx("p",{children:t}),r.jsx("div",{className:o.introBorder})]})}export{c as P};

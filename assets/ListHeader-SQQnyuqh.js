@@ -1,0 +1,1 @@
+import{j as e,L as t}from"./index-DJfziI53.js";const a="_listHeader_kccq6_3",n={listHeader:a};function d({title:i,url:s="",className:r=null,margin:l=0}){return e.jsxs("div",{className:`${n.listHeader} ${r}`,children:[e.jsx("h3",{children:i}),s&&e.jsx(t,{to:s,className:"link",children:"See more"})]})}export{d as L};

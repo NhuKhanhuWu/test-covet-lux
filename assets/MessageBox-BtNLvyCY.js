@@ -1,0 +1,1 @@
+import{j as t}from"./index-DJfziI53.js";const a="_messageBox_15y5c_3",m={messageBox:a};function n({children:s,isShowed:e,setShow:o}){return setTimeout(()=>o(!1),3e3),t.jsx("div",{className:`${m.messageBox} ${e?"":"hidden"}`,children:s})}export{n as M};

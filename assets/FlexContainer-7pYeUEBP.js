@@ -1,0 +1,1 @@
+import{j as i}from"./index-DJfziI53.js";function o({children:e,elClass:s=null,gap:t=4,margin:n=3,spaceBetween:a=!1,verticalCenter:r=!1}){const l={display:"flex",gap:`${t}rem`,margin:`${n}rem`,justifyContent:`${a?"space-between":""}`,alignItems:r&&"center"};return i.jsx("div",{style:l,className:s,children:e})}export{o as F};

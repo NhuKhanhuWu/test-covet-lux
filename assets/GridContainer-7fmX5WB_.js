@@ -1,0 +1,1 @@
+import{j as i}from"./index-DJfziI53.js";function o({children:r,numCol:e=3,gap:s=3,elClass:t=null}){const a={display:"grid",gridTemplateColumns:`repeat(${e},1fr)`,gap:`${s}rem`};return i.jsx("div",{style:a,className:t,children:r})}export{o as G};

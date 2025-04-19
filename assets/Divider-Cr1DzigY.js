@@ -1,0 +1,1 @@
+import{j as i}from"./index-DJfziI53.js";function n({distance:t=2}){const r={height:`${t}rem`};return i.jsx("div",{style:r})}function s({distance:t=2,color:r="var(--orange)"}){const e={width:"60%",height:`${t}rem`,borderBottom:`solid 1.5px ${r}`,margin:"auto"};return i.jsx("div",{style:e})}export{n as B,s as L};

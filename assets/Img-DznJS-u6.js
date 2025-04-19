@@ -1,0 +1,1 @@
+import{j as n}from"./index-DJfziI53.js";const o="/test-covet-lux/assets/img-not-available-ClImsQY1.jpg";function g(t){return t?t.replace(/[[\]"]/g,""):o}function m({alt:t,elClass:e,imgSrc:s}){const a=g(s);return n.jsx("img",{className:e,alt:t,src:a,onError:r=>{r.target.onError=null,r.target.src=o},loading:"lazy"})}export{m as I};
